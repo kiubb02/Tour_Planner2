@@ -88,7 +88,8 @@ public class TourForm {
             String transport = (String) transportComboBox.getValue();
 
             // send strings as get parameters to the map api
-
+            // for the get request u need the key ( I created an account on the map api website ):
+            // key = FVrDjDoWMVJKy6xoLfkNOVoafr6Z7XoP
 
             // create Tour Object and create Request to add a new Tour to DB
         });

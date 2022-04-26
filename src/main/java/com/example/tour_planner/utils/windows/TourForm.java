@@ -1,3 +1,5 @@
+// TODO: add language strings
+
 package com.example.tour_planner.utils.windows;
 
 import javafx.event.ActionEvent;

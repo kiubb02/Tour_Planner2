@@ -1,7 +1,8 @@
-package com.example.tour_planner.utils.db.tourDb;
-import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.utils.TransportType;
+package com.example.tour_planner.utils.db.tourLogDb;
+
+import com.example.tour_planner.model.TourLog;
 import com.example.tour_planner.utils.db.databaseImpl;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,38 +12,35 @@ import java.util.ArrayList;
 // UPDATE (table) SET (column) = ? WHERE = ?;
 // SELECT (column) FROM (table) WHERE = ?;
 
-// --- TOUR INFO
-// TITLE - String
-// TO - String
-// FROM - String
-// TRANSPORT TYPE - String
-// DESCRIPTION - String
-// DATE - Time
-// DURATION - Int
-// DISTANCE - Int
+// --- TOUR  LOG INFO
+// DATE
+// TIME
+// COMMENT
+// DIFFICULTY
+// TOTAL TIME
+// RATING
 
-public class tourDbHandlerImpl implements tourDbHandler
+public class tourLogDbHandlerImpl implements  tourLogDbHandler
 {
     // Connection
     private Connection conn = databaseImpl.getInstance().getConnection();
 
     @Override
-    public int createTour(Tour tour)
+    public int createTourLog(TourLog tourLog)
     {
         try {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO Tours title, to, from, transport_type, description, duration, distance " +
+                    "INSERT INTO TourLogs date, time, comment, difficulty, totalTime, rating " +
                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 
             // ----- SET VAL ----- //
-            stmt.setString(1, tour.getName());
-            stmt.setString(2, tour.getTo());
-            stmt.setString(3, tour.getFrom());
-            stmt.setString(4, tour.getTransport());
-            stmt.setString(5, tour.getDescription());
-            stmt.setDouble(6, tour.getDuration());
-            stmt.setDouble(7, tour.getDistance());
+            stmt.setTime(1, tourLog.getDate());
+            stmt.setTime(2, tourLog.getTime());
+            stmt.setString(3, tourLog.getComment());
+            stmt.setString(4, tourLog.getDifficulty());
+            stmt.setInt(5, tourLog.getTotalTime());
+            stmt.setInt(6, tourLog.getRating());
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -58,8 +56,6 @@ public class tourDbHandlerImpl implements tourDbHandler
             if(generatedKeys.next())
             { num = generatedKeys.getInt(1); }
 
-            tour.setId(num);
-
             // ----- CLOSE ----- //
             generatedKeys.close();
             stmt.close();
@@ -73,15 +69,15 @@ public class tourDbHandlerImpl implements tourDbHandler
     }
 
     @Override
-    public int deleteTour(Tour tour) {
+    public int deleteTourLog(TourLog tourLog) {
         try
         {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement(
-                    "DELETE FROM Tours WHERE id = ?;"
+                    "DELETE FROM TourLogs WHERE id = ?;"
             );
             // ----- SET VAL ----- //
-            stmt.setInt(1, tour.getId());
+            stmt.setInt(1, tourLog.getId());
             stmt.executeUpdate();
 
             // ----- CLOSE ----- //
@@ -93,35 +89,32 @@ public class tourDbHandlerImpl implements tourDbHandler
     }
 
     @Override
-    public int modifyTour(Tour tour) {
+    public int modifyTourLog(TourLog TourLog) {
         return 0;
     }
 
     @Override
-    public ArrayList<Tour> getTour(Tour tour)
-    {
+    public ArrayList<TourLog> getTourLog(TourLog tourlog) {
         try
         {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement(
-                    "SELECT * FROM Tours WHERE title = ?;"
+                    "SELECT * FROM TourLogs WHERE id= ?;"
             );
             // ----- SET VAL ----- //
-            stmt.setString(1, tour.getName());
+            stmt.setInt(1, tourlog.getId());
             stmt.executeUpdate();
 
             ResultSet res = stmt.executeQuery();
 
-            // title, to, from, transport_type, description, duration, distance
-            ArrayList<Tour> TourList = new ArrayList<>();
+            ArrayList<TourLog> TourLogList = new ArrayList<>();
 
-            // ADD TOURS TO LIST
+            // ADD TOURLOGS TO LIST
             while (res.next())
             {
-                Tour nTour = new Tour (res.getString(1), res.getString(2), res.getString(3),
-                        res.getString(4), TransportType.valueOf(res.getString(5)), res.getInt(6),
-                        res.getInt(7));
-                TourList.add(nTour);
+                TourLog nTourLog = new TourLog(res.getTime(1), res.getTime(2), res.getString(3),
+                        res.getString(4), res.getInt(5), res.getInt(6));
+                TourLogList.add(nTourLog);
             }
 
             // ----- CLOSE ----- //

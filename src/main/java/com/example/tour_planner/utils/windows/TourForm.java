@@ -5,10 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -59,30 +56,42 @@ public class TourForm {
         TextField toField = new TextField();
         grid.add(toField, 1, 3);
 
+        // MAP API
+
         // Distance can be calculated
+        // Duration will be calculated
 
         Label trType = new Label("Transport Type:");
         grid.add(trType, 0, 4);
 
-        TextField trTypeField = new TextField();
-        grid.add(trTypeField, 1, 4);
-
-        Label dur = new Label("Duration:");
-        grid.add(dur, 0, 5);
-
-        TextField durField = new TextField();
-        grid.add(durField, 1, 5);
+        final ComboBox transportComboBox = new ComboBox();
+        transportComboBox.getItems().addAll(
+                "AUTO",
+                "PEDESTRIAN",
+                "BICYCLE"
+        );
+        grid.add(transportComboBox, 1, 4);
 
         // final button our add tour button
         Button btn = new Button("Add Tour");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 6);
+        grid.add(hbBtn, 1, 5);
 
         // on click create a new Tour Object with all the input from user
         btn.setOnAction(e -> {
             // get values of input
+            String title = tourNameField.getText();
+            String start = fromField.getText();
+            String end = toField.getText();
+            String transport = (String) transportComboBox.getValue();
+
+            // create json string to send to map api for further calculation
+
+
+
+            // create Tour Object and create Request to add a new Tour to DB
         });
 
         stage.setScene(scene);

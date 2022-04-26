@@ -81,12 +81,8 @@ public class TourForm {
         grid.add(hbBtn, 1, 6);
 
         // on click create a new Tour Object with all the input from user
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-
-            }
+        btn.setOnAction(e -> {
+            // get values of input
         });
 
         stage.setScene(scene);

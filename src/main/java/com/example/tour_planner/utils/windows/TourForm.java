@@ -147,6 +147,8 @@ public class TourForm {
         // TODO: work with tehe JSONObject correctly
         // get the Response => response is a JSON object
         System.out.println("Response : " + response);
+
+        // if distance is
     }
 
 }

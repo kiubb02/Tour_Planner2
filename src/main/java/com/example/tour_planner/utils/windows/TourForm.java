@@ -87,8 +87,7 @@ public class TourForm {
             String end = toField.getText();
             String transport = (String) transportComboBox.getValue();
 
-            // create json string to send to map api for further calculation
-
+            // send strings as get parameters to the map api
 
 
             // create Tour Object and create Request to add a new Tour to DB

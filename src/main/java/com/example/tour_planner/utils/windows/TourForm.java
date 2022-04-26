@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 //JSONObject
+// TODO: add JSONObject as valid import
 // import org.json.simple.JSONObject;
 
 public class TourForm {
@@ -113,6 +114,7 @@ public class TourForm {
         stage.show();
     }
 
+    // TODO: create a handler class to separate the functionality
     public void sendRequest(String start, String end, String transport) throws IOException {
         // URL for the MAP API
         String url = "https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from="+start+"&to="+end+"&transportMode="+transport+"&routeType="+"";
@@ -140,6 +142,7 @@ public class TourForm {
 
         in.close();
 
+        // TODO: work with tehe JSONObject correctly
         // get the Response => response is a JSON object
         System.out.println("Response : " + response);
     }

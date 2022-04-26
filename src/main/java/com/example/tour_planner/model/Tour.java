@@ -19,7 +19,7 @@ public class Tour implements Serializable {
     @Getter @Setter
     private String to;
     // enum
-    @Getter @Setter
+    @Setter
     private TransportType transport;
     // in km
     @Getter @Setter
@@ -27,18 +27,22 @@ public class Tour implements Serializable {
     @Getter @Setter
     private double duration;
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
-    public Tour (String name, String desc, String from, String to, String type, double dist, double duration) {
+    // PUBLIC Constructor //
+    public Tour (String name, String desc, String from, String to, TransportType type, double dist, double duration) {
         this.name = name;
         this.description = desc;
         this.distance = dist;
         this.duration = duration;
         this.from = from;
         this.to = to;
-        //this.TransportType = type;
+        this.transport = type;
+    }
+
+    public String getTransport()
+    { return transport.toString(); }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

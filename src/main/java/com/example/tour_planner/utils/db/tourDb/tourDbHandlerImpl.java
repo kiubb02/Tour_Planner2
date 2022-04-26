@@ -1,6 +1,7 @@
 package com.example.tour_planner.utils.db.tourDb;
 
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.utils.TransportType;
 import com.example.tour_planner.utils.db.databaseImpl;
 
 import java.sql.*;
@@ -24,7 +25,7 @@ public class tourDbHandlerImpl implements tourDbHandler
             stmt.setString(1, tour.getName());
             stmt.setString(2, tour.getTo());
             stmt.setString(3, tour.getFrom());
-            //stmt.setString(4, tour.getTransportType());
+            stmt.setString(4, tour.getTransport());
             stmt.setString(5, tour.getDescription());
             stmt.setDouble(6, tour.getDuration());
             stmt.setDouble(7, tour.getDistance());
@@ -104,7 +105,7 @@ public class tourDbHandlerImpl implements tourDbHandler
             while (res.next())
             {
                 Tour nTour = new Tour (res.getString(1), res.getString(2), res.getString(3),
-                        res.getString(4), res.getString(5), res.getInt(6),
+                        res.getString(4), TransportType.valueOf(res.getString(5)), res.getInt(6),
                         res.getInt(7));
                 TourList.add(nTour);
             }

@@ -1,9 +1,7 @@
 package com.example.tour_planner.utils.db.tourDb;
-
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.utils.TransportType;
 import com.example.tour_planner.utils.db.databaseImpl;
-
 import java.sql.*;
 import java.util.ArrayList;
 

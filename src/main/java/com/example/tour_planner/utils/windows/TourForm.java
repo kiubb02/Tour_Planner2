@@ -25,7 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 //JSONObject
-import org.json.simple.JSONObject;
+// import org.json.simple.JSONObject;
 
 public class TourForm {
 
@@ -141,6 +141,7 @@ public class TourForm {
         in.close();
 
         // get the Response => response is a JSON object
+        System.out.println("Response : " + response);
     }
 
 }

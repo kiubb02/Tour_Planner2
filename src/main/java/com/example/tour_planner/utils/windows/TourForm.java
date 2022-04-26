@@ -148,7 +148,7 @@ public class TourForm {
         // get the Response => response is a JSON object
         System.out.println("Response : " + response);
 
-        // if distance is
+        // if distance is 0 ==> it is not possible to take the route that way , let the user re-enter everything
     }
 
 }

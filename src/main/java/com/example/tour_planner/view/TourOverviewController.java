@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
+import com.example.tour_planner.utils.windows.TourForm;
+
 
 public class TourOverviewController {
     @FXML
@@ -29,6 +31,9 @@ public class TourOverviewController {
     }
 
     public void onButtonAdd(ActionEvent actionEvent) {
+        TourForm form = new TourForm();
+        //show new window
+        form.showForm();
         //mediaOverviewViewModel.addNewTour();
         mediaItemList.getSelectionModel().selectLast();
     }

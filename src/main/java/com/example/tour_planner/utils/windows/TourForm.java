@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 // Tour class
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.utils.api.mapAPI;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -31,6 +32,9 @@ import java.net.URL;
 // import org.json.simple.JSONObject;
 
 public class TourForm {
+
+    // create a Map API Object
+    mapAPI map = new mapAPI();
 
     //build a new scene to open as a pop up form
     public void showForm(){
@@ -104,7 +108,10 @@ public class TourForm {
             // for the get request u need the key ( I created an account on the map api website ):
             // key = FVrDjDoWMVJKy6xoLfkNOVoafr6Z7XoP
             try {
-                sendRequest(start, end, transport);
+                int status = mapAPI.sendRequest(start, end, transport);
+                if(status == 0){
+                    // print an error message
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -114,41 +121,6 @@ public class TourForm {
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    // TODO: create a handler class to separate the functionality
-    public void sendRequest(String start, String end, String transport) throws IOException {
-        // URL for the MAP API
-        String url = "https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from="+start+"&to="+end+"&transportMode="+transport+"&routeType="+"";
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        // set it as a GET request
-        con.setRequestMethod("GET");
-        //add request header
-        con.setRequestProperty("User-Agent", "Mozilla/5.0");
-        int responseCode = con.getResponseCode();
-
-        // add that to the Logger instead of a system out print
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
-
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(con.getInputStream()));
-
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-
-        in.close();
-
-        // TODO: work with tehe JSONObject correctly
-        // get the Response => response is a JSON object
-        System.out.println("Response : " + response);
-
-        // if distance is 0 ==> it is not possible to take the route that way , let the user re-enter everything
     }
 
 }

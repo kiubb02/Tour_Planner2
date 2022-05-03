@@ -23,7 +23,6 @@ public class TourOverviewController {
     public ArrayList<Tour> tourList;
     @FXML
     private ListView myListView;
-    protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
 
@@ -37,19 +36,23 @@ public class TourOverviewController {
 
     @FXML
     void initialize() {
+        ListProperty<Tour> listProperty = new SimpleListProperty<>();
         // get the new Items and show them in there
         tourDbHandlerImpl handler = new tourDbHandlerImpl();
         tourList = handler.getTourList();
         myListView.itemsProperty().bind(listProperty);
         listProperty.set(FXCollections.observableArrayList(tourList));
-        myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        //myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     public void onButtonAdd(ActionEvent actionEvent) {
+        ListProperty<Tour> listProperty = new SimpleListProperty<>();
         TourForm form = new TourForm();
-        //show new window
+        // show new window
         form.showForm();
-        //add element to listview
+        // TODO : add the object to the List View below
+        // myListView.getItems().add();
+
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
@@ -59,6 +62,6 @@ public class TourOverviewController {
         tourDbHandlerImpl handler = new tourDbHandlerImpl();
         handler.deleteTour(selectedTour.toString());
         //delete element from list view
-
+        myListView.getItems().remove(selectedTour);
     }
 }

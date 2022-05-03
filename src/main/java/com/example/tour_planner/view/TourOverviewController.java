@@ -7,11 +7,13 @@ import com.example.tour_planner.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
 import com.example.tour_planner.utils.windows.TourForm;
+import javafx.scene.control.SelectionMode;
 
 import java.util.ArrayList;
 
@@ -40,15 +42,23 @@ public class TourOverviewController {
         tourList = handler.getTourList();
         myListView.itemsProperty().bind(listProperty);
         listProperty.set(FXCollections.observableArrayList(tourList));
+        myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
     public void onButtonAdd(ActionEvent actionEvent) {
         TourForm form = new TourForm();
         //show new window
         form.showForm();
+        //add element to listview
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
-        //mediaOverviewViewModel.deleteTour(mediaItemList.getSelectionModel().getSelectedItem());
+        // get selected tour
+        Object selectedTour = myListView.getSelectionModel().getSelectedItem();
+        // delete selected tour
+        tourDbHandlerImpl handler = new tourDbHandlerImpl();
+        handler.deleteTour(selectedTour.toString());
+        //delete element from list view
+
     }
 }

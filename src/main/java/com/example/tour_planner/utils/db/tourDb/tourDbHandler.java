@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface tourDbHandler {
     // --- TOUR MODIFICATION --- //
     int createTour(Tour tour);
-    int deleteTour(Tour tour);
+    int deleteTour(String name);
     int modifyTour(Tour tour);
 
     // --- TOUR DETAILS --- //

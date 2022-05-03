@@ -74,15 +74,15 @@ public class tourDbHandlerImpl implements tourDbHandler
     }
 
     @Override
-    public int deleteTour(Tour tour) {
+    public int deleteTour(String name) {
         try
         {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement(
-                    "DELETE FROM Tours WHERE id = ?;"
+                    "DELETE FROM tour WHERE title = ?;"
             );
             // ----- SET VAL ----- //
-            stmt.setInt(1, tour.getId());
+            stmt.setString(1, name);
             stmt.executeUpdate();
 
             // ----- CLOSE ----- //

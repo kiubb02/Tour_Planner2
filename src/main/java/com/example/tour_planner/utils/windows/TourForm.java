@@ -29,7 +29,7 @@ import java.net.URL;
 
 //JSONObject
 // TODO: add JSONObject as valid import
-// import org.json.simple.JSONObject;
+import org.json.JSONObject;
 
 public class TourForm {
 
@@ -100,6 +100,7 @@ public class TourForm {
         btn.setOnAction(e -> {
             // get values of input
             String title = tourNameField.getText();
+            String description = "cool new tour";
             String start = fromField.getText();
             String end = toField.getText();
             String transport = (String) transportComboBox.getValue();
@@ -108,7 +109,7 @@ public class TourForm {
             // for the get request u need the key ( I created an account on the map api website ):
             // key = FVrDjDoWMVJKy6xoLfkNOVoafr6Z7XoP
             try {
-                int status = mapAPI.sendRequest(start, end, transport);
+                int status = mapAPI.sendRequest(start, end, transport, title, description);
                 if(status == 0){
                     // print an error message
                 }

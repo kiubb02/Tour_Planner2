@@ -20,15 +20,15 @@ public class Tour implements Serializable {
     private String to;
     // enum
     @Setter
-    private TransportType transport;
+    private String transport;
     // in km
     @Getter @Setter
     private double distance;
     @Getter @Setter
-    private double duration;
+    private String duration;
 
     // PUBLIC Constructor //
-    public Tour (String name, String desc, String from, String to, TransportType type, double dist, double duration) {
+    public Tour (String name, String desc, String from, String to, String type, double dist, String duration) {
         this.name = name;
         this.description = desc;
         this.distance = dist;

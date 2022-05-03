@@ -31,9 +31,9 @@ public class tourDbHandlerImpl implements tourDbHandler
     {
         try {
             // ----- PREPARED STATEMENT ----- //
-            PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO Tours title, to, from, transport_type, description, duration, distance " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement("""
+                    INSERT INTO tour(title, "to", "from", "transportType", description, duration, distance) VALUES (?,?,?, ?, ?, ?, ?);
+                    """);
 
             // ----- SET VAL ----- //
             stmt.setString(1, tour.getName());
@@ -41,7 +41,7 @@ public class tourDbHandlerImpl implements tourDbHandler
             stmt.setString(3, tour.getFrom());
             stmt.setString(4, tour.getTransport());
             stmt.setString(5, tour.getDescription());
-            stmt.setDouble(6, tour.getDuration());
+            stmt.setString(6, tour.getDuration());
             stmt.setDouble(7, tour.getDistance());
 
             int rowsAffected = stmt.executeUpdate();
@@ -118,10 +118,10 @@ public class tourDbHandlerImpl implements tourDbHandler
             // ADD TOURS TO LIST
             while (res.next())
             {
-                Tour nTour = new Tour (res.getString(1), res.getString(2), res.getString(3),
-                        res.getString(4), TransportType.valueOf(res.getString(5)), res.getInt(6),
-                        res.getInt(7));
-                TourList.add(nTour);
+                //Tour nTour = new Tour (res.getString(1), res.getString(2), res.getString(3),
+                //        res.getString(4), TransportType.valueOf(res.getString(5)), res.getInt(6),
+                //        res.getInt(7));
+                //TourList.add(nTour);
             }
 
             // ----- CLOSE ----- //

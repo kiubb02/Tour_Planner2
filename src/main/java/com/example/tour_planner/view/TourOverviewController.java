@@ -26,6 +26,7 @@ public class TourOverviewController {
 
     @FXML
     void initialize() {
+        //get the new Items and show them in there
         mediaItemList.setItems(mediaOverviewViewModel.getObservableTours());
         mediaItemList.getSelectionModel().selectedItemProperty().addListener(mediaOverviewViewModel.getChangeListener());
     }
@@ -34,8 +35,6 @@ public class TourOverviewController {
         TourForm form = new TourForm();
         //show new window
         form.showForm();
-        //mediaOverviewViewModel.addNewTour();
-        mediaItemList.getSelectionModel().selectLast();
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {

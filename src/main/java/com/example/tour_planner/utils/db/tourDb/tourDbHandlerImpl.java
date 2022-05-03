@@ -1,7 +1,8 @@
 package com.example.tour_planner.utils.db.tourDb;
 import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.utils.TransportType;
 import com.example.tour_planner.utils.db.databaseImpl;
+import javafx.scene.control.ListView;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -132,5 +133,45 @@ public class tourDbHandlerImpl implements tourDbHandler
         } catch (SQLException e) { e.printStackTrace(); }
 
         return null;
+    }
+
+    @Override
+    public ArrayList<Tour> getTourList(){
+        ArrayList<Tour> tourList = new ArrayList<>();
+
+        try{
+            PreparedStatement stmt = conn.prepareStatement("""
+                    SELECT *
+                    FROM tour
+                    """);
+
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return null;
+            }
+
+            while(res.next()){
+                String title = res.getString("title");
+                String desc = res.getString("description");
+                String from = res.getString("from");
+                String to = res.getString("to");
+                String transport = res.getString("transportType");
+                Double dist = res.getDouble("distance");
+                String duration = res.getString("duration");
+
+                // create Tour obj
+                Tour tour = new Tour(title, desc, from, to, transport, dist, duration);
+
+                // put into array
+                tourList.add(tour);
+
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) { e.printStackTrace(); }
+
+        return tourList;
     }
 }

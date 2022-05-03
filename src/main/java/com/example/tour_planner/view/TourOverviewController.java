@@ -2,17 +2,26 @@ package com.example.tour_planner.view;
 
 
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import com.example.tour_planner.viewmodel.TourOverviewViewModel;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
 import com.example.tour_planner.utils.windows.TourForm;
 
+import java.util.ArrayList;
+
 
 public class TourOverviewController {
     @FXML
-    public ListView<Tour> mediaItemList;
+    public ArrayList<Tour> tourList;
+    @FXML
+    private ListView myListView;
+    protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
 
@@ -26,9 +35,11 @@ public class TourOverviewController {
 
     @FXML
     void initialize() {
-        //get the new Items and show them in there
-        mediaItemList.setItems(mediaOverviewViewModel.getObservableTours());
-        mediaItemList.getSelectionModel().selectedItemProperty().addListener(mediaOverviewViewModel.getChangeListener());
+        // get the new Items and show them in there
+        tourDbHandlerImpl handler = new tourDbHandlerImpl();
+        tourList = handler.getTourList();
+        myListView.itemsProperty().bind(listProperty);
+        listProperty.set(FXCollections.observableArrayList(tourList));
     }
 
     public void onButtonAdd(ActionEvent actionEvent) {

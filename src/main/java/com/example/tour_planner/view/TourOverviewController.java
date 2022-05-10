@@ -14,6 +14,11 @@ import javafx.scene.control.ListView;
 
 import com.example.tour_planner.utils.windows.TourForm;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -21,6 +26,7 @@ import java.util.ArrayList;
 public class TourOverviewController {
     @FXML
     public ArrayList<Tour> tourList;
+    public VBox TourDetails;
     @FXML
     private ListView myListView;
     protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
@@ -64,4 +70,34 @@ public class TourOverviewController {
         //delete element from list view
         myListView.getItems().remove(selectedTour);
     }
+
+    // show tour details on click
+    public void showTour(MouseEvent mouseEvent) {
+        // get selected tour item
+        Object selectedTour = myListView.getSelectionModel().getSelectedItem();
+        // Test if object is correct : Yes correct object is shown
+        // System.out.println(selectedTour);
+        // get details from the tour
+        tourDbHandlerImpl handler = new tourDbHandlerImpl();
+        JSONObject details = handler.getDetails(selectedTour.toString());
+        // Test if object is correct : Object is correct
+        // System.out.println(details.getString("name"));
+
+        // add children to Vbox
+        createTable(details);
+        // add the image
+
+    }
+
+    public void createTable(JSONObject details){
+        TableView table = new TableView();
+        TableColumn firstCol = new TableColumn("-");
+        TableColumn secondCol = new TableColumn("Values");
+
+        table.getColumns().addAll(firstCol, secondCol);
+
+
+        TourDetails.getChildren().add(table);
+    }
+
 }

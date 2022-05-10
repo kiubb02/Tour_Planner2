@@ -14,6 +14,9 @@
         <Button text="-" onAction="#onButtonRemove"/>
         <Button text="..."/>
     </ToolBar>
+    <HBox>
+        <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour"/>
+        <VBox fx:id="TourDetails"/>
+    </HBox>
 
-    <ListView fx:id="myListView" VBox.vgrow="ALWAYS"/>
 </VBox>

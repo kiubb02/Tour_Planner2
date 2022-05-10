@@ -126,8 +126,8 @@ public class tourDbHandlerImpl implements tourDbHandler
     }
 
     @Override
-    public JSONObject getDetails(String name) {
-        JSONObject details = null;
+    public Tour getDetails(String name) {
+        Tour tour = null;
 
         try
         {
@@ -152,8 +152,9 @@ public class tourDbHandlerImpl implements tourDbHandler
                 String duration = res.getString("duration");
 
                 // fill JSONObject
-                String string = "{\"name\": \""+title+"\", \"desc\": \""+desc+"\", \"from\": \""+from+"\", \"to\": \""+to+"\", \"transport\": \""+transport+"\", \"distance\": \""+dist+"\", \"duration\": \""+duration+"\"}";
-                details = new JSONObject(string);
+                //String string = "{\"name\": \""+title+"\", \"desc\": \""+desc+"\", \"from\": \""+from+"\", \"to\": \""+to+"\", \"transport\": \""+transport+"\", \"distance\": \""+dist+"\", \"duration\": \""+duration+"\"}";
+                //details = new JSONObject(string);
+                tour = new Tour(title, desc, from, to, transport, dist, duration);
             }
 
 
@@ -162,7 +163,7 @@ public class tourDbHandlerImpl implements tourDbHandler
         }
 
 
-        return details;
+        return tour;
     }
 
     @Override

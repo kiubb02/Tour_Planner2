@@ -15,7 +15,7 @@ public interface tourDbHandler {
     // --- TOUR DETAILS --- //
     ArrayList<Tour> getTour(Tour tour);
     // -- new tour details function -- //
-    JSONObject getDetails(String name);
+    Tour getDetails(String name);
 
     // Get list of tour
     ArrayList<Tour> getTourList();

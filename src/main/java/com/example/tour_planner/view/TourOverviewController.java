@@ -23,6 +23,7 @@ public class TourOverviewController {
     public ArrayList<Tour> tourList;
     @FXML
     private ListView myListView;
+    protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
 
@@ -36,7 +37,6 @@ public class TourOverviewController {
 
     @FXML
     void initialize() {
-        ListProperty<Tour> listProperty = new SimpleListProperty<>();
         // get the new Items and show them in there
         tourDbHandlerImpl handler = new tourDbHandlerImpl();
         tourList = handler.getTourList();
@@ -46,13 +46,13 @@ public class TourOverviewController {
     }
 
     public void onButtonAdd(ActionEvent actionEvent) {
-        ListProperty<Tour> listProperty = new SimpleListProperty<>();
         TourForm form = new TourForm();
         // show new window
         form.showForm();
         // TODO : add the object to the List View below
-        // myListView.getItems().add();
-
+        tourDbHandlerImpl handler = new tourDbHandlerImpl();
+        Object tour = handler.latestTour();
+        myListView.getItems().add(tour);
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {

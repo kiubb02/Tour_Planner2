@@ -53,20 +53,9 @@ public class tourDbHandlerImpl implements tourDbHandler
                 return 0;
             }
 
-            int num = 0;
-
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            if(generatedKeys.next())
-            { num = generatedKeys.getInt(1); }
-
-            tour.setId(num);
-
-            // ----- CLOSE ----- //
-            generatedKeys.close();
             stmt.close();
             conn.close();
 
-            return num;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -173,5 +162,40 @@ public class tourDbHandlerImpl implements tourDbHandler
         } catch (SQLException e) { e.printStackTrace(); }
 
         return tourList;
+    }
+
+    @Override
+    public Object latestTour() {
+        Object latest = new Object();
+
+        try{
+            PreparedStatement stmt = conn.prepareStatement(
+                    " SELECT * FROM tour ORDER BY id DESC LIMIT 1 "
+            );
+
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return null;
+            }
+
+            while(res.next()){
+                String title = res.getString("title");
+                String desc = res.getString("description");
+                String from = res.getString("from");
+                String to = res.getString("to");
+                String transport = res.getString("transportType");
+                Double dist = res.getDouble("distance");
+                String duration = res.getString("duration");
+
+                // create Tour obj
+                Tour tour = new Tour(title, desc, from, to, transport, dist, duration);
+
+                latest = tour;
+            }
+
+
+        } catch (SQLException e) { e.printStackTrace(); }
+
+        return latest;
     }
 }

@@ -14,7 +14,9 @@ public interface tourDbHandler {
     // --- TOUR DETAILS --- //
     ArrayList<Tour> getTour(Tour tour);
 
-
     // Get list of tour
     ArrayList<Tour> getTourList();
+
+    // Get latest tour
+    Object latestTour();
 }

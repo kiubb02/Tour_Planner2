@@ -1,61 +1,44 @@
 package com.example.tour_planner.viewmodel;
 
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TourOverviewViewModel {
-    public interface SelectionChangedListener {
-        void changeSelection(Tour mediaItem);
+
+    tourDbHandlerImpl handler = new tourDbHandlerImpl();
+
+    public Tour getDetails(ListView myListView) {
+        Object selectedTour = myListView.getSelectionModel().getSelectedItem();
+        tourDbHandlerImpl handler = new tourDbHandlerImpl();
+        Tour details = handler.getDetails(selectedTour.toString());
+
+        return details;
     }
 
-    private List<SelectionChangedListener> listeners = new ArrayList<>();
 
-    private ObservableList<Tour> observableMediaItems = FXCollections.observableArrayList();
+    public Object deleteTour(ListView myListView) {
+        // get selected tour
+        Object selectedTour = myListView.getSelectionModel().getSelectedItem();
+        // delete selected tour
+        handler.deleteTour(selectedTour.toString());
 
-    /*public MediaOverviewViewModel()
-    {
-        setTours( DAL.getInstance().tourDao().getAll() );
-    }*/
-
-    public ObservableList<Tour> getObservableTours() {
-        return observableMediaItems;
+        return selectedTour;
     }
 
-    public ChangeListener<Tour> getChangeListener() {
-        return (observableValue, oldValue, newValue) -> notifyListeners(newValue);
+    public Object addTour() {
+        Object tour = handler.latestTour();
+        return tour;
     }
 
-    public void addSelectionChangedListener(SelectionChangedListener listener) {
-        listeners.add(listener);
+    public ArrayList<Tour> getTourList() {
+        ArrayList<Tour> tourList = handler.getTourList();
+        return tourList;
     }
-
-    public void removeSelectionChangedListener(SelectionChangedListener listener) {
-        listeners.remove(listener);
-    }
-
-    private void notifyListeners(Tour newValue) {
-        for ( var listener : listeners ) {
-            listener.changeSelection(newValue);
-        }
-    }
-
-    public void setTours(List<Tour> mediaItems) {
-        observableMediaItems.clear();
-        observableMediaItems.addAll(mediaItems);
-    }
-
-    /*public void addNewTour() {
-        var tour = DAL.getInstance().tourDao().create();
-        observableMediaItems.add(tour);
-    }
-
-    public void deleteTour(Tour mediaItem) {
-        DAL.getInstance().tourDao().delete(mediaItem);
-        observableMediaItems.remove(mediaItem);
-    }*/
 }

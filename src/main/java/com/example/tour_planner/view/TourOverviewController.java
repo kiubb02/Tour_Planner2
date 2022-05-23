@@ -3,6 +3,7 @@ package com.example.tour_planner.view;
 
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
+import com.example.tour_planner.utils.windows.TourEditForm;
 import com.example.tour_planner.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -60,6 +61,16 @@ public class TourOverviewController {
         // show new window
         form.showForm();
         // TODO : add the object to the List View below
+        Object tour = mediaOverviewViewModel.addTour();
+        myListView.getItems().add(tour);
+    }
+
+    public void onButtonEdit(ActionEvent actionEvent){
+        // get title of selected listview item
+        Tour details = mediaOverviewViewModel.getDetails(myListView);
+        TourEditForm form = new TourEditForm();
+        form.showForm(details);
+        // Tour has now been edited
         Object tour = mediaOverviewViewModel.addTour();
         myListView.getItems().add(tour);
     }
@@ -133,10 +144,17 @@ public class TourOverviewController {
         Text desc = new Text(details.getDescription());
         grid.add(desc, 1, 6);
 
+        // add the edit button before anything else to the TourDetails
+        Button edit = new Button("Edit");
+        grid.add(edit, 2, 7);
+
+        edit.setOnAction(this::onButtonEdit);
+
         // first add image to Hbox
 
         // Then add the grid
         horizontal.getChildren().add(grid);
+
         TourDetails.getChildren().add(horizontal);
     }
 

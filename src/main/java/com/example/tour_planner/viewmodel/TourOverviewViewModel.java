@@ -2,13 +2,9 @@ package com.example.tour_planner.viewmodel;
 
 import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
-import javafx.beans.value.ChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TourOverviewViewModel {
 
@@ -28,7 +24,6 @@ public class TourOverviewViewModel {
         Object selectedTour = myListView.getSelectionModel().getSelectedItem();
         // delete selected tour
         handler.deleteTour(selectedTour.toString());
-
         return selectedTour;
     }
 

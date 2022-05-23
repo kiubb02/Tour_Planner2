@@ -84,7 +84,31 @@ public class tourDbHandlerImpl implements tourDbHandler
     }
 
     @Override
-    public int modifyTour(Tour tour) {
+    public int modifyTour(String oldTitle, Tour tour) {
+        try
+        {
+            // ----- PREPARED STATEMENT ----- //
+            PreparedStatement stmt = conn.prepareStatement("""
+                    UPDATE tour
+                    SET title = ?, description = ?, "from" = ?, "to" = ?, "transportType" = ?, distance = ?, duration = ?
+                    WHERE title = ?;
+            """);
+            // ----- SET VAL ----- //
+            stmt.setString(1, tour.getName());
+            stmt.setString(2, tour.getDescription());
+            stmt.setString(3, tour.getFrom());
+            stmt.setString(4, tour.getTo());
+            stmt.setString(5, tour.getTransport());
+            stmt.setDouble(6, tour.getDistance());
+            stmt.setString(7, tour.getDuration());
+            stmt.setString(8, oldTitle);
+            stmt.executeUpdate();
+
+            // ----- CLOSE ----- //
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch (SQLException e) { e.printStackTrace(); }
         return 0;
     }
 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 //JSONObject
 import com.example.tour_planner.model.Tour;
@@ -15,7 +16,10 @@ import org.json.JSONObject;
 
 public class mapAPI
 {
-    public static int sendRequest(String start, String end, String transport,String title,String description) throws IOException {
+    public static int sendRequest(String oldName, String start, String end, String transport,String title,String description, String mode) throws IOException {
+        System.out.println(end);
+        System.out.println(start);
+
         // URL for the MAP API
         String url = "https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from="+start+"&to="+end+"&transportMode="+transport+"&routeType="+"";
         URL obj = new URL(url);
@@ -52,10 +56,10 @@ public class mapAPI
         if(distance == 0) return 0;
 
         // if distance is 0 ==> it is not possible to take the route that way , let the user re-enter everything
-        // TODO: put that in some handler
         Tour newTour = new Tour(title, description, start, end, transport, distance, duration);
         tourDbHandlerImpl handler = new tourDbHandlerImpl();
-        handler.createTour(newTour);
+        if(Objects.equals(mode, "create")) handler.createTour(newTour);
+        if(Objects.equals(mode, "edit")) handler.modifyTour(oldName, newTour);
         return 1; // cause everything is alright
 
     }

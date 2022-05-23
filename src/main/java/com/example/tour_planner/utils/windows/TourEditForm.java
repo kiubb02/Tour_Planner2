@@ -1,14 +1,17 @@
-// TODO: add language strings
+// Form for when a Tour gets modified
 
 package com.example.tour_planner.utils.windows;
 
+import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.utils.api.mapAPI;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,30 +21,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-// Tour class
-import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.utils.api.mapAPI;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
-//JSONObject
-// TODO: add JSONObject as valid import
-import org.json.JSONObject;
-
-public class TourForm {
-
-    // create a Map API Object
-    mapAPI map = new mapAPI();
-    int InputError = 0; //1 if error exists
-    tourDbHandlerImpl handler = new tourDbHandlerImpl();
+public class TourEditForm {
 
     //build a new scene to open as a pop up form
-    public void showForm(){
+    public void showForm(Tour details){
         VBox vBox = new VBox(); //for now
         //current scene of program
         GridPane grid = new GridPane();
@@ -55,7 +40,7 @@ public class TourForm {
         Stage stage = new Stage();
         stage.setTitle("Tour Form");
 
-        Text scenetitle = new Text("New Tour: ");
+        Text scenetitle = new Text("Edit Tour: ");
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
@@ -63,18 +48,21 @@ public class TourForm {
         grid.add(tourName, 0, 1);
 
         TextField tourNameField = new TextField();
+        tourNameField.setPromptText(details.getName());
         grid.add(tourNameField, 1, 1);
 
         Label from = new Label("From:");
         grid.add(from, 0, 2);
 
         TextField fromField = new TextField();
+        fromField.setPromptText(details.getFrom());
         grid.add(fromField, 1, 2);
 
         Label to = new Label("To:");
         grid.add(to, 0, 3);
 
         TextField toField = new TextField();
+        toField.setPromptText(details.getTo());
         grid.add(toField, 1, 3);
 
         // Description in form of a textfield
@@ -82,6 +70,7 @@ public class TourForm {
         grid.add(desc, 0, 4);
 
         TextField descField = new TextField();
+        descField.setPromptText(details.getDescription());
         grid.add(descField, 1, 4);
 
         // MAP API
@@ -101,64 +90,39 @@ public class TourForm {
         grid.add(transportComboBox, 1, 5);
 
         // final button our add tour button
-        Button btn = new Button("Add Tour");
+        Button btn = new Button("Edit Tour");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn, 1, 6);
 
         final Text actiontarget = new Text();
-        actiontarget.setFill(Color.FIREBRICK);
-        grid.add(actiontarget, 0, 6);
+        grid.add(actiontarget, 1, 7);
 
         // on click create a new Tour Object with all the input from user
         btn.setOnAction(e -> {
             // get values of input
             String title = tourNameField.getText();
-            // check if the title already exists ==> if yes then dont do the sendRequest
-            if(handler.getDetails(title) != null){
-                actiontarget.setText("Title already exists");
-                InputError = 1;
-            }
-            if(title.equals("")){
-                actiontarget.setText("Enter Title");
-                InputError = 1;
-            }
+            if(title.equals("")) title = details.getName();
             String description = descField.getText();
-            if(description.equals("")){
-                actiontarget.setText("Enter Description");
-                InputError = 1;
-            }
+            if(description.equals("")) description = details.getDescription();
             String start = fromField.getText();
-            if(start.equals("")){
-                actiontarget.setText("Enter Start");
-                InputError = 1;
-            }
+            if(start.equals("")) start = details.getFrom();
             String end = toField.getText();
-            if(end.equals("")){
-                actiontarget.setText("Enter Destination");
-                InputError = 1;
-            }
+            if(end.equals("")) end = details.getTo();
             String transport = (String) transportComboBox.getValue();
-            if(transport.equals("")){
-                actiontarget.setText("Choose Transport");
-                InputError = 1;
-            }
-            // if one of those is empty ==> print error message and dont send to map api
 
             // send strings as get parameters to the map api
             // for the get request u need the key ( I created an account on the map api website ):
             // key = FVrDjDoWMVJKy6xoLfkNOVoafr6Z7XoP
-            if(InputError == 0) {
-                try {
-                    int status = mapAPI.sendRequest("old", start, end, transport, title, description, "create");
-                    if (status == 0) {
-                        // print an error message
-                        actiontarget.setText("Enter valid Destinations");
-                    }
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+            try {
+                int status = mapAPI.sendRequest(details.getName(), start, end, transport, title, description, "edit");
+                if(status == 0){
+                    actiontarget.setFill(Color.FIREBRICK);
+                    actiontarget.setText("Enter valid Destinations");
                 }
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
 
             // create Tour Object and create Request to add a new Tour to DB

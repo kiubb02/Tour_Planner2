@@ -10,7 +10,7 @@ public interface tourDbHandler {
     // --- TOUR MODIFICATION --- //
     int createTour(Tour tour);
     int deleteTour(String name);
-    int modifyTour(Tour tour);
+    int modifyTour(String oldName, Tour tour);
 
     // --- TOUR DETAILS --- //
     ArrayList<Tour> getTour(Tour tour);

@@ -2,8 +2,10 @@ package com.example.tour_planner.view;
 
 
 import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.model.TourLogImpl;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import com.example.tour_planner.utils.windows.TourEditForm;
+import com.example.tour_planner.utils.windows.TourLogForm;
 import com.example.tour_planner.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -16,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
 import com.example.tour_planner.utils.windows.TourForm;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -26,16 +29,24 @@ import javafx.scene.text.Text;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class TourOverviewController {
     @FXML
     public ArrayList<Tour> tourList;
+    @FXML
     public VBox TourDetails;
+    @FXML
     public HBox Tours;
     @FXML
     private ListView myListView;
-    TableView tableView = new TableView();
+    @FXML
+    private TableView<TourLogImpl> tableView = new TableView<TourLogImpl>();
+    @FXML
+    private ObservableList<TourLogImpl> data = FXCollections.observableArrayList();
+
+
     protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
@@ -86,6 +97,7 @@ public class TourOverviewController {
     // show tour details on click
     public void showTour(MouseEvent mouseEvent) {
         // delete previous children of the Vbox
+        data = mediaOverviewViewModel.getTourLogList(myListView);
         TourDetails.getChildren().clear();
         Tour details = mediaOverviewViewModel.getDetails(myListView);
         // add image and details to Hbox
@@ -117,24 +129,31 @@ public class TourOverviewController {
 
         // date/time, comment, difficulty, total time, and rating
         TableColumn date = new TableColumn("Date/Time");
+        date.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Date>("dateTime"));
         TableColumn comment = new TableColumn("Comment");
+        comment.setCellValueFactory(new PropertyValueFactory<TourLogImpl, String>("comment"));
         TableColumn difficulty = new TableColumn("Difficulty");
+        difficulty.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Integer>("difficulty"));
         TableColumn time = new TableColumn("Time");
+        time.setCellValueFactory(new PropertyValueFactory<TourLogImpl, String>("totalTime"));
         TableColumn rating = new TableColumn("Rating");
+        rating.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Integer>("rating"));
 
+        tableView.setItems(data);
         tableView.getColumns().addAll(date, comment, difficulty, time, rating);
 
-
+        // add data to the table view
         TourDetails.getChildren().add(horizontal);
         TourDetails.getChildren().add(tableView);
     }
 
     private void deleteTourLog(ActionEvent actionEvent) {
-
+        mediaOverviewViewModel.deleteTourLog(tableView);
     }
 
     private void createTourLog(ActionEvent actionEvent) {
-
+        TourLogForm form = new TourLogForm();
+        form.showForm(myListView);
     }
 
     public void createTable(Tour details){

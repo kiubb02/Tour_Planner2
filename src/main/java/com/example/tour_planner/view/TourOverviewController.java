@@ -128,6 +128,11 @@ public class TourOverviewController {
         Text dur = new Text(details.getDuration());
         grid.add(dur, 1, 5);
 
+        Label descLabel = new Label("Description:");
+        grid.add(descLabel, 0, 6);
+        Text desc = new Text(details.getDescription());
+        grid.add(desc, 1, 6);
+
         // first add image to Hbox
 
         // Then add the grid

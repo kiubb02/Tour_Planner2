@@ -73,13 +73,20 @@ public class TourForm {
         TextField toField = new TextField();
         grid.add(toField, 1, 3);
 
+        // Description in form of a textfield
+        Label desc = new Label("Description:");
+        grid.add(desc, 0, 4);
+
+        TextField descField = new TextField();
+        grid.add(descField, 1, 4);
+
         // MAP API
 
         // Distance can be calculated
         // Duration will be calculated
 
         Label trType = new Label("Transport Type:");
-        grid.add(trType, 0, 4);
+        grid.add(trType, 0, 5);
 
         final ComboBox transportComboBox = new ComboBox();
         transportComboBox.getItems().addAll(
@@ -87,20 +94,20 @@ public class TourForm {
                 "PEDESTRIAN",
                 "BICYCLE"
         );
-        grid.add(transportComboBox, 1, 4);
+        grid.add(transportComboBox, 1, 5);
 
         // final button our add tour button
         Button btn = new Button("Add Tour");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 5);
+        grid.add(hbBtn, 1, 6);
 
         // on click create a new Tour Object with all the input from user
         btn.setOnAction(e -> {
             // get values of input
             String title = tourNameField.getText();
-            String description = "cool new tour";
+            String description = descField.getText();
             String start = fromField.getText();
             String end = toField.getText();
             String transport = (String) transportComboBox.getValue();

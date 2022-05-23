@@ -27,9 +27,12 @@ public class TourLogImpl implements TourLog
     public SimpleIntegerProperty rating;
     @Setter
     public SimpleStringProperty tour;
+    @Setter @Getter
+    private SimpleStringProperty title;
 
-    public TourLogImpl(Date dateTime, String comment, int difficulty, String totalTime, int rating, String tour)
+    public TourLogImpl(String title, Date dateTime, String comment, int difficulty, String totalTime, int rating, String tour)
     {
+        this.title = new SimpleStringProperty(title);
         this.dateTime = dateTime;
         this.comment =  new SimpleStringProperty(comment);
         this.difficulty = new SimpleIntegerProperty(difficulty);
@@ -44,6 +47,9 @@ public class TourLogImpl implements TourLog
 
     public final StringProperty commentProperty() {
         return comment;
+    }
+    public final StringProperty titleProperty() {
+        return title;
     }
 
     public final StringProperty totalTimeProperty() {
@@ -63,4 +69,7 @@ public class TourLogImpl implements TourLog
     public void createLog() {
         handler.createTourLog(this);
     }
+
+    @Override
+    public void deleteTourLog(){handler.deleteTourLog(this); }
 }

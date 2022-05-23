@@ -35,7 +35,7 @@ public class tourLogDbHandlerImpl implements  tourLogDbHandler
         try {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement("""
-                    INSERT INTO log("date", "comment", "difficulty", "time", rating, "tourName") VALUES (?,?,?, ?, ?, ?);
+                    INSERT INTO log("date", "comment", "difficulty", "time", rating, "tourName", "title") VALUES (?, ?,?,?, ?, ?, ?);
                     """);
 
             // ----- SET VAL ----- //
@@ -45,6 +45,7 @@ public class tourLogDbHandlerImpl implements  tourLogDbHandler
             stmt.setString(4, tourLog.getTotalTime().get());
             stmt.setInt(5, tourLog.getRating().getValue());
             stmt.setString(6, tourLog.getTour());
+            stmt.setString(7, tourLog.getTitle().get());
 
             int rowsAffected = stmt.executeUpdate();
 
@@ -81,6 +82,7 @@ public class tourLogDbHandlerImpl implements  tourLogDbHandler
             }
 
             while(res.next()){
+                String title = res.getString("title");
                 Date date = res.getDate("date");
                 String comment = res.getString("comment");
                 String time = res.getString("time");
@@ -89,7 +91,7 @@ public class tourLogDbHandlerImpl implements  tourLogDbHandler
                 String tour = res.getString("tourName");
 
                 // create Tour obj
-                TourLogImpl tourLog = new TourLogImpl(date, comment, difficulty, time, rating, tour);
+                TourLogImpl tourLog = new TourLogImpl(title, date, comment, difficulty, time, rating, tour);
                 // put into array
                 list.add(tourLog);
             }
@@ -104,6 +106,21 @@ public class tourLogDbHandlerImpl implements  tourLogDbHandler
 
     @Override
     public int deleteTourLog(TourLogImpl tourLog) {
+        try
+        {
+            // ----- PREPARED STATEMENT ----- //
+            PreparedStatement stmt = conn.prepareStatement(
+                    "DELETE FROM log WHERE title = ?;"
+            );
+            // ----- SET VAL ----- //
+            stmt.setString(1, tourLog.getTitle().get());
+            stmt.executeUpdate();
+
+            // ----- CLOSE ----- //
+            stmt.close();
+            conn.close();
+            return 1;
+        } catch (SQLException e) { e.printStackTrace(); }
         return 0;
     }
 

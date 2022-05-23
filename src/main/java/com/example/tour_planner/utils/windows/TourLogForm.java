@@ -50,20 +50,26 @@ public class TourLogForm {
         grid.add(dateLable, 0, 1);
         grid.add(dateTime, 1, 1);
 
+        Label titleLabel = new Label("Title");
+        grid.add(titleLabel, 0, 2);
+
+        TextField titleField = new TextField();
+        grid.add(titleField, 1, 2);
+
         Label totalLable = new Label("Total Time:");
-        grid.add(totalLable, 0, 2);
+        grid.add(totalLable, 0, 3);
 
         TextField totalField = new TextField();
         totalField.setPromptText("2.5");
-        grid.add(totalField, 1, 2);
+        grid.add(totalField, 1, 3);
 
         // Radio Button for rating
         Label rat = new Label("Rating:");
-        grid.add(rat, 0, 3);
+        grid.add(rat, 0, 4);
 
         // Difficulty ComboBox
         Label diff = new Label("Difficulty:");
-        grid.add(diff, 1, 3);
+        grid.add(diff, 1, 4);
 
 
         final ComboBox cm1 = new ComboBox();
@@ -74,7 +80,7 @@ public class TourLogForm {
                 "4",
                 "5"
         );
-        grid.add(cm1, 0, 4);
+        grid.add(cm1, 0, 5);
 
         final ComboBox cm2 = new ComboBox();
         cm2.getItems().addAll(
@@ -84,25 +90,26 @@ public class TourLogForm {
                 "4",
                 "5"
         );
-        grid.add(cm2, 1, 4);
+        grid.add(cm2, 1, 5);
 
 
         Label commentLabel = new Label("Comment:");
-        grid.add(commentLabel, 0, 5);
+        grid.add(commentLabel, 0, 6);
 
         TextField commentField = new TextField();
-        grid.add(commentField, 1, 5);
+        grid.add(commentField, 1, 6);
 
         // add a button to actually add
         Button btn = new Button("Create");
-        grid.add(btn, 1, 6);
+        grid.add(btn, 1, 7);
 
         // for the error Messages
         final Text actiontarget = new Text();
         actiontarget.setFill(Color.FIREBRICK);
-        grid.add(actiontarget, 0, 6);
+        grid.add(actiontarget, 0, 7);
 
         btn.setOnAction(e -> {
+            String title = titleField.getText();
             LocalDate localDate = dateTime.getValue();
             if(localDate == null){
                 actiontarget.setText("Choose Date");
@@ -141,7 +148,7 @@ public class TourLogForm {
             // create Tour Log instant
             if(InputError == 0){
                 Object selectedTour = myList.getSelectionModel().getSelectedItem();
-                TourLogImpl newLog = new TourLogImpl(date, comment, difficulty, totalTime, rating, selectedTour.toString());
+                TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, selectedTour.toString());
                 newLog.createLog();
             }
         });

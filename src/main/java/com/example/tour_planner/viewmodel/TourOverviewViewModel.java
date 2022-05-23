@@ -54,6 +54,6 @@ public class TourOverviewViewModel {
 
     public void deleteTourLog(TableView<TourLogImpl> tableView) {
         TourLogImpl tourLog = tableView.getSelectionModel().getSelectedItem();
-
+        tourLog.deleteTourLog();
     }
 }

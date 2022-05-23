@@ -115,19 +115,20 @@ public class TourOverviewController {
 
         Button add = new Button("+");
         Button delete = new Button("-");
+        Button edit = new Button("Edit");
 
         add.setOnAction(this::createTourLog);
         delete.setOnAction(this::deleteTourLog);
+        edit.setOnAction(this::editTourLog);
 
         horizontal.getChildren().add(label);
         horizontal.getChildren().add(add);
         horizontal.getChildren().add(delete);
-
-
-        // for modifying it
-        tableView.setEditable(true);
+        
 
         // date/time, comment, difficulty, total time, and rating
+        TableColumn name = new TableColumn("Title");
+        name.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Date>("title"));
         TableColumn date = new TableColumn("Date/Time");
         date.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Date>("dateTime"));
         TableColumn comment = new TableColumn("Comment");
@@ -140,11 +141,14 @@ public class TourOverviewController {
         rating.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Integer>("rating"));
 
         tableView.setItems(data);
-        tableView.getColumns().addAll(date, comment, difficulty, time, rating);
+        tableView.getColumns().addAll(name, date, comment, difficulty, time, rating);
 
         // add data to the table view
         TourDetails.getChildren().add(horizontal);
         TourDetails.getChildren().add(tableView);
+    }
+
+    private void editTourLog(ActionEvent actionEvent) {
     }
 
     private void deleteTourLog(ActionEvent actionEvent) {

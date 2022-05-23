@@ -24,6 +24,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class TourEditForm {
+    int InputError = 0;
+    tourDbHandlerImpl handler = new tourDbHandlerImpl();
 
     //build a new scene to open as a pop up form
     public void showForm(Tour details){
@@ -103,6 +105,10 @@ public class TourEditForm {
         btn.setOnAction(e -> {
             // get values of input
             String title = tourNameField.getText();
+            if(handler.getDetails(title) != null){
+                actiontarget.setText("Title already exists");
+                InputError = 1;
+            }
             if(title.equals("")) title = details.getName();
             String description = descField.getText();
             if(description.equals("")) description = details.getDescription();
@@ -115,14 +121,16 @@ public class TourEditForm {
             // send strings as get parameters to the map api
             // for the get request u need the key ( I created an account on the map api website ):
             // key = FVrDjDoWMVJKy6xoLfkNOVoafr6Z7XoP
-            try {
-                int status = mapAPI.sendRequest(details.getName(), start, end, transport, title, description, "edit");
-                if(status == 0){
-                    actiontarget.setFill(Color.FIREBRICK);
-                    actiontarget.setText("Enter valid Destinations");
+            if(InputError == 0) {
+                try {
+                    int status = mapAPI.sendRequest(details.getName(), start, end, transport, title, description, "edit");
+                    if (status == 0) {
+                        actiontarget.setFill(Color.FIREBRICK);
+                        actiontarget.setText("Enter valid Destinations");
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
-            } catch (IOException ex) {
-                ex.printStackTrace();
             }
 
             // create Tour Object and create Request to add a new Tour to DB

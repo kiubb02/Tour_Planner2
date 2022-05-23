@@ -8,8 +8,6 @@ import java.sql.Time;
 public class TourLog
 {
     @Getter @Setter
-    private int id;
-    @Getter @Setter
     private Time date;
     @Getter @Setter
     private Time time;
@@ -17,6 +15,7 @@ public class TourLog
     private String comment;
     @Getter @Setter
     private String difficulty;
+    // Hard, Moderate, Easy
     @Getter @Setter
     private int totalTime;
     @Getter @Setter

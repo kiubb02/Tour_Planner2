@@ -35,6 +35,7 @@ public class TourOverviewController {
     public HBox Tours;
     @FXML
     private ListView myListView;
+    TableView tableView = new TableView();
     protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
@@ -71,6 +72,7 @@ public class TourOverviewController {
         TourEditForm form = new TourEditForm();
         form.showForm(details);
         // Tour has now been edited
+        // TODO : add the object to the List View below
         Object tour = mediaOverviewViewModel.addTour();
         myListView.getItems().add(tour);
     }
@@ -89,14 +91,49 @@ public class TourOverviewController {
         // add image and details to Hbox
         createTable(details);
         // add Tour log Table under Hbox => to the Vbox
-        addTourLogs();
+        TourLogsView();
+    }
+
+    public void TourLogsView(){
+        // horizontal box with title and add/delete button
+        HBox horizontal = new HBox();
+        // maybe put that in a gridpane
+        final Label label = new Label("Tour Logs:      ");
+        label.setFont(new Font("Arial", 20));
+
+        Button add = new Button("+");
+        Button delete = new Button("-");
+
+        add.setOnAction(this::createTourLog);
+        delete.setOnAction(this::deleteTourLog);
+
+        horizontal.getChildren().add(label);
+        horizontal.getChildren().add(add);
+        horizontal.getChildren().add(delete);
+
+
+        // for modifying it
+        tableView.setEditable(true);
+
+        // date/time, comment, difficulty, total time, and rating
+        TableColumn date = new TableColumn("Date/Time");
+        TableColumn comment = new TableColumn("Comment");
+        TableColumn difficulty = new TableColumn("Difficulty");
+        TableColumn time = new TableColumn("Time");
+        TableColumn rating = new TableColumn("Rating");
+
+        tableView.getColumns().addAll(date, comment, difficulty, time, rating);
+
+
+        TourDetails.getChildren().add(horizontal);
+        TourDetails.getChildren().add(tableView);
+    }
+
+    private void deleteTourLog(ActionEvent actionEvent) {
 
     }
 
-    public void addTourLogs(){
-        TableView tableView = new TableView();
-        // date/time, comment, difficulty, total time, and rating
-
+    private void createTourLog(ActionEvent actionEvent) {
 
     }
 

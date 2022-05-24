@@ -1,5 +1,3 @@
-// business layer for the tour component
-
 package com.example.tour_planner.layers.data;
 
 import com.example.tour_planner.layers.model.Tour;

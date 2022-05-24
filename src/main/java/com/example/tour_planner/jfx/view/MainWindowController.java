@@ -1,8 +1,8 @@
-package com.example.tour_planner.view;
+package com.example.tour_planner.jfx.view;
 
 
-import com.example.tour_planner.viewmodel.MainWindowViewModel;
-import com.example.tour_planner.viewmodel.TourOverviewViewModel;
+import com.example.tour_planner.jfx.viewmodel.MainWindowViewModel;
+import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,7 +1,7 @@
-package com.example.tour_planner.view;
+package com.example.tour_planner.jfx.view;
 
 
-import com.example.tour_planner.viewmodel.SearchBarViewModel;
+import com.example.tour_planner.jfx.viewmodel.SearchBarViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

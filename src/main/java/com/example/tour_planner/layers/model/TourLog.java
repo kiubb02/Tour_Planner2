@@ -1,4 +1,4 @@
-package com.example.tour_planner.model;
+package com.example.tour_planner.layers.model;
 
 public interface TourLog {
     void createLog();

@@ -1,6 +1,5 @@
-package com.example.tour_planner.model;
+package com.example.tour_planner.layers.model;
 
-import com.example.tour_planner.utils.TransportType;
 import lombok.Getter;
 import lombok.Setter;
 

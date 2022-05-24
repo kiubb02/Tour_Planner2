@@ -1,8 +1,7 @@
-package com.example.tour_planner.viewmodel;
+package com.example.tour_planner.jfx.viewmodel;
 
-import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.model.TourLog;
-import com.example.tour_planner.model.TourLogImpl;
+import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import com.example.tour_planner.utils.db.tourLogDb.tourLogDbHandlerImpl;
 import javafx.collections.FXCollections;

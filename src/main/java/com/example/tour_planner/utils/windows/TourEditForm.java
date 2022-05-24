@@ -2,7 +2,7 @@
 
 package com.example.tour_planner.utils.windows;
 
-import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import javafx.geometry.Insets;

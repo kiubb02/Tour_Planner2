@@ -1,8 +1,6 @@
 package com.example.tour_planner.utils.db.tourLogDb;
 
-import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.model.TourLog;
-import com.example.tour_planner.model.TourLogImpl;
+import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.db.databaseImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

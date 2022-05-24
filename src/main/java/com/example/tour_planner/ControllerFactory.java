@@ -1,11 +1,11 @@
 package com.example.tour_planner;
 
-import com.example.tour_planner.view.MainWindowController;
-import com.example.tour_planner.view.SearchBarController;
-import com.example.tour_planner.view.TourOverviewController;
-import com.example.tour_planner.viewmodel.MainWindowViewModel;
-import com.example.tour_planner.viewmodel.TourOverviewViewModel;
-import com.example.tour_planner.viewmodel.SearchBarViewModel;
+import com.example.tour_planner.jfx.view.MainWindowController;
+import com.example.tour_planner.jfx.view.SearchBarController;
+import com.example.tour_planner.jfx.view.TourOverviewController;
+import com.example.tour_planner.jfx.viewmodel.MainWindowViewModel;
+import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
+import com.example.tour_planner.jfx.viewmodel.SearchBarViewModel;
 
 public class ControllerFactory {
     private final MainWindowViewModel mainWindowViewModel;

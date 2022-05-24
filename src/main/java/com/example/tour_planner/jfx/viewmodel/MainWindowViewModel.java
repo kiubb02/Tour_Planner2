@@ -1,8 +1,4 @@
-package com.example.tour_planner.viewmodel;
-
-import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.viewmodel.SearchBarViewModel;
-import com.example.tour_planner.viewmodel.TourOverviewViewModel;
+package com.example.tour_planner.jfx.viewmodel;
 
 public class MainWindowViewModel {
     private SearchBarViewModel searchBarViewModel;

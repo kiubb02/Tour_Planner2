@@ -1,6 +1,6 @@
-package com.example.tour_planner.model;
+package com.example.tour_planner.layers.model;
 
-import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
+import com.example.tour_planner.layers.model.TourLog;
 import com.example.tour_planner.utils.db.tourLogDb.tourLogDbHandlerImpl;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -9,7 +9,6 @@ import javafx.beans.property.StringProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TourLogImpl implements TourLog

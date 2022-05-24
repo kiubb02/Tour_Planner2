@@ -1,4 +1,4 @@
-package com.example.tour_planner.viewmodel;
+package com.example.tour_planner.jfx.viewmodel;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;

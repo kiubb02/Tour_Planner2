@@ -142,6 +142,8 @@ public class TourLogForm {
                 actiontarget.setText(message);
             } else {
                 if (InputError == 0) {
+                    difficulty = Integer.parseInt(difficulty1);
+                    rating = Integer.parseInt(rat1);
                     Object selectedTour = myList.getSelectionModel().getSelectedItem();
                     TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, selectedTour.toString());
                     newLog.createLog();

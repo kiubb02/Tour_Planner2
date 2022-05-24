@@ -39,8 +39,6 @@ public class SearchBarViewModel {
     }
 
     public void doSearch() {
-        for (var listener : listeners ) {
-            listener.search(searchString.get());
-        }
+        // search through the ListView
     }
 }

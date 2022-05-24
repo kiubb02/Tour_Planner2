@@ -150,6 +150,7 @@ public class TourLogEditForm {
                 if(InputError == 0){
                     // modify a TourLog
                     difficulty = Integer.parseInt(difficulty1);
+                    rating = Integer.parseInt(rat1);
                     TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, tour);
                     newLog.modifyLog(newLog, log.getTitle().getValue());
                 }

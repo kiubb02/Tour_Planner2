@@ -62,7 +62,7 @@ public class mapAPI
         String session = myResponse.getJSONObject("route").getString("sessionId");
         if(distance == 0) return 0;
 
-        String RouteUrl = "https://www.mapquestapi.com/staticmap/v5/map?key="+ session +"&size=600,400@2x";
+        String RouteUrl = "https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&session="+ session +"&size=600,400@2x";
 
         // save Route Img
         saveRouteImage(RouteUrl, title);
@@ -79,8 +79,8 @@ public class mapAPI
     public static void saveRouteImage(String url, String name) throws IOException {
         BufferedImage BufImg = null;
         URL obj = new URL(url);
-        BufImg = ImageIO.read(obj);
+        BufImg = ImageIO.read(obj.openStream());
         FileOutputStream fout =  new FileOutputStream("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
-        ImageIO.write( BufImg, "png", fout);
+        ImageIO.write( BufImg, "jpg", fout);
     }
 }

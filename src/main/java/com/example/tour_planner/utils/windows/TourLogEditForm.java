@@ -1,5 +1,9 @@
 package com.example.tour_planner.utils.windows;
 
+import com.example.tour_planner.layers.business.TourLogService;
+import com.example.tour_planner.layers.business.TourLogServiceImpl;
+import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.layers.model.TourLog;
 import com.example.tour_planner.layers.model.TourLogImpl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,15 +17,26 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class TourLogEditForm {
 
     private DatePicker dateTime;
     int InputError = 0;
     Date date;
+    int difficulty = 0;
+    int rating = 0;
+    ArrayList inputs = new ArrayList();
+    TourLogServiceImpl service = new TourLogServiceImpl();
 
-    public void showForm(TourLogImpl log){
+    public void showForm(TourLogImpl log, String tour){
         VBox vBox = new VBox(); //for now
         //current scene of program
         GridPane grid = new GridPane();
@@ -104,6 +119,34 @@ public class TourLogEditForm {
         final Text actiontarget = new Text();
         actiontarget.setFill(Color.FIREBRICK);
         grid.add(actiontarget, 0, 7);
+
+        btn.setOnAction(e -> {
+            String title = titleField.getText();
+            LocalDate localDate = dateTime.getValue();
+            String totalTime = totalField.getText();
+            String rat1 = (String) cm1.getValue();
+            String difficulty1 = (String) cm2.getValue();
+            String comment = commentField.getText();
+
+            inputs.add(title);
+            inputs.add(localDate);
+            inputs.add(totalTime);
+            inputs.add(rat1);
+            inputs.add(difficulty1);
+            inputs.add(comment);
+            inputs.add(log.getTitle().getValue()); // old title
+
+            String message = service.errorMessage(inputs);
+            if(!message.equals("")){
+                actiontarget.setText(message);
+            } else {
+                // create a TourLog
+                difficulty = Integer.parseInt(difficulty1);
+                TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, tour);
+                newLog.modifyLog(newLog, log.getTitle().getValue());
+            }
+
+        });
 
         stage.setScene(scene);
         stage.show();

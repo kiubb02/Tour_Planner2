@@ -158,8 +158,9 @@ public class TourOverviewController {
 
     private void editTourLog(ActionEvent actionEvent) {
         TourLogImpl selectedLog = mediaOverviewViewModel.getTourLog(tableView);
+        Object selectedTour = mediaOverviewViewModel.getTour(myListView);
         TourLogEditForm form = new TourLogEditForm();
-        form.showForm(selectedLog);
+        form.showForm(selectedLog, selectedTour.toString());
 
         // now we need to refresh the tableview
         tableView.refresh();

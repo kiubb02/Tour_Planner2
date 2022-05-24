@@ -9,8 +9,9 @@ public interface TourLogDao {
     // --- TOUR LOG MODIFICATION ---
     int createTourLog(TourLogImpl tour);
     int deleteTourLog(TourLogImpl tour);
-    int modifyTourLog(TourLogImpl tour);
+    int modifyTourLog(TourLogImpl tour, String oldTitle);
     // TOUR LOG DETAILS
     ArrayList<TourLogImpl> getTourLog(TourLogImpl tourlog);
     ObservableList<TourLogImpl> getTourLogs(String tourName);
+    boolean titleExist(String title);
 }

@@ -71,4 +71,9 @@ public class TourLogImpl implements TourLog
 
     @Override
     public void deleteTourLog(){handler.deleteTourLog(this); }
+
+    @Override
+    public void modifyLog(TourLogImpl log, String oldTitle) {
+        handler.modifyTourLog(log, oldTitle);
+    }
 }

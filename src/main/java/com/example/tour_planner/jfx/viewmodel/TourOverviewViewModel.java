@@ -56,4 +56,8 @@ public class TourOverviewViewModel {
         TourLogImpl tourLog = tableView.getSelectionModel().getSelectedItem();
         tourLog.deleteTourLog();
     }
+
+    public Object getTour(ListView myListView) {
+        return myListView.getSelectionModel().getSelectedItem();
+    }
 }

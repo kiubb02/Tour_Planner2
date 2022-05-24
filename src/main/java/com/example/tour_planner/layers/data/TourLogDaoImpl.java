@@ -67,8 +67,31 @@ public class TourLogDaoImpl implements TourLogDao {
     }
 
     @Override
-    public int modifyTourLog(TourLogImpl tour) {
-        return 0;
+    public int modifyTourLog(TourLogImpl tour, String oldTitle) {
+        try
+        {
+            // ----- PREPARED STATEMENT ----- //
+            PreparedStatement stmt = conn.prepareStatement("""
+                    UPDATE log
+                    SET "date" = ?, "comment" = ?, "difficulty" = ?, "time" = ?, "rating" = ?, "tourName" = ?, "title" = ?
+                    WHERE title = ?;
+            """);
+            // ----- SET VAL ----- //
+            stmt.setDate(1, new java.sql.Date(tour.getDateTime().getTime()));
+            stmt.setString(2, tour.getComment().get());
+            stmt.setInt(3, tour.getDifficulty().getValue());
+            stmt.setString(4, tour.getTotalTime().get());
+            stmt.setInt(5, tour.getRating().getValue());
+            stmt.setString(6, tour.getTour());
+            stmt.setString(7, tour.getTitle().get());
+            stmt.setString(8, oldTitle);
+            stmt.executeUpdate();
+
+            // ----- CLOSE ----- //
+            stmt.close();
+            return 1;
+        } catch (SQLException e) { e.printStackTrace(); }
+        return 1;
     }
 
     @Override
@@ -113,5 +136,28 @@ public class TourLogDaoImpl implements TourLogDao {
         } catch (SQLException e) { e.printStackTrace(); }
 
         return list;
+    }
+
+    @Override
+    public boolean titleExist(String title) {
+
+        try{
+            PreparedStatement stmt = conn.prepareStatement("""
+                    SELECT *
+                    FROM log
+                    WHERE "title" = ?
+        """);
+
+            stmt.setString(1, title);
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return false;
+            }
+
+            return true;
+
+        }  catch (SQLException e) { e.printStackTrace(); }
+
+        return false;
     }
 }

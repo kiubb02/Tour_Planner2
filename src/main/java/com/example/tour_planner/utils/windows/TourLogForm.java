@@ -143,7 +143,6 @@ public class TourLogForm {
                 InputError = 1;
             }
 
-            System.out.println(totalTime);
 
             // create Tour Log instant
             if(InputError == 0){

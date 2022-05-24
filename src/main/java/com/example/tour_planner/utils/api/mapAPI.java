@@ -2,17 +2,23 @@ package com.example.tour_planner.utils.api;
 
 // Tour class
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
 
 //JSONObject
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
+import javafx.scene.image.Image;
 import org.json.JSONObject;
+
+import javax.imageio.ImageIO;
 
 public class mapAPI
 {
@@ -53,7 +59,13 @@ public class mapAPI
         JSONObject myResponse = new JSONObject(response.toString());
         float distance = myResponse.getJSONObject("route").getFloat("distance");
         String duration = myResponse.getJSONObject("route").getString("formattedTime");
+        String session = myResponse.getJSONObject("route").getString("sessionId");
         if(distance == 0) return 0;
+
+        String RouteUrl = "https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&session="+ session +"&size=600,400@2x";
+
+        // save Route Img
+        saveRouteImage(RouteUrl, title);
 
         // if distance is 0 ==> it is not possible to take the route that way , let the user re-enter everything
         Tour newTour = new Tour(title, description, start, end, transport, distance, duration);
@@ -62,5 +74,13 @@ public class mapAPI
         if(Objects.equals(mode, "edit")) handler.modifyTour(oldName, newTour);
         return 1; // cause everything is alright
 
+    }
+
+    public static void saveRouteImage(String url, String name) throws IOException {
+        BufferedImage BufImg = null;
+        URL obj = new URL(url);
+        BufImg = ImageIO.read(obj.openStream());
+        FileOutputStream fout =  new FileOutputStream("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
+        ImageIO.write( BufImg, "jpg", fout);
     }
 }

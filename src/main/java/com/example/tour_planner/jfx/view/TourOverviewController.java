@@ -19,6 +19,8 @@ import javafx.scene.control.*;
 
 import com.example.tour_planner.utils.windows.TourForm;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -27,6 +29,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -93,7 +97,7 @@ public class TourOverviewController {
     }
 
     // show tour details on click
-    public void showTour(MouseEvent mouseEvent) {
+    public void showTour(MouseEvent mouseEvent) throws FileNotFoundException {
         // clear window
         TourDetails.getChildren().clear();
         // clear table
@@ -178,8 +182,14 @@ public class TourOverviewController {
         tableView.refresh();
     }
 
-    public void createTable(Tour details){
+    public void createTable(Tour details) throws FileNotFoundException {
         HBox horizontal = new HBox();
+
+        FileInputStream input = new FileInputStream("src/main/java/com/example/tour_planner/utils/maps/"+details.getName()+"_map.jpg");
+        Image image = new Image(input);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(300);
+        imageView.setFitWidth(300);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -229,8 +239,7 @@ public class TourOverviewController {
         edit.setOnAction(this::onButtonEdit);
 
         // first add image to Hbox
-
-
+        horizontal.getChildren().add(imageView);
         // Then add the grid
         horizontal.getChildren().add(grid);
 

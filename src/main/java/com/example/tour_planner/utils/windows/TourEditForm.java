@@ -2,9 +2,9 @@
 
 package com.example.tour_planner.utils.windows;
 
+import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
-import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -25,7 +25,7 @@ import java.io.IOException;
 
 public class TourEditForm {
     int InputError = 0;
-    tourDbHandlerImpl handler = new tourDbHandlerImpl();
+    TourDaoImpl handler = new TourDaoImpl();
 
     //build a new scene to open as a pop up form
     public void showForm(Tour details){

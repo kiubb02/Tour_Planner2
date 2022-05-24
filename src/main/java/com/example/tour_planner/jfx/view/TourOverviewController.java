@@ -94,9 +94,17 @@ public class TourOverviewController {
 
     // show tour details on click
     public void showTour(MouseEvent mouseEvent) {
+        // clear window
+        TourDetails.getChildren().clear();
+        // clear table
+        if(tableView.getItems() != null) tableView.getItems().clear();
+        tableView.getColumns().clear();
+        // clear data
+        if(data != null) data.clear();
+
         // delete previous children of the Vbox
         data = mediaOverviewViewModel.getTourLogList(myListView);
-        TourDetails.getChildren().clear();
+
         Tour details = mediaOverviewViewModel.getDetails(myListView);
         // add image and details to Hbox
         createTable(details);
@@ -122,6 +130,7 @@ public class TourOverviewController {
         horizontal.getChildren().add(label);
         horizontal.getChildren().add(add);
         horizontal.getChildren().add(delete);
+        horizontal.getChildren().add(edit);
         
 
         // date/time, comment, difficulty, total time, and rating

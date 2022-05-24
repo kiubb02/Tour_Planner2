@@ -1,7 +1,7 @@
 package com.example.tour_planner.layers.model;
 
+import com.example.tour_planner.layers.data.TourLogDaoImpl;
 import com.example.tour_planner.layers.model.TourLog;
-import com.example.tour_planner.utils.db.tourLogDb.tourLogDbHandlerImpl;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class TourLogImpl implements TourLog
 {
-    private tourLogDbHandlerImpl handler = new tourLogDbHandlerImpl();
+    private TourLogDaoImpl handler = new TourLogDaoImpl();
     @Getter @Setter
     public Date dateTime;
     @Setter @Getter

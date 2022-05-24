@@ -72,8 +72,7 @@ public class TourOverviewController {
         // show new window
         form.showForm();
         // TODO : add the object to the List View below
-        Object tour = mediaOverviewViewModel.addTour();
-        myListView.getItems().add(tour);
+        initialize();
     }
 
     public void onButtonEdit(ActionEvent actionEvent){
@@ -83,14 +82,14 @@ public class TourOverviewController {
         form.showForm(details);
         // Tour has now been edited
         // TODO : add the object to the List View below
-        Object tour = mediaOverviewViewModel.addTour();
-        myListView.getItems().add(tour);
+        initialize();
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
         Object selectedTour = mediaOverviewViewModel.deleteTour(myListView);
         //delete element from list view
         myListView.getItems().remove(selectedTour);
+        initialize();
     }
 
     // show tour details on click
@@ -168,11 +167,15 @@ public class TourOverviewController {
 
     private void deleteTourLog(ActionEvent actionEvent) {
         mediaOverviewViewModel.deleteTourLog(tableView);
+        // now we need to refresh the tableview
+        tableView.refresh();
     }
 
     private void createTourLog(ActionEvent actionEvent) {
         TourLogForm form = new TourLogForm();
         form.showForm(myListView);
+        // now we need to refresh the tableview
+        tableView.refresh();
     }
 
     public void createTable(Tour details){
@@ -226,6 +229,7 @@ public class TourOverviewController {
         edit.setOnAction(this::onButtonEdit);
 
         // first add image to Hbox
+
 
         // Then add the grid
         horizontal.getChildren().add(grid);

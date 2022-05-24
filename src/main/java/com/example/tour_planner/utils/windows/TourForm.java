@@ -2,7 +2,7 @@
 
 package com.example.tour_planner.utils.windows;
 
-import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
+import com.example.tour_planner.layers.data.TourDaoImpl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -30,7 +30,7 @@ public class TourForm {
     // create a Map API Object
     mapAPI map = new mapAPI();
     int InputError = 0; //1 if error exists
-    tourDbHandlerImpl handler = new tourDbHandlerImpl();
+    TourDaoImpl handler = new TourDaoImpl();
 
     //build a new scene to open as a pop up form
     public void showForm(){

@@ -1,5 +1,6 @@
 package com.example.tour_planner.utils.windows;
 
+import com.example.tour_planner.layers.business.TourLogServiceImpl;
 import com.example.tour_planner.layers.model.TourLogImpl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -25,6 +27,8 @@ public class TourLogForm {
     int difficulty = 0;
     int rating = 0;
     Date date;
+    ArrayList inputs = new ArrayList();
+    TourLogServiceImpl service = new TourLogServiceImpl();
 
     public void showForm(ListView myList) {
         VBox vBox = new VBox(); //for now
@@ -119,37 +123,29 @@ public class TourLogForm {
                 date = Date.from(instant);
             }
             String totalTime = totalField.getText();
-            if(totalTime.equals("")){
-                actiontarget.setText("Enter total Time");
-                InputError = 1;
-            }
             String rat1 = (String) cm1.getValue();
-            if(rat1 == null){
-                actiontarget.setText("Choose Rating");
-                InputError = 1;
-            } else {
-                rating = Integer.parseInt(rat1);
-            }
             String difficulty1 = (String) cm2.getValue();
-            if(difficulty1 == null){
-                actiontarget.setText("Choose Difficulty");
-                InputError = 1;
-            } else {
-                difficulty = Integer.parseInt(difficulty1);
-            }
             String comment = commentField.getText();
-            if(comment.equals("")){
-                actiontarget.setText("Enter Comment");
-                InputError = 1;
-            }
 
-            System.out.println(totalTime);
+            inputs.add(title);
+            inputs.add(localDate);
+            inputs.add(totalTime);
+            inputs.add(rat1);
+            inputs.add(difficulty1);
+            inputs.add(comment);
+            inputs.add("create144");
+
 
             // create Tour Log instant
-            if(InputError == 0){
-                Object selectedTour = myList.getSelectionModel().getSelectedItem();
-                TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, selectedTour.toString());
-                newLog.createLog();
+            String message = service.errorMessage(inputs);
+            if(!message.equals("")){
+                actiontarget.setText(message);
+            } else {
+                if (InputError == 0) {
+                    Object selectedTour = myList.getSelectionModel().getSelectedItem();
+                    TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, selectedTour.toString());
+                    newLog.createLog();
+                }
             }
         });
 

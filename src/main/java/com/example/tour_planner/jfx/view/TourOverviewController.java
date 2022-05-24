@@ -4,6 +4,7 @@ package com.example.tour_planner.jfx.view;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.windows.TourEditForm;
+import com.example.tour_planner.utils.windows.TourLogEditForm;
 import com.example.tour_planner.utils.windows.TourLogForm;
 import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.ListProperty;
@@ -18,6 +19,8 @@ import javafx.scene.control.*;
 
 import com.example.tour_planner.utils.windows.TourForm;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -26,6 +29,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -71,8 +76,7 @@ public class TourOverviewController {
         // show new window
         form.showForm();
         // TODO : add the object to the List View below
-        Object tour = mediaOverviewViewModel.addTour();
-        myListView.getItems().add(tour);
+        initialize();
     }
 
     public void onButtonEdit(ActionEvent actionEvent){
@@ -82,21 +86,29 @@ public class TourOverviewController {
         form.showForm(details);
         // Tour has now been edited
         // TODO : add the object to the List View below
-        Object tour = mediaOverviewViewModel.addTour();
-        myListView.getItems().add(tour);
+        initialize();
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
         Object selectedTour = mediaOverviewViewModel.deleteTour(myListView);
         //delete element from list view
         myListView.getItems().remove(selectedTour);
+        initialize();
     }
 
     // show tour details on click
-    public void showTour(MouseEvent mouseEvent) {
+    public void showTour(MouseEvent mouseEvent) throws FileNotFoundException {
+        // clear window
+        TourDetails.getChildren().clear();
+        // clear table
+        if(tableView.getItems() != null) tableView.getItems().clear();
+        tableView.getColumns().clear();
+        // clear data
+        if(data != null) data.clear();
+
         // delete previous children of the Vbox
         data = mediaOverviewViewModel.getTourLogList(myListView);
-        TourDetails.getChildren().clear();
+
         Tour details = mediaOverviewViewModel.getDetails(myListView);
         // add image and details to Hbox
         createTable(details);
@@ -126,6 +138,7 @@ public class TourOverviewController {
         horizontal.getChildren().add(label);
         horizontal.getChildren().add(add);
         horizontal.getChildren().add(delete);
+        horizontal.getChildren().add(edit);
         
 
         // date/time, comment, difficulty, total time, and rating
@@ -151,19 +164,36 @@ public class TourOverviewController {
     }
 
     private void editTourLog(ActionEvent actionEvent) {
+        TourLogImpl selectedLog = mediaOverviewViewModel.getTourLog(tableView);
+        Object selectedTour = mediaOverviewViewModel.getTour(myListView);
+        TourLogEditForm form = new TourLogEditForm();
+        form.showForm(selectedLog, selectedTour.toString());
+
+        // now we need to refresh the tableview
+        tableView.refresh();
     }
 
     private void deleteTourLog(ActionEvent actionEvent) {
         mediaOverviewViewModel.deleteTourLog(tableView);
+        // now we need to refresh the tableview
+        tableView.refresh();
     }
 
     private void createTourLog(ActionEvent actionEvent) {
         TourLogForm form = new TourLogForm();
         form.showForm(myListView);
+        // now we need to refresh the tableview
+        tableView.refresh();
     }
 
-    public void createTable(Tour details){
+    public void createTable(Tour details) throws FileNotFoundException {
         HBox horizontal = new HBox();
+
+        FileInputStream input = new FileInputStream("src/main/java/com/example/tour_planner/utils/maps/"+details.getName()+"_map.jpg");
+        Image image = new Image(input);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(300);
+        imageView.setFitWidth(300);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -213,7 +243,7 @@ public class TourOverviewController {
         edit.setOnAction(this::onButtonEdit);
 
         // first add image to Hbox
-
+        horizontal.getChildren().add(imageView);
         // Then add the grid
         horizontal.getChildren().add(grid);
 

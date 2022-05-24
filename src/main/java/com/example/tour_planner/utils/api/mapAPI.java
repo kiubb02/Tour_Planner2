@@ -11,15 +11,19 @@ import java.sql.SQLOutput;
 import java.util.Objects;
 
 //JSONObject
+import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
-import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import javafx.scene.image.Image;
 import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 
 public class mapAPI
+
 {
+
+    private static TourDaoImpl handler = new TourDaoImpl();
+
     public static int sendRequest(String oldName, String start, String end, String transport,String title,String description, String mode) throws IOException {
         System.out.println(end);
         System.out.println(start);
@@ -67,7 +71,6 @@ public class mapAPI
 
         // if distance is 0 ==> it is not possible to take the route that way , let the user re-enter everything
         Tour newTour = new Tour(title, description, start, end, transport, distance, duration);
-        tourDbHandlerImpl handler = new tourDbHandlerImpl();
         if(Objects.equals(mode, "create")) handler.createTour(newTour);
         if(Objects.equals(mode, "edit")) handler.modifyTour(oldName, newTour);
         return 1; // cause everything is alright

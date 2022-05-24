@@ -115,6 +115,10 @@ public class TourOverviewController {
         Button delete = new Button("-");
         Button edit = new Button("Edit");
 
+        add.setStyle("-fx-background-color: pink; -fx-text-fill: white;");
+        delete.setStyle("-fx-background-color: pink; -fx-text-fill: white;");
+        edit.setStyle("-fx-background-color: pink; -fx-text-fill: white;");
+
         add.setOnAction(this::createTourLog);
         delete.setOnAction(this::deleteTourLog);
         edit.setOnAction(this::editTourLog);

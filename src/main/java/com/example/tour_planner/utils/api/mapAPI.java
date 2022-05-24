@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.Objects;
 
 //JSONObject
-import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
 import org.json.JSONObject;
 

@@ -1,6 +1,6 @@
 package com.example.tour_planner.utils.windows;
 
-import com.example.tour_planner.model.TourLogImpl;
+import com.example.tour_planner.layers.model.TourLogImpl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

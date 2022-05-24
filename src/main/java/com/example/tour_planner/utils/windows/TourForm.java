@@ -3,8 +3,6 @@
 package com.example.tour_planner.utils.windows;
 
 import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,19 +17,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 // Tour class
-import com.example.tour_planner.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 //JSONObject
 // TODO: add JSONObject as valid import
-import org.json.JSONObject;
+
 
 public class TourForm {
 

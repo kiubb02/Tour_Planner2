@@ -1,8 +1,6 @@
 package com.example.tour_planner.utils.db.tourDb;
-import com.example.tour_planner.model.Tour;
+import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.db.databaseImpl;
-import javafx.scene.control.ListView;
-import org.json.JSONObject;
 
 import java.sql.*;
 import java.util.ArrayList;

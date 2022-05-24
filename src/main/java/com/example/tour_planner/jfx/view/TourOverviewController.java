@@ -1,12 +1,11 @@
-package com.example.tour_planner.view;
+package com.example.tour_planner.jfx.view;
 
 
-import com.example.tour_planner.model.Tour;
-import com.example.tour_planner.model.TourLogImpl;
-import com.example.tour_planner.utils.db.tourDb.tourDbHandlerImpl;
+import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.windows.TourEditForm;
 import com.example.tour_planner.utils.windows.TourLogForm;
-import com.example.tour_planner.viewmodel.TourOverviewViewModel;
+import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -26,7 +25,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;

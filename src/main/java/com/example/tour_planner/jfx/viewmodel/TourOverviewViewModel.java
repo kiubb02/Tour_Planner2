@@ -22,6 +22,10 @@ public class TourOverviewViewModel {
         return details;
     }
 
+    public TourLogImpl getTourLog(TableView<TourLogImpl> tableView){
+        // get selected item
+        return tableView.getSelectionModel().getSelectedItem();
+    }
 
     public Object deleteTour(ListView myListView) {
         // get selected tour

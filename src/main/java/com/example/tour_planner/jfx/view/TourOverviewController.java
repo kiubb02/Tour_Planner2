@@ -4,6 +4,7 @@ package com.example.tour_planner.jfx.view;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.windows.TourEditForm;
+import com.example.tour_planner.utils.windows.TourLogEditForm;
 import com.example.tour_planner.utils.windows.TourLogForm;
 import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.ListProperty;
@@ -156,6 +157,12 @@ public class TourOverviewController {
     }
 
     private void editTourLog(ActionEvent actionEvent) {
+        TourLogImpl selectedLog = mediaOverviewViewModel.getTourLog(tableView);
+        TourLogEditForm form = new TourLogEditForm();
+        form.showForm(selectedLog);
+
+        // now we need to refresh the tableview
+        tableView.refresh();
     }
 
     private void deleteTourLog(ActionEvent actionEvent) {

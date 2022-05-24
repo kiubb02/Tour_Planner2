@@ -178,8 +178,8 @@ public class tourDbHandlerImpl implements tourDbHandler
                 //details = new JSONObject(string);
                 tour = new Tour(title, desc, from, to, transport, dist, duration);
             }
-
-
+            stmt.close();
+            conn.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
@@ -234,7 +234,7 @@ public class tourDbHandlerImpl implements tourDbHandler
 
         try{
             PreparedStatement stmt = conn.prepareStatement(
-                    " SELECT * FROM tour ORDER BY id DESC LIMIT 1 "
+                    " SELECT * FROM tour ORDER BY id DESC LIMIT 1;"
             );
 
             ResultSet res = stmt.executeQuery();
@@ -256,8 +256,8 @@ public class tourDbHandlerImpl implements tourDbHandler
 
                 latest = tour;
             }
-
-
+            stmt.close();
+            conn.close();
         } catch (SQLException e) { e.printStackTrace(); }
 
         return latest;

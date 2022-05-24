@@ -3,13 +3,11 @@ package com.example.tour_planner.utils.api;
 // Tour class
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.Objects;
 
 //JSONObject
@@ -82,5 +80,12 @@ public class mapAPI
         BufImg = ImageIO.read(obj.openStream());
         FileOutputStream fout =  new FileOutputStream("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
         ImageIO.write( BufImg, "jpg", fout);
+    }
+
+    public void deleteRouteImage(String name)
+    {
+        File RouteImg = new File("src/main/java/com/example/tour_planner/utils/maps/\"+ name + \"_map.jpg");
+        if (RouteImg.delete()) { System.out.println("Route Image of " + name + "successfully deleted"); }
+        else { System.out.println("Route Image of " + name + " could not be deleted"); }
     }
 }

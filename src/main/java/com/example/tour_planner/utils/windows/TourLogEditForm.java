@@ -123,6 +123,13 @@ public class TourLogEditForm {
         btn.setOnAction(e -> {
             String title = titleField.getText();
             LocalDate localDate = dateTime.getValue();
+            if(localDate == null){
+                actiontarget.setText("Choose Date");
+                InputError = 1;
+            } else {
+                Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+                date = Date.from(instant);
+            }
             String totalTime = totalField.getText();
             String rat1 = (String) cm1.getValue();
             String difficulty1 = (String) cm2.getValue();
@@ -140,10 +147,12 @@ public class TourLogEditForm {
             if(!message.equals("")){
                 actiontarget.setText(message);
             } else {
-                // create a TourLog
-                difficulty = Integer.parseInt(difficulty1);
-                TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, tour);
-                newLog.modifyLog(newLog, log.getTitle().getValue());
+                if(InputError == 0){
+                    // modify a TourLog
+                    difficulty = Integer.parseInt(difficulty1);
+                    TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, tour);
+                    newLog.modifyLog(newLog, log.getTitle().getValue());
+                }
             }
 
         });

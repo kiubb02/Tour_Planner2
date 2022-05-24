@@ -35,10 +35,6 @@ public class TourLogServiceImpl implements TourLogService{
             error.add("title");
             error.add(0);
         }
-        if(validateDate((Date) inputs.get(1)) == 0){
-            error.add("date");
-            error.add(0);
-        }
         if(validateTime(inputs.get(2).toString()) == 0){
             error.add("time");
             error.add(0);
@@ -64,8 +60,9 @@ public class TourLogServiceImpl implements TourLogService{
     @Override
     public int validateTitle(String title, String oldTitle) {
         // check if the title already exists or not
+
         if(title.equals("")) return 0;
-        if(title.equals(oldTitle)){
+        if(title.equals(oldTitle) && !oldTitle.equals("create144")){
             return 1;
         } else {
             if(handlerLog.titleExist(title)) return 0;

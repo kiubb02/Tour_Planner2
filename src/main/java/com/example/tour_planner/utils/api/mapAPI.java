@@ -44,8 +44,8 @@ public class mapAPI
         int responseCode = con.getResponseCode();
 
         // add that to the Logger instead of a system out print
-        System.out.println("\nSending 'GET' request to URL : " + url);
-        System.out.println("Response Code : " + responseCode);
+        logger.debug("\nSending 'GET' request to URL : " + url);
+        logger.debug("Response Code : " + responseCode);
 
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
@@ -60,7 +60,7 @@ public class mapAPI
         in.close();
 
         // get the Response => response is a JSON object
-        System.out.println("Response : " + response);
+        logger.debug("Response : " + response);
 
         // get the json object
         JSONObject myResponse = new JSONObject(response.toString());

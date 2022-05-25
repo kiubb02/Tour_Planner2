@@ -13,6 +13,6 @@ public interface TourService {
     // for editing
     ArrayList validateInputEdit(ArrayList inputs, Tour details);
 
-    int calulateChildfriendl();
-    int calculatePopularity();
+    int calulateChildfriendl(String title);
+    int calculatePopularity(String title);
 }

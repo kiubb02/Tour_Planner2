@@ -16,4 +16,6 @@ public interface TourDao {
     ArrayList<Tour> getTourList();
     // Get latest tour
     Object latestTour();
+    int getSumRating(String title);
+    int getSumDifficulty(String title);
 }

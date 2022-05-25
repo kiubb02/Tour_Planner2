@@ -75,12 +75,16 @@ public class TourServiceImpl implements TourService{
     }
 
     @Override
-    public int calulateChildfriendl() {
-        return 0;
+    public int calulateChildfriendl(String title) {
+        int popularity = 0;
+        int sumDifficulty = handler.getSumDifficulty(title);
+        return popularity;
     }
 
     @Override
-    public int calculatePopularity() {
-        return 0;
+    public int calculatePopularity(String title) {
+        int popularity = 0;
+        int sumRating = handler.getSumRating(title);
+        return popularity;
     }
 }

@@ -235,4 +235,60 @@ public class TourDaoImpl implements TourDao {
 
         return latest;
     }
+
+    @Override
+    public int getSumRating(String title) {
+        int sum = 0;
+        try{
+            PreparedStatement stmt = conn.prepareStatement(
+                    """
+                     SELECT SUM(rating) 
+                     FROM log 
+                     WHERE "tourName" = ?;
+            """
+            );
+
+            stmt.setString(1, title);
+
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return 0;
+            }
+
+            while (res.next()) {
+                int c = res.getInt(1);
+                sum = sum + c;
+            }
+
+            stmt.close();
+        } catch (SQLException e) { logger.warn(e.toString()); }
+
+        return sum;
+    }
+
+    @Override
+    public int getSumDifficulty(String title) {
+        int sum = 0;
+        try{
+            PreparedStatement stmt = conn.prepareStatement(
+                    " SELECT SUM(difficulty) FROM log WHERE title = ?;"
+            );
+
+            stmt.setString(1, title);
+
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return 0;
+            }
+
+            while (res.next()) {
+                int c = res.getInt(1);
+                sum = sum + c;
+            }
+
+            stmt.close();
+        } catch (SQLException e) { logger.warn(e.toString()); }
+
+        return sum;
+    }
 }

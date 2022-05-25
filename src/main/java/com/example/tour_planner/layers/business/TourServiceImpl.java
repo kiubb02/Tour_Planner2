@@ -78,6 +78,7 @@ public class TourServiceImpl implements TourService{
     public int calulateChildfriendl(String title) {
         int popularity = 0;
         int sumDifficulty = handler.getSumDifficulty(title);
+        popularity = sumDifficulty % 6;
         return popularity;
     }
 
@@ -85,6 +86,7 @@ public class TourServiceImpl implements TourService{
     public int calculatePopularity(String title) {
         int popularity = 0;
         int sumRating = handler.getSumRating(title);
+        popularity = sumRating % 6;
         return popularity;
     }
 }

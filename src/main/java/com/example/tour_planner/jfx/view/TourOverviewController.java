@@ -55,7 +55,6 @@ public class TourOverviewController {
     @FXML
     private final TourOverviewViewModel mediaOverviewViewModel;
 
-
     // FUNCTIONS //
 
     public TourOverviewController(TourOverviewViewModel mediaOverviewViewModel) {
@@ -188,40 +187,47 @@ public class TourOverviewController {
         scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
         grid.add(scenetitle, 0, 0, 2, 1);
 
+        Text popularity = new Text("Popularity: " + mediaOverviewViewModel.getPopularity(details.getName()));
+        grid.add(popularity, 0, 1);
+
+        Text friendly = new Text("Childfriendly: " + mediaOverviewViewModel.getFriendly(details.getName()));
+        grid.add(friendly, 1, 1);
+
+
         Label from = new Label("From:");
-        grid.add(from, 0, 1);
+        grid.add(from, 0, 2);
         Text fromField = new Text(details.getFrom());
-        grid.add(fromField, 1, 1);
+        grid.add(fromField, 1, 2);
 
         Label toLabel = new Label("To:");
-        grid.add(toLabel, 0, 2);
+        grid.add(toLabel, 0, 3);
         Text to = new Text(details.getTo());
-        grid.add(to, 1, 2);
+        grid.add(to, 1, 3);
 
         Label transportLabel = new Label("Transport:");
-        grid.add(transportLabel, 0, 3);
+        grid.add(transportLabel, 0, 4);
         Text transport = new Text(details.getTransport());
-        grid.add(transport, 1, 3);
+        grid.add(transport, 1, 4);
 
         Label distlabel = new Label("Distance:");
-        grid.add(distlabel, 0, 4);
+        grid.add(distlabel, 0, 5);
         Double distance = details.getDistance();
         Text dist = new Text(distance.toString());
-        grid.add(dist, 1, 4);
+        grid.add(dist, 1, 5);
 
         Label durLabel = new Label("Duration:");
-        grid.add(durLabel, 0, 5);
+        grid.add(durLabel, 0, 6);
         Text dur = new Text(details.getDuration());
-        grid.add(dur, 1, 5);
+        grid.add(dur, 1, 6);
 
         Label descLabel = new Label("Description:");
-        grid.add(descLabel, 0, 6);
+        grid.add(descLabel, 0, 7);
         Text desc = new Text(details.getDescription());
-        grid.add(desc, 1, 6);
+        grid.add(desc, 1, 7);
 
         // add the edit button before anything else to the TourDetails
         Button edit = new Button("Edit");
-        grid.add(edit, 2, 7);
+        grid.add(edit, 2, 8);
 
         edit.setOnAction(this::onButtonEdit);
 

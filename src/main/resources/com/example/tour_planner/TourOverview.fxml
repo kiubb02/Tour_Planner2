@@ -17,7 +17,6 @@
     <HBox>
         <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour"/>
         <VBox fx:id="TourDetails">
-
         </VBox>
     </HBox>
 

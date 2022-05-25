@@ -1,5 +1,6 @@
 package com.example.tour_planner.jfx.viewmodel;
 
+import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.data.TourLogDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
@@ -15,6 +16,7 @@ public class TourOverviewViewModel {
 
     TourDaoImpl handler = new TourDaoImpl();
     TourLogDaoImpl handlerLog = new TourLogDaoImpl();
+    TourServiceImpl service = new TourServiceImpl();
 
     public Tour getDetails(ListView myListView) {
         Object selectedTour = myListView.getSelectionModel().getSelectedItem();
@@ -57,5 +59,15 @@ public class TourOverviewViewModel {
 
     public Object getTour(ListView myListView) {
         return myListView.getSelectionModel().getSelectedItem();
+    }
+
+    public String getPopularity(String name) {
+        String pop = String.valueOf(service.calculatePopularity(name));
+        return pop;
+    }
+
+    public String getFriendly(String name) {
+        String friendly = String.valueOf(service.calulateChildfriendl(name));
+        return friendly;
     }
 }

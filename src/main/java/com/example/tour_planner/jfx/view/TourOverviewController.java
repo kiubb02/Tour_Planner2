@@ -67,7 +67,7 @@ public class TourOverviewController {
         // get the new Items and show them in there
         tourList = mediaOverviewViewModel.getTourList();
         myListView.itemsProperty().bind(listProperty);
-        //listProperty.set(FXCollections.observableArrayList(tourList));
+        if(tourList != null) listProperty.set(FXCollections.observableArrayList(tourList));
         //myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 

@@ -49,6 +49,7 @@ public class MainWindowController {
     }
 
     public void exportFile(ActionEvent actionEvent) {
+        // open window with all tours and select one
 
     }
 }

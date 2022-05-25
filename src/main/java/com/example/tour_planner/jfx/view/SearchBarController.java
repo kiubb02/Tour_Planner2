@@ -6,12 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 
 public class SearchBarController {
     @FXML
     public Button searchButton;
     @FXML
     public TextField searchTextField;
+    @FXML
+    public HBox hbox;
 
     private final SearchBarViewModel searchBarViewModel;
 

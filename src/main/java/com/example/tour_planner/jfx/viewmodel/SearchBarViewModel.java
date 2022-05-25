@@ -1,14 +1,22 @@
 package com.example.tour_planner.jfx.viewmodel;
 
+import com.example.tour_planner.layers.data.TourDaoImpl;
+import com.example.tour_planner.layers.model.Tour;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import javafx.collections.FXCollections;
+import javafx.scene.control.ComboBox;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchBarViewModel {
+
+    private final TourDaoImpl handler = new TourDaoImpl();
+
     public interface SearchListener {
         void search(String searchString);
     }
@@ -39,6 +47,6 @@ public class SearchBarViewModel {
     }
 
     public void doSearch() {
-        // search through the ListView
+
     }
 }

@@ -45,7 +45,7 @@ public class TourOverviewController {
     @FXML
     public HBox Tours;
     @FXML
-    private ListView myListView;
+    private ListView myListView = new ListView<>();
     @FXML
     private TableView<TourLogImpl> tableView = new TableView<TourLogImpl>();
     @FXML
@@ -69,10 +69,12 @@ public class TourOverviewController {
     void initialize() {
         // get the new Items and show them in there
         tourList = mediaOverviewViewModel.getTourList();
+        System.out.println(tourList);
         myListView.itemsProperty().bind(listProperty);
         if(tourList != null) listProperty.set(FXCollections.observableArrayList(tourList));
         //myListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
+
 
     public void onButtonAdd(ActionEvent actionEvent) {
         TourForm form = new TourForm();

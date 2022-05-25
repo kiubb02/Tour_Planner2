@@ -10,10 +10,13 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.Objects;
+import java.util.logging.LogManager;
 
 //JSONObject
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.utils.logger.LoggerFactory;
+import com.example.tour_planner.utils.logger.LoggerWrapper;
 import javafx.scene.image.Image;
 import org.json.JSONObject;
 
@@ -24,10 +27,11 @@ public class mapAPI
 {
 
     private static TourDaoImpl handler = new TourDaoImpl();
+    private static final LoggerWrapper logger = LoggerFactory.getLogger();
 
     public static int sendRequest(String oldName, String start, String end, String transport,String title,String description, String mode) throws IOException {
-        System.out.println(end);
-        System.out.println(start);
+        logger.debug(start);
+        logger.debug(end);
 
         // URL for the MAP API
         String url = "https://www.mapquestapi.com/directions/v2/route?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&from="+start+"&to="+end+"&transportMode="+transport+"&routeType="+"";
@@ -99,9 +103,8 @@ public class mapAPI
         ImageIO.write( BufImg, "jpg", fout);
     }
 
-    public void deleteRouteImage(String name)
+    public static void deleteRouteImage(String name)
     {
-        System.out.println("NAME" + name);
         File RouteImg = new File("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
         if (RouteImg.delete()) { System.out.println("Route Image of " + name + "successfully deleted"); }
         else { System.out.println("Route Image of " + name + " could not be deleted"); }

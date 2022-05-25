@@ -2,7 +2,10 @@
 package com.example.tour_planner.layers.data;
 
 import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.utils.api.mapAPI;
 import com.example.tour_planner.utils.db.databaseImpl;
+import com.example.tour_planner.utils.logger.Log4J2Wrapper;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +17,7 @@ public class TourDaoImpl implements TourDao {
 
     // Connection
     private Connection conn = databaseImpl.getInstance().getConnection();
+    private Log4J2Wrapper logger;
 
     @Override
     public void createTour(Tour tour) {
@@ -41,12 +45,7 @@ public class TourDaoImpl implements TourDao {
             }
 
             stmt.close();
-            conn.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return;
+        } catch (SQLException e) { logger.warn(e.toString()); }
     }
 
     @Override
@@ -63,10 +62,8 @@ public class TourDaoImpl implements TourDao {
 
             // ----- CLOSE ----- //
             stmt.close();
-            conn.close();
-            return;
-        } catch (SQLException e) { e.printStackTrace(); }
-        return;
+            mapAPI.deleteRouteImage(tour_name);
+        } catch (SQLException e) { logger.warn(e.toString()); }
     }
 
     @Override
@@ -92,9 +89,7 @@ public class TourDaoImpl implements TourDao {
 
             // ----- CLOSE ----- //
             stmt.close();
-            return;
-        } catch (SQLException e) { e.printStackTrace(); }
-        return;
+        } catch (SQLException e) { logger.warn(e.toString()); }
     }
 
     @Override
@@ -115,27 +110,23 @@ public class TourDaoImpl implements TourDao {
             ArrayList<Tour> TourList = new ArrayList<>();
 
             // ADD TOURS TO LIST
-            while (res.next())
-            {
+            //while (res.next())
+            //{
                 //Tour nTour = new Tour (res.getString(1), res.getString(2), res.getString(3),
                 //        res.getString(4), TransportType.valueOf(res.getString(5)), res.getInt(6),
                 //        res.getInt(7));
                 //TourList.add(nTour);
-            }
+            //}
 
             // ----- CLOSE ----- //
             stmt.close();
-            conn.close();
-
-
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { logger.warn(e.toString()); }
 
         return null;
     }
 
     @Override
     public Tour getDetails(String name) {
-        System.out.println(name);
         Tour tour = null;
 
         try
@@ -170,10 +161,7 @@ public class TourDaoImpl implements TourDao {
             res.close();
             stmt.close();
             //conn.close();
-        }catch(SQLException e){
-            System.out.println(name);
-            e.printStackTrace();
-        }
+        }catch(SQLException e){ logger.warn(e.toString()); }
 
         return tour;
     }
@@ -181,7 +169,6 @@ public class TourDaoImpl implements TourDao {
     @Override
     public ArrayList<Tour> getTourList() {
         ArrayList<Tour> tourList = new ArrayList<>();
-
         try{
             PreparedStatement stmt = conn.prepareStatement("""
                     SELECT *
@@ -207,20 +194,15 @@ public class TourDaoImpl implements TourDao {
 
                 // put into array
                 tourList.add(tour);
-
             }
-
             stmt.close();
-
-        } catch (SQLException e) { e.printStackTrace(); }
-
+        } catch (SQLException e) { logger.warn(e.toString()); }
         return tourList;
     }
 
     @Override
     public Object latestTour() {
         Object latest = new Object();
-
         try{
             PreparedStatement stmt = conn.prepareStatement(
                     " SELECT * FROM tour ORDER BY id DESC LIMIT 1;"
@@ -246,7 +228,7 @@ public class TourDaoImpl implements TourDao {
                 latest = tour;
             }
             stmt.close();
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { logger.warn(e.toString()); }
 
         return latest;
     }

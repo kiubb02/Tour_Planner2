@@ -2,7 +2,9 @@ package com.example.tour_planner.layers.data;
 
 import com.example.tour_planner.layers.data.TourLogDao;
 import com.example.tour_planner.layers.model.TourLogImpl;
+import com.example.tour_planner.utils.api.mapAPI;
 import com.example.tour_planner.utils.db.databaseImpl;
+import com.example.tour_planner.utils.logger.Log4J2Wrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,6 +15,8 @@ public class TourLogDaoImpl implements TourLogDao {
 
     // Connection
     private Connection conn = databaseImpl.getInstance().getConnection();
+    private Log4J2Wrapper logger;
+
 
     @Override
     public int createTourLog(TourLogImpl tourLog) {
@@ -21,7 +25,6 @@ public class TourLogDaoImpl implements TourLogDao {
             PreparedStatement stmt = conn.prepareStatement("""
                     INSERT INTO log("date", "comment", "difficulty", "time", rating, "tourName", "title") VALUES (?, ?,?,?, ?, ?, ?);
                     """);
-
             // ----- SET VAL ----- //
             stmt.setDate(1, new java.sql.Date(tourLog.getDateTime().getTime()));
             stmt.setString(2, tourLog.getComment().get());
@@ -40,10 +43,8 @@ public class TourLogDaoImpl implements TourLogDao {
             }
 
             stmt.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+            return 1;
+        } catch (SQLException e) { logger.warn(e.toString()); }
         return 0;
     }
 
@@ -62,7 +63,7 @@ public class TourLogDaoImpl implements TourLogDao {
             // ----- CLOSE ----- //
             stmt.close();
             return 1;
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { logger.warn(e.toString()); }
         return 0;
     }
 
@@ -90,8 +91,8 @@ public class TourLogDaoImpl implements TourLogDao {
             // ----- CLOSE ----- //
             stmt.close();
             return 1;
-        } catch (SQLException e) { e.printStackTrace(); }
-        return 1;
+        } catch (SQLException e) { logger.warn(e.toString()); }
+        return 0;
     }
 
     @Override
@@ -132,15 +133,13 @@ public class TourLogDaoImpl implements TourLogDao {
             }
 
             stmt.close();
-
-        } catch (SQLException e) { e.printStackTrace(); }
+        } catch (SQLException e) { logger.warn(e.toString()); }
 
         return list;
     }
 
     @Override
     public boolean titleExist(String title) {
-
         try{
             PreparedStatement stmt = conn.prepareStatement("""
                     SELECT *
@@ -155,9 +154,7 @@ public class TourLogDaoImpl implements TourLogDao {
             }
 
             return true;
-
-        }  catch (SQLException e) { e.printStackTrace(); }
-
+        }  catch (SQLException e) { logger.warn(e.toString()); }
         return false;
     }
 }

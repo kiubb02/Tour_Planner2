@@ -9,6 +9,7 @@ import javafx.beans.property.StringProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.SQLException;
 import java.util.Date;
 
 public class TourLogImpl implements TourLog

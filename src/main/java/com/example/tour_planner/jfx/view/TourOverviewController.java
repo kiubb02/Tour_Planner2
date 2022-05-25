@@ -127,10 +127,6 @@ public class TourOverviewController {
         Button delete = new Button("-");
         Button edit = new Button("Edit");
 
-        add.setStyle("-fx-background-color: pink; -fx-text-fill: white;");
-        delete.setStyle("-fx-background-color: pink; -fx-text-fill: white;");
-        edit.setStyle("-fx-background-color: pink; -fx-text-fill: white;");
-
         add.setOnAction(this::createTourLog);
         delete.setOnAction(this::deleteTourLog);
         edit.setOnAction(this::editTourLog);
@@ -139,7 +135,7 @@ public class TourOverviewController {
         horizontal.getChildren().add(add);
         horizontal.getChildren().add(delete);
         horizontal.getChildren().add(edit);
-        
+
 
         // date/time, comment, difficulty, total time, and rating
         TableColumn name = new TableColumn("Title");

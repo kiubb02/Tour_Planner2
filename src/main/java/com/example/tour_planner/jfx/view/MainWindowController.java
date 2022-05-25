@@ -33,7 +33,7 @@ public class MainWindowController {
         Platform.exit();
     }
     public void onMenuHelpAboutClicked(ActionEvent actionEvent) {
-        Alert aboutBox = new Alert(Alert.AlertType.INFORMATION, "Semesterproject BIF4-SWE2\nby Lobna Boutahar and Ina Appeltauer");
+        Alert aboutBox = new Alert(Alert.AlertType.INFORMATION, "Semesterproject BIF4-SWE2\nby Chiara Babiak and Franchezca Meree Cruz");
         aboutBox.setTitle("About TourPlanner");
         aboutBox.showAndWait();
     }

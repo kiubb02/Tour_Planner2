@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.Objects;
 
@@ -66,28 +67,42 @@ public class mapAPI
 
         String RouteUrl = "https://www.mapquestapi.com/staticmap/v5/map?key=6Sl7sHB1l3EjHP83Jftbgz9uffLAlMXx&session="+ session +"&size=600,400@2x";
 
-        // save Route Img
-        saveRouteImage(RouteUrl, title);
-
         // if distance is 0 ==> it is not possible to take the route that way , let the user re-enter everything
         Tour newTour = new Tour(title, description, start, end, transport, distance, duration);
-        if(Objects.equals(mode, "create")) handler.createTour(newTour);
-        if(Objects.equals(mode, "edit")) handler.modifyTour(oldName, newTour);
+        if(Objects.equals(mode, "create"))
+        {
+            handler.createTour(newTour);
+            saveRouteImage(RouteUrl, title, null);
+        }
+        if(Objects.equals(mode, "edit"))
+        {
+            handler.modifyTour(oldName, newTour);
+            saveRouteImage(RouteUrl, title, oldName);
+        }
         return 1; // cause everything is alright
 
     }
 
-    public static void saveRouteImage(String url, String name) throws IOException {
+    public static void saveRouteImage(String url, String name, String oldName) throws IOException {
         BufferedImage BufImg = null;
         URL obj = new URL(url);
         BufImg = ImageIO.read(obj.openStream());
-        FileOutputStream fout =  new FileOutputStream("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
+        FileOutputStream fout = null;
+        if (oldName != null)
+        {
+            File file =  new File("src/main/java/com/example/tour_planner/utils/maps/"+ oldName + "_map.jpg");
+            File newFile = new File("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
+            boolean flag = file.renameTo(newFile);
+            if(flag) System.out.println("NOT CHANGED");
+        }
+        fout =  new FileOutputStream("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
         ImageIO.write( BufImg, "jpg", fout);
     }
 
     public void deleteRouteImage(String name)
     {
-        File RouteImg = new File("src/main/java/com/example/tour_planner/utils/maps/\"+ name + \"_map.jpg");
+        System.out.println("NAME" + name);
+        File RouteImg = new File("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
         if (RouteImg.delete()) { System.out.println("Route Image of " + name + "successfully deleted"); }
         else { System.out.println("Route Image of " + name + " could not be deleted"); }
     }

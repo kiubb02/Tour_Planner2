@@ -1,0 +1,9 @@
+package com.example.tour_planner.utils.css;
+
+        .button
+        {
+            -fx-background-color: pink;
+            -fx-text-fill: white;
+        }
+
+

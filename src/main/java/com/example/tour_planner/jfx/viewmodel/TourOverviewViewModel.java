@@ -28,9 +28,7 @@ public class TourOverviewViewModel {
     }
 
     public Object deleteTour(ListView myListView) {
-        // get selected tour
         Object selectedTour = myListView.getSelectionModel().getSelectedItem();
-        // delete selected tour
         handler.deleteTour(selectedTour.toString());
         return selectedTour;
     }

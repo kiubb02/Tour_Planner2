@@ -50,10 +50,13 @@ public class TourOverviewController {
     private TableView<TourLogImpl> tableView = new TableView<TourLogImpl>();
     @FXML
     private ObservableList<TourLogImpl> data = FXCollections.observableArrayList();
-
+    @FXML
     protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
-
+    @FXML
     private final TourOverviewViewModel mediaOverviewViewModel;
+
+
+    // FUNCTIONS //
 
     public TourOverviewController(TourOverviewViewModel mediaOverviewViewModel) {
         this.mediaOverviewViewModel = mediaOverviewViewModel;
@@ -74,25 +77,19 @@ public class TourOverviewController {
 
     public void onButtonAdd(ActionEvent actionEvent) {
         TourForm form = new TourForm();
-        // show new window
         form.showForm();
-        // TODO : add the object to the List View below
         initialize();
     }
 
     public void onButtonEdit(ActionEvent actionEvent){
-        // get title of selected listview item
         Tour details = mediaOverviewViewModel.getDetails(myListView);
         TourEditForm form = new TourEditForm();
         form.showForm(details);
-        // Tour has now been edited
-        // TODO : add the object to the List View below
         initialize();
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
         Object selectedTour = mediaOverviewViewModel.deleteTour(myListView);
-        //delete element from list view
         myListView.getItems().remove(selectedTour);
         initialize();
     }
@@ -104,16 +101,10 @@ public class TourOverviewController {
         // clear table
         if(tableView.getItems() != null) tableView.getItems().clear();
         tableView.getColumns().clear();
-        // clear data
         if(data != null) data.clear();
-
-        // delete previous children of the Vbox
         data = mediaOverviewViewModel.getTourLogList(myListView);
-
         Tour details = mediaOverviewViewModel.getDetails(myListView);
-        // add image and details to Hbox
-        createTable(details);
-        // add Tour log Table under Hbox => to the Vbox
+        tourView(details);
         TourLogsView();
     }
 
@@ -155,7 +146,6 @@ public class TourOverviewController {
         tableView.setItems(data);
         tableView.getColumns().addAll(name, date, comment, difficulty, time, rating);
 
-        // add data to the table view
         TourDetails.getChildren().add(horizontal);
         TourDetails.getChildren().add(tableView);
     }
@@ -165,25 +155,21 @@ public class TourOverviewController {
         Object selectedTour = mediaOverviewViewModel.getTour(myListView);
         TourLogEditForm form = new TourLogEditForm();
         form.showForm(selectedLog, selectedTour.toString());
-
-        // now we need to refresh the tableview
         tableView.refresh();
     }
 
     private void deleteTourLog(ActionEvent actionEvent) {
         mediaOverviewViewModel.deleteTourLog(tableView);
-        // now we need to refresh the tableview
         tableView.refresh();
     }
 
     private void createTourLog(ActionEvent actionEvent) {
         TourLogForm form = new TourLogForm();
         form.showForm(myListView);
-        // now we need to refresh the tableview
         tableView.refresh();
     }
 
-    public void createTable(Tour details) throws FileNotFoundException {
+    public void tourView(Tour details) throws FileNotFoundException {
         HBox horizontal = new HBox();
 
         FileInputStream input = new FileInputStream("src/main/java/com/example/tour_planner/utils/maps/"+details.getName()+"_map.jpg");

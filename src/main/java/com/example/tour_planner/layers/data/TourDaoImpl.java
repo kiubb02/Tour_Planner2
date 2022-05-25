@@ -5,6 +5,8 @@ import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
 import com.example.tour_planner.utils.db.databaseImpl;
 import com.example.tour_planner.utils.logger.Log4J2Wrapper;
+import com.example.tour_planner.utils.logger.LoggerFactory;
+import com.example.tour_planner.utils.logger.LoggerWrapper;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
@@ -17,10 +19,11 @@ public class TourDaoImpl implements TourDao {
 
     // Connection
     private Connection conn = databaseImpl.getInstance().getConnection();
-    private Log4J2Wrapper logger;
+    private static final LoggerWrapper logger = LoggerFactory.getLogger();
 
     @Override
     public void createTour(Tour tour) {
+        logger.debug("Test message");
         try {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement("""

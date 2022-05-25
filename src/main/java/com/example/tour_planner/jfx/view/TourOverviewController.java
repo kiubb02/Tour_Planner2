@@ -3,6 +3,8 @@ package com.example.tour_planner.jfx.view;
 
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.layers.model.TourLogImpl;
+import com.example.tour_planner.utils.logger.LoggerFactory;
+import com.example.tour_planner.utils.logger.LoggerWrapper;
 import com.example.tour_planner.utils.windows.TourEditForm;
 import com.example.tour_planner.utils.windows.TourLogEditForm;
 import com.example.tour_planner.utils.windows.TourLogForm;
@@ -49,6 +51,7 @@ public class TourOverviewController {
     @FXML
     private ObservableList<TourLogImpl> data = FXCollections.observableArrayList();
 
+    private static final LoggerWrapper logger = LoggerFactory.getLogger();
 
     protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
@@ -64,6 +67,9 @@ public class TourOverviewController {
 
     @FXML
     void initialize() {
+        // test the logger
+        logger.debug("Test hello");
+
         // get the new Items and show them in there
         tourList = mediaOverviewViewModel.getTourList();
         myListView.itemsProperty().bind(listProperty);

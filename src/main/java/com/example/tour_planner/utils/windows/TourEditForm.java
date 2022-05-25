@@ -2,6 +2,8 @@
 
 package com.example.tour_planner.utils.windows;
 
+import com.example.tour_planner.layers.business.TourLogServiceImpl;
+import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
@@ -22,10 +24,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TourEditForm {
-    int InputError = 0;
-    TourDaoImpl handler = new TourDaoImpl();
+
+    ArrayList inputs = new ArrayList();
+    TourServiceImpl service = new TourServiceImpl();
 
     //build a new scene to open as a pop up form
     public void showForm(Tour details){
@@ -99,31 +103,31 @@ public class TourEditForm {
         grid.add(hbBtn, 1, 6);
 
         final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 7);
+        actiontarget.setFill(Color.FIREBRICK);
+        grid.add(actiontarget, 0, 6);
 
         // on click create a new Tour Object with all the input from user
         btn.setOnAction(e -> {
             // get values of input
             String title = tourNameField.getText();
-            if(handler.getDetails(title) != null){
-                actiontarget.setText("Title already exists");
-                InputError = 1;
-            }
-            if(title.equals("")) title = details.getName();
             String description = descField.getText();
-            if(description.equals("")) description = details.getDescription();
             String start = fromField.getText();
-            if(start.equals("")) start = details.getFrom();
             String end = toField.getText();
-            if(end.equals("")) end = details.getTo();
             String transport = (String) transportComboBox.getValue();
 
-            // send strings as get parameters to the map api
-            // for the get request u need the key ( I created an account on the map api website ):
-            // key = FVrDjDoWMVJKy6xoLfkNOVoafr6Z7XoP
-            if(InputError == 0) {
+            inputs.add(title);
+            inputs.add(description);
+            inputs.add(start);
+            inputs.add(end);
+            inputs.add(transport);
+            inputs.add("edit");
+
+            ArrayList output = service.validateInputEdit(inputs, details);
+            if(output == null) {
+                actiontarget.setText("Title already exists");
+            } else {
                 try {
-                    int status = mapAPI.sendRequest(details.getName(), start, end, transport, title, description, "edit");
+                    int status = mapAPI.sendRequest(details.getName(), output.get(2).toString(), output.get(3).toString(), output.get(4).toString(), output.get(0).toString(), output.get(1).toString(), "edit");
                     if (status == 0) {
                         actiontarget.setFill(Color.FIREBRICK);
                         actiontarget.setText("Enter valid Destinations");
@@ -133,7 +137,6 @@ public class TourEditForm {
                 }
             }
 
-            // create Tour Object and create Request to add a new Tour to DB
         });
 
         stage.setScene(scene);

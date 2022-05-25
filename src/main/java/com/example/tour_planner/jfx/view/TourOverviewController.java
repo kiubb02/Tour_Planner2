@@ -51,8 +51,6 @@ public class TourOverviewController {
     @FXML
     private ObservableList<TourLogImpl> data = FXCollections.observableArrayList();
 
-    private static final LoggerWrapper logger = LoggerFactory.getLogger();
-
     protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
@@ -67,9 +65,6 @@ public class TourOverviewController {
 
     @FXML
     void initialize() {
-        // test the logger
-        logger.debug("Test hello");
-
         // get the new Items and show them in there
         tourList = mediaOverviewViewModel.getTourList();
         myListView.itemsProperty().bind(listProperty);

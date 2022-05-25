@@ -13,15 +13,12 @@ import java.util.Locale;
 
 public class TourApplication extends Application {
 
-    private static final LoggerWrapper logger = LoggerFactory.getLogger();
-
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        logger.debug("Test hello");
 
         Parent root = FXMLDependencyInjection.load("MainWindow.fxml", Locale.GERMAN );  // Locale.GERMANY, Locale.ENGLISH
 

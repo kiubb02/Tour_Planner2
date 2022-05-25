@@ -2,6 +2,8 @@
 
 package com.example.tour_planner.utils.windows;
 
+import com.example.tour_planner.layers.business.TourLogService;
+import com.example.tour_planner.layers.business.TourLogServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 import com.example.tour_planner.utils.api.mapAPI;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 //JSONObject
 // TODO: add JSONObject as valid import
@@ -29,8 +32,11 @@ public class TourForm {
 
     // create a Map API Object
     mapAPI map = new mapAPI();
-    int InputError = 0; //1 if error exists
     TourDaoImpl handler = new TourDaoImpl();
+
+    // Input check through Business
+    ArrayList inputs = new ArrayList();
+    TourLogServiceImpl service = new TourLogServiceImpl();
 
     //build a new scene to open as a pop up form
     public void showForm(){
@@ -107,41 +113,23 @@ public class TourForm {
         btn.setOnAction(e -> {
             // get values of input
             String title = tourNameField.getText();
-            // check if the title already exists ==> if yes then dont do the sendRequest
-            if(handler.getDetails(title) != null){
-                actiontarget.setText("Title already exists");
-                InputError = 1;
-            }
-            if(title.equals("")){
-                actiontarget.setText("Enter Title");
-                InputError = 1;
-            }
             String description = descField.getText();
-            if(description.equals("")){
-                actiontarget.setText("Enter Description");
-                InputError = 1;
-            }
             String start = fromField.getText();
-            if(start.equals("")){
-                actiontarget.setText("Enter Start");
-                InputError = 1;
-            }
             String end = toField.getText();
-            if(end.equals("")){
-                actiontarget.setText("Enter Destination");
-                InputError = 1;
-            }
             String transport = (String) transportComboBox.getValue();
-            if(transport.equals("")){
-                actiontarget.setText("Choose Transport");
-                InputError = 1;
-            }
             // if one of those is empty ==> print error message and dont send to map api
 
-            // send strings as get parameters to the map api
-            // for the get request u need the key ( I created an account on the map api website ):
-            // key = FVrDjDoWMVJKy6xoLfkNOVoafr6Z7XoP
-            if(InputError == 0) {
+            inputs.add(title);
+            inputs.add(description);
+            inputs.add(start);
+            inputs.add(end);
+            inputs.add(transport);
+            inputs.add("create144");
+
+            String errorMessage = service.errorMessage(inputs);
+            if(!errorMessage.equals("")){
+                actiontarget.setText(errorMessage);
+            } else {
                 try {
                     int status = mapAPI.sendRequest("old", start, end, transport, title, description, "create");
                     if (status == 0) {

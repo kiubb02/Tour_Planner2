@@ -17,12 +17,14 @@ public class TourLogServiceImpl implements TourLogService{
     @Override
     public String errorMessage(ArrayList input) {
         ArrayList error = validateInput(input);
+
         if(error.get(0).equals("title")) return "Enter valid Title";
         if(error.get(0).equals("date")) return "Enter valid Date";
         if(error.get(0).equals("time")) return "Enter valid Time";
         if(error.get(0).equals("rat")) return "Enter Rating";
         if(error.get(0).equals("diff")) return "Enter Difficulty";
         if(error.get(0).equals("comment")) return "Enter Comment";
+
         return "";
     }
 

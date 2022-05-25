@@ -2,7 +2,16 @@ package com.example.tour_planner.layers.business;
 
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.utils.api.mapAPI;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import java.util.ArrayList;
 
 public class TourServiceImpl implements TourService{
@@ -88,5 +97,43 @@ public class TourServiceImpl implements TourService{
         int sumRating = handler.getSumRating(title);
         popularity = sumRating % 6;
         return popularity;
+    }
+
+    @Override
+    public void importTour(File file) {
+        JSONParser jsonParser = new JSONParser();
+
+        try (FileReader reader = new FileReader(file))
+        {
+            //Read JSON file
+            Object obj = jsonParser.parse(reader);
+
+            JSONArray tourDetails = (JSONArray) obj;
+            tourDetails.forEach( emp -> {
+                try {
+                    createTour( (JSONObject) emp );
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (org.json.simple.parser.ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createTour(JSONObject tours) throws IOException {
+        JSONObject tourObject = (JSONObject) tours.get("tour");
+        String title = (String) tourObject.get("title");
+        String description = (String) tourObject.get("description");
+        String start = (String) tourObject.get("start");
+        String end = (String) tourObject.get("destination");
+        String transport = (String) tourObject.get("transport");
+
+        mapAPI.sendRequest("old", start, end, transport, title, description, "create");
     }
 }

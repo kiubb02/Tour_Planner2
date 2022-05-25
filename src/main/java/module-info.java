@@ -6,6 +6,7 @@ module com.example.tour_planner {
     requires org.json;
     requires java.desktop;
     requires org.apache.logging.log4j;
+    requires json.simple;
 
 
     opens com.example.tour_planner to javafx.fxml;

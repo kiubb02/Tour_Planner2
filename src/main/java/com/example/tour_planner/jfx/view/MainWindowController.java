@@ -1,8 +1,8 @@
 package com.example.tour_planner.jfx.view;
 
-
 import com.example.tour_planner.jfx.viewmodel.MainWindowViewModel;
 import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
+import com.example.tour_planner.utils.windows.FileChooserSample;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,9 +44,8 @@ public class MainWindowController {
     public void importFile(ActionEvent actionEvent) {
         //open file explorer
         Stage stage = new Stage();
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.showOpenDialog(stage);
+        FileChooserSample fileChooserSample = new FileChooserSample();
+        fileChooserSample.start(stage);
     }
 
     public void exportFile(ActionEvent actionEvent) {

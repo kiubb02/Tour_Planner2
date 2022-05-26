@@ -4,6 +4,7 @@ package com.example.tour_planner.utils.windows;
 
 import com.example.tour_planner.layers.business.TourLogService;
 import com.example.tour_planner.layers.business.TourLogServiceImpl;
+import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -36,7 +37,7 @@ public class TourForm {
 
     // Input check through Business
     ArrayList inputs = new ArrayList();
-    TourLogServiceImpl service = new TourLogServiceImpl();
+    TourServiceImpl service = new TourServiceImpl();
 
     //build a new scene to open as a pop up form
     public void showForm(){

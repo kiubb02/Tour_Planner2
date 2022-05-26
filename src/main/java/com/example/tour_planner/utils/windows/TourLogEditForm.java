@@ -71,7 +71,7 @@ public class TourLogEditForm {
         grid.add(totalLable, 0, 3);
 
         TextField totalField = new TextField();
-        totalField.setPromptText(log.getTotalTime().getValue());
+        totalField.setPromptText(String.valueOf(log.getTotalTime().getValue()));
         grid.add(totalField, 1, 3);
 
         // Radio Button for rating
@@ -130,7 +130,7 @@ public class TourLogEditForm {
                 Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
                 date = Date.from(instant);
             }
-            String totalTime = totalField.getText();
+            Float totalTime = Float.valueOf(totalField.getText());
             String rat1 = (String) cm1.getValue();
             String difficulty1 = (String) cm2.getValue();
             String comment = commentField.getText();

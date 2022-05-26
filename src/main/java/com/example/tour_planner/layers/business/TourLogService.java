@@ -11,5 +11,6 @@ public interface TourLogService {
     ArrayList validateInput(ArrayList inputs);
     int validateTitle(String title, String oldTitle);
     int validateDate(Date date);
-    int validateTime(String time);
+    int validateTime(Float time);
+    ArrayList<Float> summarizeTourLogs(String tour);
 }

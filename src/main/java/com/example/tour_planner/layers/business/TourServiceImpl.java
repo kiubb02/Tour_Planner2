@@ -1,11 +1,22 @@
 package com.example.tour_planner.layers.business;
 
 import com.example.tour_planner.layers.data.TourDaoImpl;
+import com.example.tour_planner.layers.data.TourLogDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.api.mapAPI;
 
 import java.io.*;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.element.*;
+import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.simple.JSONArray;
@@ -16,6 +27,8 @@ import java.util.ArrayList;
 public class TourServiceImpl implements TourService{
 
     TourDaoImpl handler = new TourDaoImpl();
+    TourLogDaoImpl handlerLog = new TourLogDaoImpl();
+    TourLogServiceImpl serviceLog = new TourLogServiceImpl();
 
     @Override
     public String errorMessage(ArrayList input) {
@@ -178,7 +191,146 @@ public class TourServiceImpl implements TourService{
     }
 
     @Override
-    public File getFile(File file) {
-        return null;
+    public void generateTourReport(Tour tour) {
+        // get all TourLogs
+        ObservableList<TourLogImpl> tourLogs = handlerLog.getTourLogs(tour.getName());
+
+        Stage stage = new Stage();
+
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter for text files
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf")
+        );
+
+        File file = fileChooser.showSaveDialog(stage); // file we will write into
+        if(file != null){
+            try {
+                PdfDocument pdfDoc = new PdfDocument(new PdfWriter(file));
+                Document doc = new Document(pdfDoc);
+
+                // Tour Details
+                Text titleTour = new Text("Title: " + tour.getName());
+                Paragraph para1 = new Paragraph(titleTour);
+                Text descTour = new Text("Description: " + tour.getDescription());
+                Paragraph para2 = new Paragraph(descTour);
+                Text fromTour = new Text("From: " + tour.getFrom());
+                Paragraph para3 = new Paragraph(fromTour);
+                Text transTour = new Text("To: " + tour.getTransport());
+                Paragraph para4 = new Paragraph(transTour);
+                Text distTour = new Text("Distance: " + tour.getDistance());
+                Paragraph para5 = new Paragraph(distTour);
+                Text durTour = new Text("Duration: " + tour.getDuration());
+                Paragraph para6 = new Paragraph(durTour);
+
+                doc.add(para1);
+                doc.add(para2);
+                doc.add(para3);
+                doc.add(para4);
+                doc.add(para5);
+                doc.add(para6);
+
+                // Tour Logs
+                Table table = new Table(6);
+
+                Cell nameT = new Cell(); // Creating a cell
+                nameT.add(new Paragraph(new Text("Name")));
+                table.addCell(nameT); // Adding cell to the table
+                Cell cell1 = new Cell(); // Creating a cell
+                cell1.add(new Paragraph(new Text("Date")));
+                table.addCell(cell1); // Adding cell to the table
+                Cell cell2 = new Cell(); // Creating a cell
+                cell2.add(new Paragraph(new Text("Comment")));
+                table.addCell(cell2); // Adding cell to the table
+                Cell cell3 = new Cell(); // Creating a cell
+                cell3.add(new Paragraph(new Text("Difficulty")));
+                table.addCell(cell3); // Adding cell to the table
+                Cell cell4 = new Cell(); // Creating a cell
+                cell4.add(new Paragraph(new Text("Time")));
+                table.addCell(cell4); // Adding cell to the table
+                Cell cell5 = new Cell(); // Creating a cell
+                cell5.add(new Paragraph(new Text("Rating")));
+                table.addCell(cell5); // Adding cell to the table
+
+                //iterate through the observeable list
+                for(TourLogImpl log: tourLogs){
+                    Cell nameL = new Cell(); // Creating a cell
+                    nameL.add(new Paragraph(new Text(log.getTitle().get())));
+                    table.addCell(nameL); // Adding cell to the table
+
+                    Cell cell6 = new Cell(); // Creating a cell
+                    cell6.add(new Paragraph(new Text(log.getDateTime().toString())));
+                    table.addCell(cell6); // Adding cell to the table
+
+                    Cell cell7 = new Cell(); // Creating a cell
+                    cell7.add(new Paragraph(new Text(log.getComment().get())));
+                    table.addCell(cell7); // Adding cell to the table
+
+                    Cell cell8 = new Cell(); // Creating a cell
+                    cell8.add(new Paragraph(new Text(String.valueOf(log.getDifficulty().getValue()))));
+                    table.addCell(cell8); // Adding cell to the table
+
+                    Cell cell9 = new Cell(); // Creating a cell
+                    cell9.add(new Paragraph(new Text(String.valueOf(log.getTotalTime().getValue()))));
+                    table.addCell(cell9); // Adding cell to the table
+
+                    Cell cell10 = new Cell(); // Creating a cell
+                    cell10.add(new Paragraph(new Text(String.valueOf(log.getRating().getValue()))));
+                    table.addCell(cell10); // Adding cell to the table
+                }
+
+                doc.add(table);
+                doc.close();
+
+
+            } catch (FileNotFoundException e){
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @Override
+    public void generateSummary(Tour tour) {
+        ArrayList<Float> summaryData = serviceLog.summarizeTourLogs(tour.getName());
+        if(summaryData != null){
+            Stage stage = new Stage();
+
+            FileChooser fileChooser = new FileChooser();
+
+            //Set extension filter for text files
+            fileChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("PDF", "*.pdf")
+            );
+
+            File file = fileChooser.showSaveDialog(stage); // file we will write into
+            if(file != null) {
+                try {
+                    PdfDocument pdfDoc = new PdfDocument(new PdfWriter(file));
+                    Document doc = new Document(pdfDoc);
+
+                    Text titleTour = new Text("Title: " + tour.getName());
+                    Paragraph para1 = new Paragraph(titleTour);
+
+                    // Add the stats
+                    Text stats = new Text("Statistics: ");
+                    Paragraph para2 = new Paragraph(stats);
+
+                    Text avgTime = new Text("Average Time: " + summaryData.get(1));
+                    Paragraph para3 = new Paragraph(avgTime);
+                    Text avgRating = new Text("Average Rating: " + summaryData.get(0));
+                    Paragraph para4 = new Paragraph(avgRating);
+
+                    doc.add(para1);
+                    doc.add(para2);
+                    doc.add(para3);
+                    doc.add(para4);
+                    doc.close();
+
+                } catch (FileNotFoundException e) { e.printStackTrace(); }
+            }
+
+        }
     }
 }

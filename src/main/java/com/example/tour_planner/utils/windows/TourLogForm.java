@@ -122,7 +122,7 @@ public class TourLogForm {
                 Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
                 date = Date.from(instant);
             }
-            String totalTime = totalField.getText();
+            Float totalTime = Float.valueOf(totalField.getText());
             String rat1 = (String) cm1.getValue();
             String difficulty1 = (String) cm2.getValue();
             String comment = commentField.getText();

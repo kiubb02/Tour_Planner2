@@ -23,5 +23,6 @@ public interface TourService {
     void importTour(File file);
     void exportTour(Tour tour) throws FileNotFoundException;
     void createTour(JSONObject tours) throws IOException;
-    File getFile(File file);
+    void generateTourReport(Tour tour) throws FileNotFoundException;
+    void generateSummary(Tour tour);
 }

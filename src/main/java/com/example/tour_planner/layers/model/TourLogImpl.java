@@ -2,10 +2,7 @@ package com.example.tour_planner.layers.model;
 
 import com.example.tour_planner.layers.data.TourLogDaoImpl;
 import com.example.tour_planner.layers.model.TourLog;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +19,7 @@ public class TourLogImpl implements TourLog
     @Getter @Setter
     public SimpleIntegerProperty difficulty;
     @Getter @Setter
-    public SimpleStringProperty totalTime;
+    public SimpleFloatProperty totalTime;
     @Getter @Setter
     public SimpleIntegerProperty rating;
     @Setter
@@ -30,13 +27,13 @@ public class TourLogImpl implements TourLog
     @Setter @Getter
     private SimpleStringProperty title;
 
-    public TourLogImpl(String title, Date dateTime, String comment, int difficulty, String totalTime, int rating, String tour)
+    public TourLogImpl(String title, Date dateTime, String comment, int difficulty, Float totalTime, int rating, String tour)
     {
         this.title = new SimpleStringProperty(title);
         this.dateTime = dateTime;
         this.comment =  new SimpleStringProperty(comment);
         this.difficulty = new SimpleIntegerProperty(difficulty);
-        this.totalTime = new SimpleStringProperty(totalTime);
+        this.totalTime = new SimpleFloatProperty(totalTime);
         this.rating = new SimpleIntegerProperty(rating);
         this.tour = new SimpleStringProperty(tour);
     }
@@ -52,7 +49,7 @@ public class TourLogImpl implements TourLog
         return title;
     }
 
-    public final StringProperty totalTimeProperty() {
+    public final FloatProperty totalTimeProperty() {
         return totalTime;
     }
 

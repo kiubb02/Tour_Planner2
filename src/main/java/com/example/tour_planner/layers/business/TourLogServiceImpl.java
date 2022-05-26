@@ -3,6 +3,7 @@ package com.example.tour_planner.layers.business;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.data.TourLogDaoImpl;
 import com.example.tour_planner.layers.model.TourLogImpl;
+import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,7 +38,11 @@ public class TourLogServiceImpl implements TourLogService{
             error.add("title");
             error.add(0);
         }
-        if(validateTime(inputs.get(2).toString()) == 0){
+        if(inputs.get(2).toString().equals("")){
+            error.add("time");
+            error.add(0);
+        }
+        if(validateTime(Float.valueOf(inputs.get(2).toString())) == 0){
             error.add("time");
             error.add(0);
         }
@@ -84,11 +89,23 @@ public class TourLogServiceImpl implements TourLogService{
     }
 
     @Override
-    public int validateTime(String time) {
+    public int validateTime(Float time) {
 
-        Double timeInt = Double.parseDouble(time);
-        if(timeInt <= 0) return 0;
+        if(time <= 0) return 0;
 
         return 1;
+    }
+
+    @Override
+    public ArrayList<Float> summarizeTourLogs(String tour) {
+        ArrayList<Float> summary = new ArrayList<Float>();
+
+        float avgRating = handlerLog.getAvgRating(tour);
+        summary.add(avgRating);
+
+        float avgTime = handlerLog.getAvgTime(tour);
+        summary.add(avgTime);
+
+        return summary;
     }
 }

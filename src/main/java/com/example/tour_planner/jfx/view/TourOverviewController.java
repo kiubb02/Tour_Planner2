@@ -139,7 +139,7 @@ public class TourOverviewController {
         TableColumn difficulty = new TableColumn("Difficulty");
         difficulty.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Integer>("difficulty"));
         TableColumn time = new TableColumn("Time");
-        time.setCellValueFactory(new PropertyValueFactory<TourLogImpl, String>("totalTime"));
+        time.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Float>("totalTime"));
         TableColumn rating = new TableColumn("Rating");
         rating.setCellValueFactory(new PropertyValueFactory<TourLogImpl, Integer>("rating"));
 
@@ -226,14 +226,26 @@ public class TourOverviewController {
         Text desc = new Text(details.getDescription());
         grid.add(desc, 1, 7);
 
-        // add the edit button before anything else to the TourDetails
-        Button edit = new Button("Edit");
-        grid.add(edit, 2, 8);
-        Button export = new Button("Export");
-        grid.add(export, 1, 8);
+        // Instead of buttons there is an Option drop down
+        MenuBar menuBar = new MenuBar();
+        Menu menu = new Menu("Options");
+        MenuItem itemEdit = new MenuItem("Edit");
+        itemEdit.setOnAction(this::onButtonEdit);
+        MenuItem itemExport = new MenuItem("Export");
+        itemExport.setOnAction(this::onButtonExport);
+        MenuItem itemTourReport = new MenuItem("Tour Report");
+        itemTourReport.setOnAction(this::onButtonTourReport);
+        MenuItem itemSummary = new MenuItem("Summary");
+        itemSummary.setOnAction(this::onButtonSummary);
 
-        edit.setOnAction(this::onButtonEdit);
-        export.setOnAction(this::onButtonExport);
+        menu.getItems().add(itemEdit);
+        menu.getItems().add(itemExport);
+        menu.getItems().add(itemTourReport);
+        menu.getItems().add(itemSummary);
+
+        menuBar.getMenus().add(menu);
+
+        grid.add(menuBar, 2, 8);
 
         // first add image to Hbox
         horizontal.getChildren().add(imageView);
@@ -241,6 +253,14 @@ public class TourOverviewController {
         horizontal.getChildren().add(grid);
 
         TourDetails.getChildren().add(horizontal);
+    }
+
+    private void onButtonSummary(ActionEvent actionEvent) {
+        mediaOverviewViewModel.createSummary(myListView);
+    }
+
+    private void onButtonTourReport(ActionEvent actionEvent) {
+        mediaOverviewViewModel.createTourReport(myListView);
     }
 
     private void onButtonExport(ActionEvent actionEvent) {

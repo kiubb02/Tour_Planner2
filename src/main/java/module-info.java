@@ -7,6 +7,9 @@ module com.example.tour_planner {
     requires java.desktop;
     requires org.apache.logging.log4j;
     requires json.simple;
+    requires kernel;
+    requires layout;
+    requires itextpdf;
 
 
     opens com.example.tour_planner to javafx.fxml;

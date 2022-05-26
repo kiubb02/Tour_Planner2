@@ -76,4 +76,15 @@ public class TourOverviewViewModel {
         Tour tour = getDetails(myListView);
         service.exportTour(tour);
     }
+
+    public void createTourReport(ListView myListView) {
+        Tour tour = getDetails(myListView);
+        // get a List of all tourLogs
+        service.generateTourReport(tour);
+    }
+
+    public void createSummary(ListView myListView) {
+        Tour tour = getDetails(myListView);
+        service.generateSummary(tour);
+    }
 }

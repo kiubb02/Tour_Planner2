@@ -32,7 +32,7 @@ public class TourLogDaoImpl implements TourLogDao {
             stmt.setDate(1, new java.sql.Date(tourLog.getDateTime().getTime()));
             stmt.setString(2, tourLog.getComment().get());
             stmt.setInt(3, tourLog.getDifficulty().getValue());
-            stmt.setString(4, tourLog.getTotalTime().get());
+            stmt.setFloat(4, tourLog.getTotalTime().get());
             stmt.setInt(5, tourLog.getRating().getValue());
             stmt.setString(6, tourLog.getTour());
             stmt.setString(7, tourLog.getTitle().get());
@@ -84,7 +84,7 @@ public class TourLogDaoImpl implements TourLogDao {
             stmt.setDate(1, new java.sql.Date(tour.getDateTime().getTime()));
             stmt.setString(2, tour.getComment().get());
             stmt.setInt(3, tour.getDifficulty().getValue());
-            stmt.setString(4, tour.getTotalTime().get());
+            stmt.setFloat(4, tour.getTotalTime().get());
             stmt.setInt(5, tour.getRating().getValue());
             stmt.setString(6, tour.getTour());
             stmt.setString(7, tour.getTitle().get());
@@ -124,7 +124,7 @@ public class TourLogDaoImpl implements TourLogDao {
                 String title = res.getString("title");
                 Date date = res.getDate("date");
                 String comment = res.getString("comment");
-                String time = res.getString("time");
+                Float time = res.getFloat("time");
                 int difficulty = res.getInt("difficulty");
                 int rating = res.getInt("rating");
                 String tour = res.getString("tourName");
@@ -159,5 +159,63 @@ public class TourLogDaoImpl implements TourLogDao {
             return true;
         }  catch (SQLException e) { logger.warn(e.toString()); }
         return false;
+    }
+
+    @Override
+    public float getAvgTime(String tour) {
+        float avg = 0;
+        try{
+            PreparedStatement stmt = conn.prepareStatement(
+                    """
+                     SELECT AVG("time") 
+                     FROM log 
+                     WHERE "tourName" = ?;
+            """
+            );
+
+            stmt.setString(1, tour);
+
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return 0;
+            }
+
+            while (res.next()) {
+                avg = res.getFloat(1);
+            }
+
+            stmt.close();
+        } catch (SQLException e) { logger.warn(e.toString()); }
+
+        return avg;
+    }
+
+    @Override
+    public float getAvgRating(String tour) {
+        float avg = 0;
+        try{
+            PreparedStatement stmt = conn.prepareStatement(
+                    """
+                     SELECT AVG(rating) 
+                     FROM log 
+                     WHERE "tourName" = ?;
+            """
+            );
+
+            stmt.setString(1, tour);
+
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return 0;
+            }
+
+            while (res.next()) {
+                avg = res.getFloat(1);
+            }
+
+            stmt.close();
+        } catch (SQLException e) { logger.warn(e.toString()); }
+
+        return avg;
     }
 }

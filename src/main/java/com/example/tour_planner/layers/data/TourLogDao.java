@@ -14,4 +14,6 @@ public interface TourLogDao {
     ArrayList<TourLogImpl> getTourLog(TourLogImpl tourlog);
     ObservableList<TourLogImpl> getTourLogs(String tourName);
     boolean titleExist(String title);
+    float getAvgTime(String tour);
+    float getAvgRating(String tour);
 }

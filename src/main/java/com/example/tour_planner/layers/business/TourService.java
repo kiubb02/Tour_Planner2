@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,5 +21,7 @@ public interface TourService {
     int calulateChildfriendl(String title);
     int calculatePopularity(String title);
     void importTour(File file);
+    void exportTour(Tour tour) throws FileNotFoundException;
     void createTour(JSONObject tours) throws IOException;
+    File getFile(File file);
 }

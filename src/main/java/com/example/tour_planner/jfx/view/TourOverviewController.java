@@ -1,13 +1,12 @@
 package com.example.tour_planner.jfx.view;
 
 
+import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.logger.LoggerFactory;
 import com.example.tour_planner.utils.logger.LoggerWrapper;
-import com.example.tour_planner.utils.windows.TourEditForm;
-import com.example.tour_planner.utils.windows.TourLogEditForm;
-import com.example.tour_planner.utils.windows.TourLogForm;
+import com.example.tour_planner.utils.windows.*;
 import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -19,7 +18,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 
-import com.example.tour_planner.utils.windows.TourForm;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,6 +28,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -230,8 +229,11 @@ public class TourOverviewController {
         // add the edit button before anything else to the TourDetails
         Button edit = new Button("Edit");
         grid.add(edit, 2, 8);
+        Button export = new Button("Export");
+        grid.add(export, 1, 8);
 
         edit.setOnAction(this::onButtonEdit);
+        export.setOnAction(this::onButtonExport);
 
         // first add image to Hbox
         horizontal.getChildren().add(imageView);
@@ -239,6 +241,14 @@ public class TourOverviewController {
         horizontal.getChildren().add(grid);
 
         TourDetails.getChildren().add(horizontal);
+    }
+
+    private void onButtonExport(ActionEvent actionEvent) {
+        try{
+                mediaOverviewViewModel.exportTour(myListView);
+        } catch (FileNotFoundException e){
+                e.printStackTrace();
+        }
     }
 
 }

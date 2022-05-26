@@ -4,11 +4,10 @@ import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -126,6 +125,47 @@ public class TourServiceImpl implements TourService{
         }
     }
 
+    @Override
+    public void exportTour(Tour tour) {
+        // first we want the save dialog to open so we can get the file we want to work with
+        Stage stage = new Stage();
+
+        // create JSON Object
+        JSONObject tourDetails = new JSONObject();
+        tourDetails.put("title", tour.getName());
+        tourDetails.put("description", tour.getDescription());
+        tourDetails.put("start", tour.getFrom());
+        tourDetails.put("destination", tour.getTo());
+        tourDetails.put("transport", tour.getTransport());
+
+        JSONObject tourObject = new JSONObject();
+        tourObject.put("tour", tourDetails);
+
+        JSONArray tourList = new JSONArray();
+        tourList.add(tourObject);
+
+        FileChooser fileChooser = new FileChooser();
+
+        //Set extension filter for text files
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JSON", "*.json")
+        );
+
+        //Show save file dialog
+        File file = fileChooser.showSaveDialog(stage);
+
+        if (file != null) {
+            try (FileWriter fileWriter = new FileWriter(file)) {
+                // We can write any JSONArray or JSONObject instance to the file
+                fileWriter.write(tourList.toJSONString());
+                fileWriter.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     public void createTour(JSONObject tours) throws IOException {
         JSONObject tourObject = (JSONObject) tours.get("tour");
         String title = (String) tourObject.get("title");
@@ -135,5 +175,10 @@ public class TourServiceImpl implements TourService{
         String transport = (String) tourObject.get("transport");
 
         mapAPI.sendRequest("old", start, end, transport, title, description, "create");
+    }
+
+    @Override
+    public File getFile(File file) {
+        return null;
     }
 }

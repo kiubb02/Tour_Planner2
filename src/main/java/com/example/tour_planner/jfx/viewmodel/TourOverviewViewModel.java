@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class TourOverviewViewModel {
@@ -69,5 +70,10 @@ public class TourOverviewViewModel {
     public String getFriendly(String name) {
         String friendly = String.valueOf(service.calulateChildfriendl(name));
         return friendly;
+    }
+
+    public void exportTour(ListView myListView) throws FileNotFoundException {
+        Tour tour = getDetails(myListView);
+        service.exportTour(tour);
     }
 }

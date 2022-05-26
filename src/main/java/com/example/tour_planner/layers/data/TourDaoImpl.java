@@ -324,6 +324,8 @@ public class TourDaoImpl implements TourDao {
     public void reportTour(String title)
     {
         int strikes = getTourStrikes(title);
+        if(strikes == -1) { logger.debug("no such tour"); }
+        else if(strikes == 5) { deleteTour(title); }
 
         try
         {

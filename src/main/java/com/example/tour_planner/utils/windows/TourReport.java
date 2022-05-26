@@ -19,6 +19,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class TourReport
 {
     private TourDaoImpl tourDao = new TourDaoImpl();
@@ -34,14 +36,16 @@ public class TourReport
         grid.setHgap(5);
         grid.setVgap(5);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setStyle("-fx-background-color: BEIGE;");
 
         Scene scene = new Scene(grid, 300, 275);
 
         Stage stage = new Stage();
         stage.setTitle("Report Tour: " + details.getName());
 
-        Text scenetitle = new Text("Are you sure you want to report " + details.getName() + "?");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 13));
+        Text scenetitle = new Text("Are you sure you want to report\n" + details.getName() + "?");
+        scenetitle.setStyle("-fx-background-color: whitesmoke; -fx-border-radius: 5; -fx-font: normal bold 1.5em 'serif';");
+        //scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 13));
         grid.add(scenetitle, 0, 0, 2, 1);
 
         Button btnN = new Button("No");
@@ -69,6 +73,9 @@ public class TourReport
                 stage.close();
             }
         });
+
+        btnY.setStyle("-fx-background-color: pink; -fx-text-fill: white;");
+        btnN.setStyle("-fx-background-color: palevioletred; -fx-text-fill: white;");
 
 
         hbBtn.getChildren().add(btnY);

@@ -15,8 +15,11 @@
         <Button text="..."/>
     </ToolBar>
     <HBox>
-        <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour"/>
+        <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour">
+        </ListView>
+
         <VBox fx:id="TourDetails">
+
         </VBox>
     </HBox>
 

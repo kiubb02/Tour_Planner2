@@ -9,7 +9,6 @@
     <MenuBar>
         <Menu text="%Menu_File">
             <MenuItem text="%Menu_File_Import" onAction="#importFile"/>
-            <MenuItem text="%Menu_File_Export" onAction="#exportFile"/>
             <MenuItem text="%Menu_File_Quit" />
         </Menu>
         <Menu text="%Menu_Edit">

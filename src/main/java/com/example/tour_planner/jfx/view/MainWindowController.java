@@ -48,7 +48,4 @@ public class MainWindowController {
         fileChooserSample.start(stage);
     }
 
-    public void exportFile(ActionEvent actionEvent) {
-        // open window with all tours and select one
-    }
 }

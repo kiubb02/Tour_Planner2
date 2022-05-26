@@ -43,6 +43,7 @@ public class TourOverviewController {
     public VBox TourDetails;
     @FXML
     public HBox Tours;
+    public VBox tourListFxml;
     @FXML
     private ListView myListView = new ListView<>();
     @FXML

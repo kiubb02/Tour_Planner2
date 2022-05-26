@@ -10,6 +10,7 @@ module com.example.tour_planner {
     requires kernel;
     requires layout;
     requires itextpdf;
+    requires io;
 
 
     opens com.example.tour_planner to javafx.fxml;

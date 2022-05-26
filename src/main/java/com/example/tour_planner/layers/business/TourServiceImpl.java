@@ -7,6 +7,7 @@ import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.api.mapAPI;
 
 import java.io.*;
+import com.itextpdf.io.image.*;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
@@ -22,7 +23,10 @@ import javafx.stage.Stage;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import java.net.MalformedURLException;
 import java.util.ArrayList;
+import com.itextpdf.layout.element.Image;
 
 public class TourServiceImpl implements TourService{
 
@@ -252,6 +256,14 @@ public class TourServiceImpl implements TourService{
                 Cell cell5 = new Cell(); // Creating a cell
                 cell5.add(new Paragraph(new Text("Rating")));
                 table.addCell(cell5); // Adding cell to the table
+
+                // add image underneath
+                try {
+                    ImageData imageData = ImageDataFactory.create("src/main/java/com/example/tour_planner/utils/maps/" + tour.getName() + "_map.jpg");
+                    Image img = new Image(imageData);
+                    doc.add(img);
+                } catch (MalformedURLException e){ e.printStackTrace(); }
+
 
                 //iterate through the observeable list
                 for(TourLogImpl log: tourLogs){

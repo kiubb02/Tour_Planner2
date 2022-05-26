@@ -3,6 +3,7 @@ package com.example.tour_planner.jfx.view;
 
 import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.layers.model.TourLog;
 import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.logger.LoggerFactory;
 import com.example.tour_planner.utils.logger.LoggerWrapper;
@@ -86,6 +87,14 @@ public class TourOverviewController {
         Tour details = mediaOverviewViewModel.getDetails(myListView);
         TourEditForm form = new TourEditForm();
         form.showForm(details);
+        initialize();
+    }
+
+    public void onButtonReport(ActionEvent actionEvent)
+    {
+        Tour details = mediaOverviewViewModel.getDetails(myListView);
+        TourReport report = new TourReport();
+        report.reportForm(details);
         initialize();
     }
 
@@ -238,11 +247,14 @@ public class TourOverviewController {
         itemTourReport.setOnAction(this::onButtonTourReport);
         MenuItem itemSummary = new MenuItem("Summary");
         itemSummary.setOnAction(this::onButtonSummary);
+        MenuItem reportTour = new MenuItem("Report Tour");
+        reportTour.setOnAction(this::onButtonReport);
 
         menu.getItems().add(itemEdit);
         menu.getItems().add(itemExport);
         menu.getItems().add(itemTourReport);
         menu.getItems().add(itemSummary);
+        menu.getItems().add(reportTour);
 
         menuBar.getMenus().add(menu);
 
@@ -266,9 +278,9 @@ public class TourOverviewController {
 
     private void onButtonExport(ActionEvent actionEvent) {
         try{
-                mediaOverviewViewModel.exportTour(myListView);
+            mediaOverviewViewModel.exportTour(myListView);
         } catch (FileNotFoundException e){
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

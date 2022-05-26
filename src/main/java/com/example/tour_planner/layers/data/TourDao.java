@@ -18,4 +18,6 @@ public interface TourDao {
     Object latestTour();
     int getSumRating(String title);
     int getSumDifficulty(String title);
+    int getTourStrikes(String title);
+    void reportTour(String title);
 }

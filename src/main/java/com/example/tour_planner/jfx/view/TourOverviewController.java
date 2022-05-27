@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -30,6 +31,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import lombok.extern.java.Log;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -41,7 +43,9 @@ public class TourOverviewController {
     @FXML
     public ArrayList<Tour> tourList;
     @FXML
-    public VBox TourDetails;
+    public HBox TourDetails;
+    @FXML
+    public HBox ButtonEdits = addButtons();
     @FXML
     public HBox Tours;
     public VBox tourListFxml;
@@ -77,7 +81,7 @@ public class TourOverviewController {
     }
 
 
-    public void onButtonAdd(ActionEvent actionEvent) {
+    public void onButtonAdd() {
         TourForm form = new TourForm();
         form.showForm();
         initialize();
@@ -98,7 +102,7 @@ public class TourOverviewController {
         initialize();
     }
 
-    public void onButtonRemove(ActionEvent actionEvent) {
+    public void onButtonRemove() {
         Object selectedTour = mediaOverviewViewModel.deleteTour(myListView);
         myListView.getItems().remove(selectedTour);
         initialize();
@@ -106,6 +110,7 @@ public class TourOverviewController {
 
     // show tour details on click
     public void showTour(MouseEvent mouseEvent) throws FileNotFoundException {
+        ButtonEdits.getChildren().clear();
         // clear window
         TourDetails.getChildren().clear();
         // clear table
@@ -116,28 +121,60 @@ public class TourOverviewController {
         Tour details = mediaOverviewViewModel.getDetails(myListView);
         tourView(details);
         TourLogsView();
+        //addButtons();
     }
 
+    public void addButtons()
+    {
+        HBox box = new HBox(10);
+        Button add = new Button("+");
+        add.setStyle("-fx-background-color: palevioletred; -fx-text-fill: white; -fx-padding: 0.5em; -fx-margin: 5em;");
+        add.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                onButtonAdd();
+            }
+        });
+        Button delete = new Button("-");
+        delete.setStyle("-fx-background-color: mistyrose; -fx-text-fill: white; -fx-padding: 0.5em; -fx-margin: 5em;");
+        delete.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                onButtonRemove();
+            }
+        });
+        box.getChildren().add(add);
+        box.getChildren().add(delete);
+    }
+
+
     public void TourLogsView(){
+        // --- CONTAINER BOXES --- //
         // horizontal box with title and add/delete button
-        HBox horizontal = new HBox();
+        VBox LogContainer = new VBox();
+        HBox LogDetailsContainer = new HBox();
+
+        LogContainer.setStyle("-fx-background-color: linear-gradient(to right bottom, lightpink, mistyrose); -fx-border-radius: 1.5em; -fx-margin: 2em; -fx-padding:3.5em;");
         // maybe put that in a gridpane
         final Label label = new Label("Tour Logs:      ");
-        label.setFont(new Font("Arial", 20));
+        label.setStyle("-fx-font: normal bold 2.2em 'Courier New';");
 
         Button add = new Button("+");
         Button delete = new Button("-");
         Button edit = new Button("Edit");
 
         add.setOnAction(this::createTourLog);
+        add.setStyle("-fx-background-color: palevioletred; -fx-text-fill: white;");
         delete.setOnAction(this::deleteTourLog);
+        delete.setStyle("-fx-background-color: mistyrose; -fx-text-fill: white;");
         edit.setOnAction(this::editTourLog);
+        edit.setStyle("-fx-background-color: lightpink; -fx-text-fill: white;");
 
-        horizontal.getChildren().add(label);
-        horizontal.getChildren().add(add);
-        horizontal.getChildren().add(delete);
-        horizontal.getChildren().add(edit);
-
+        LogDetailsContainer.getChildren().add(label);
+        LogDetailsContainer.getChildren().add(add);
+        LogDetailsContainer.getChildren().add(delete);
+        LogDetailsContainer.getChildren().add(edit);
+        LogContainer.getChildren().add(LogDetailsContainer);
 
         // date/time, comment, difficulty, total time, and rating
         TableColumn name = new TableColumn("Title");
@@ -155,9 +192,8 @@ public class TourOverviewController {
 
         tableView.setItems(data);
         tableView.getColumns().addAll(name, date, comment, difficulty, time, rating);
-
-        TourDetails.getChildren().add(horizontal);
-        TourDetails.getChildren().add(tableView);
+        LogContainer.getChildren().add(tableView);
+        TourDetails.getChildren().add(LogContainer);
     }
 
     private void editTourLog(ActionEvent actionEvent) {
@@ -180,61 +216,58 @@ public class TourOverviewController {
     }
 
     public void tourView(Tour details) throws FileNotFoundException {
-        HBox horizontal = new HBox();
+        // --- CONTAINER BOXES --- //
+        VBox TourContainer = new VBox();
+        TourContainer.setStyle("-fx-background-color: linear-gradient(to right bottom, lightpink, mistyrose); -fx-border-radius: 1.5em; -fx-margin: 2em; -fx-padding:3.5em;");
+        HBox TourDetailsContainer = new HBox();
+        HBox OptionBtn = new HBox();
+        OptionBtn.setStyle("-fx-margin: 1em;");
 
+        // --- MAP --- //
         FileInputStream input = new FileInputStream("src/main/java/com/example/tour_planner/utils/maps/"+details.getName()+"_map.jpg");
         Image image = new Image(input);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(300);
-        imageView.setFitWidth(300);
+        imageView.setFitWidth(400);
+        imageView.setStyle("-fx-margin: 2em;");
+        TourContainer.getChildren().add(imageView);
 
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(25, 25, 25, 25));
+        // --- TEXT FIELDS --- //
+        Text scenetitle = new Text("\n"+details.getName());
+        scenetitle.setStyle("-fx-font: normal bold 2.2em 'Courier New';");
+        TourContainer.getChildren().add(scenetitle);
 
-        Text scenetitle = new Text(details.getName());
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(scenetitle, 0, 0, 2, 1);
-
-        Text popularity = new Text("Popularity: " + mediaOverviewViewModel.getPopularity(details.getName()));
-        grid.add(popularity, 0, 1);
-
+        Text popularity = new Text("Popularity: " + mediaOverviewViewModel.getPopularity(details.getName()) + "\t");
+        popularity.setStyle("-fx-font: normal 1.2em 'Courier New';");
         Text friendly = new Text("Childfriendly: " + mediaOverviewViewModel.getFriendly(details.getName()));
-        grid.add(friendly, 1, 1);
+        friendly.setStyle("-fx-font: normal 1.2em 'Courier New';");
+        TourDetailsContainer.getChildren().add(popularity);
+        TourDetailsContainer.getChildren().add(friendly);
+        TourContainer.getChildren().add(TourDetailsContainer);
 
+        Label from = new Label("From: " + details.getFrom());
+        from.setStyle("-fx-font: normal 1.2em 'Courier New';");
+        TourContainer.getChildren().add(from);
 
-        Label from = new Label("From:");
-        grid.add(from, 0, 2);
-        Text fromField = new Text(details.getFrom());
-        grid.add(fromField, 1, 2);
+        Label toLabel = new Label("To: " + details.getTo());
+        toLabel.setStyle("-fx-font: normal 1.2em 'Courier New';");
+        TourContainer.getChildren().add(toLabel);
 
-        Label toLabel = new Label("To:");
-        grid.add(toLabel, 0, 3);
-        Text to = new Text(details.getTo());
-        grid.add(to, 1, 3);
+        Label transportLabel = new Label("Transport: " + details.getTransport());
+        transportLabel.setStyle("-fx-font: normal 1.2em 'Courier New';");
+        TourContainer.getChildren().add(transportLabel);
 
-        Label transportLabel = new Label("Transport:");
-        grid.add(transportLabel, 0, 4);
-        Text transport = new Text(details.getTransport());
-        grid.add(transport, 1, 4);
+        Label distlabel = new Label("Distance: " + details.getDistance());
+        distlabel.setStyle("-fx-font: normal 1.2em 'Courier New';");
+        TourContainer.getChildren().add(distlabel);
 
-        Label distlabel = new Label("Distance:");
-        grid.add(distlabel, 0, 5);
-        Double distance = details.getDistance();
-        Text dist = new Text(distance.toString());
-        grid.add(dist, 1, 5);
+        Label durLabel = new Label("Duration: " + details.getDuration());
+        durLabel.setStyle("-fx-font: normal 1.2em 'Courier New';");
+        TourContainer.getChildren().add(durLabel);
 
-        Label durLabel = new Label("Duration:");
-        grid.add(durLabel, 0, 6);
-        Text dur = new Text(details.getDuration());
-        grid.add(dur, 1, 6);
-
-        Label descLabel = new Label("Description:");
-        grid.add(descLabel, 0, 7);
-        Text desc = new Text(details.getDescription());
-        grid.add(desc, 1, 7);
+        Label descLabel = new Label("Description: " + details.getDescription());
+        descLabel.setStyle("-fx-font: normal 1.2em 'Courier New';");
+        TourContainer.getChildren().add(descLabel);
 
         // Instead of buttons there is an Option drop down
         MenuBar menuBar = new MenuBar();
@@ -257,15 +290,11 @@ public class TourOverviewController {
         menu.getItems().add(reportTour);
 
         menuBar.getMenus().add(menu);
+        menuBar.setStyle("-fx-background-color: palevioletred; -fx-text-fill: white;");
 
-        grid.add(menuBar, 2, 8);
-
-        // first add image to Hbox
-        horizontal.getChildren().add(imageView);
-        // Then add the grid
-        horizontal.getChildren().add(grid);
-
-        TourDetails.getChildren().add(horizontal);
+        OptionBtn.getChildren().add(menuBar);
+        TourContainer.getChildren().add(OptionBtn);
+        TourDetails.getChildren().add(TourContainer);
     }
 
     private void onButtonSummary(ActionEvent actionEvent) {

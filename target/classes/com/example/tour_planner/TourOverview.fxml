@@ -10,17 +10,18 @@
     <ToolBar>
         <Label text="%TourOverview_Items"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button text="+" onAction="#onButtonAdd"/>
-        <Button text="-" onAction="#onButtonRemove"/>
+        <HBox fx:id="ButtonEdits" >
+
+        </HBox>
         <Button text="..."/>
     </ToolBar>
     <HBox>
         <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour">
         </ListView>
 
-        <VBox fx:id="TourDetails">
+        <HBox fx:id="TourDetails">
 
-        </VBox>
+        </HBox>
     </HBox>
 
 </VBox>

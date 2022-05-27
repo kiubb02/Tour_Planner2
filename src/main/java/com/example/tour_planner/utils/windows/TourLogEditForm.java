@@ -5,11 +5,14 @@ import com.example.tour_planner.layers.business.TourLogServiceImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.layers.model.TourLog;
 import com.example.tour_planner.layers.model.TourLogImpl;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -37,52 +40,76 @@ public class TourLogEditForm {
     TourLogServiceImpl service = new TourLogServiceImpl();
 
     public void showForm(TourLogImpl log, String tour){
-        VBox vBox = new VBox(); //for now
+        // --- GRID --- //
         //current scene of program
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
+        grid.setHgap(13);
+        grid.setVgap(13);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setStyle("-fx-background-color: linear-gradient(to right bottom, lightpink, mistyrose); -fx-border-radius: 1.5em; -fx-padding:0.5em;");
 
-        Scene scene = new Scene(grid, 300, 275);
+        // --- SCENE --- //
+        Scene scene = new Scene(grid, 400, 430);
 
+        // --- STAGE --- //
         Stage stage = new Stage();
-        stage.setTitle("Tour Log Form");
+        stage.setTitle("Tour Form");
 
-        Text scenetitle = new Text("Edit Tour Log: ");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(scenetitle, 0, 0, 2, 1);
+        // --- VBOX --- //
+        VBox box = new VBox(10);
+        box.setAlignment(Pos.CENTER);
+        box.setStyle("-fx-background-color: whitesmoke; -fx-padding: 3.5em; -fx-background-radius: 40px; -fx-background-image: url('main/java/com/example/tour_planner/utils/css/pink-clouds.png'); -fx-background-repeat: no-repeat; -fx-background-position: center center;");
+        grid.add(box, 1, 3);
 
+        // --- HBOX --- //
+        HBox hbox_1 = new HBox(10);
+        hbox_1.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_2 = new HBox(10);
+        hbox_2.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_3 = new HBox(10);
+        hbox_3.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_4 = new HBox(10);
+        hbox_4.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_5 = new HBox(10);
+        hbox_5.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_6 = new HBox(10);
+        hbox_6.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_7 = new HBox(10);
+        hbox_7.setAlignment(Pos.BOTTOM_RIGHT);
+
+
+        // --- FIELDS --- //
+        Text scenetitle = new Text("New Tour Log: ");
+        scenetitle.setStyle("-fx-font: normal bold 2.2em 'Courier New';");
+        box.getChildren().add(scenetitle);
+
+        // 1
         dateTime = new DatePicker();
-
         Label dateLable = new Label("Date/Time:");
-        grid.add(dateLable, 0, 1);
-        grid.add(dateTime, 1, 1);
+        hbox_1.getChildren().add(dateLable);
+        hbox_1.getChildren().add(dateTime);
+        box.getChildren().add(hbox_1);
 
+        // 2
         Label titleLabel = new Label("Title");
-        grid.add(titleLabel, 0, 2);
-
         TextField titleField = new TextField();
         titleField.setPromptText(log.getTitle().getValue());
-        grid.add(titleField, 1, 2);
+        hbox_2.getChildren().add(titleLabel);
+        hbox_2.getChildren().add(titleField);
+        box.getChildren().add(hbox_2);
 
+        // 3
         Label totalLable = new Label("Total Time:");
-        grid.add(totalLable, 0, 3);
-
         TextField totalField = new TextField();
         totalField.setPromptText(String.valueOf(log.getTotalTime().getValue()));
-        grid.add(totalField, 1, 3);
+        hbox_3.getChildren().add(totalLable);
+        hbox_3.getChildren().add(totalField);
+        box.getChildren().add(hbox_3);
 
+        // 4
         // Radio Button for rating
         Label rat = new Label("Rating:");
-        grid.add(rat, 0, 4);
-
-        // Difficulty ComboBox
-        Label diff = new Label("Difficulty:");
-        grid.add(diff, 1, 4);
-
-
         final ComboBox cm1 = new ComboBox();
         cm1.getItems().addAll(
                 "1",
@@ -91,8 +118,13 @@ public class TourLogEditForm {
                 "4",
                 "5"
         );
-        grid.add(cm1, 0, 5);
+        hbox_4.getChildren().add(rat);
+        hbox_4.getChildren().add(cm1);
+        box.getChildren().add(hbox_4);
 
+        // 5
+        // Difficulty ComboBox
+        Label diff = new Label("Difficulty:");
         final ComboBox cm2 = new ComboBox();
         cm2.getItems().addAll(
                 "1",
@@ -101,24 +133,31 @@ public class TourLogEditForm {
                 "4",
                 "5"
         );
-        grid.add(cm2, 1, 5);
+        hbox_5.getChildren().add(diff);
+        hbox_5.getChildren().add(cm2);
+        box.getChildren().add(hbox_5);
 
-
+// 6
         Label commentLabel = new Label("Comment:");
-        grid.add(commentLabel, 0, 6);
-
         TextField commentField = new TextField();
         commentField.setPromptText(log.getComment().getValue());
-        grid.add(commentField, 1, 6);
+        hbox_6.getChildren().add(commentLabel);
+        hbox_6.getChildren().add(commentField);
+        box.getChildren().add(hbox_6);
 
         // add a button to actually add
-        Button btn = new Button("Edit");
-        grid.add(btn, 1, 7);
+        Button btn = new Button("+");
+        btn.setStyle("-fx-background-color: palevioletred; -fx-text-fill: white;");
+        btn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stage.close();
+            }
+        });
 
         // for the error Messages
         final Text actiontarget = new Text();
         actiontarget.setFill(Color.FIREBRICK);
-        grid.add(actiontarget, 0, 7);
 
         btn.setOnAction(e -> {
             String title = titleField.getText();
@@ -157,6 +196,9 @@ public class TourLogEditForm {
             }
 
         });
+        hbox_7.getChildren().add(actiontarget);
+        hbox_7.getChildren().add(btn);
+        box.getChildren().add(hbox_7);
 
         stage.setScene(scene);
         stage.show();

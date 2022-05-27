@@ -7,6 +7,7 @@ import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -33,51 +35,79 @@ public class TourEditForm {
 
     //build a new scene to open as a pop up form
     public void showForm(Tour details){
-        VBox vBox = new VBox(); //for now
+        // --- GRID --- //
         //current scene of program
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
-        grid.setHgap(10);
-        grid.setVgap(10);
+        grid.setHgap(13);
+        grid.setVgap(13);
         grid.setPadding(new Insets(25, 25, 25, 25));
+        grid.setStyle("-fx-background-color: linear-gradient(to right bottom, lightpink, mistyrose); -fx-border-radius: 1.5em; -fx-padding:0.5em;");
 
-        Scene scene = new Scene(grid, 300, 275);
+        // --- SCENE --- //
+        Scene scene = new Scene(grid, 400, 400);
 
+        // --- STAGE --- //
         Stage stage = new Stage();
         stage.setTitle("Tour Form");
 
+        // --- VBOX --- //
+        VBox box = new VBox(10);
+        box.setAlignment(Pos.CENTER);
+        box.setStyle("-fx-background-color: whitesmoke; -fx-padding: 3.5em; -fx-background-radius: 40px; -fx-background-image: url('main/java/com/example/tour_planner/utils/css/pink-clouds.png'); -fx-background-repeat: no-repeat; -fx-background-position: center center;");
+        grid.add(box, 1, 3);
+
+        // --- HBOX --- //
+        HBox hbox_1 = new HBox(10);
+        hbox_1.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_2 = new HBox(10);
+        hbox_2.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_3 = new HBox(10);
+        hbox_3.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_4 = new HBox(10);
+        hbox_4.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_5 = new HBox(10);
+        hbox_5.setAlignment(Pos.CENTER_LEFT);
+        HBox hbox_6 = new HBox(10);
+        hbox_6.setAlignment(Pos.CENTER_LEFT);
+
+        // --- FIELDS --- //
         Text scenetitle = new Text("Edit Tour: ");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(scenetitle, 0, 0, 2, 1);
+        scenetitle.setStyle("-fx-font: normal bold 2.2em 'Courier New';");
+        box.getChildren().add(scenetitle);
 
+        // 1
         Label tourName = new Label("Title:");
-        grid.add(tourName, 0, 1);
-
         TextField tourNameField = new TextField();
         tourNameField.setPromptText(details.getName());
-        grid.add(tourNameField, 1, 1);
+        hbox_1.getChildren().add(tourName);
+        hbox_1.getChildren().add(tourNameField);
+        box.getChildren().add(hbox_1);
 
+        // 2
         Label from = new Label("From:");
-        grid.add(from, 0, 2);
-
         TextField fromField = new TextField();
         fromField.setPromptText(details.getFrom());
-        grid.add(fromField, 1, 2);
+        hbox_2.getChildren().add(from);
+        hbox_2.getChildren().add(fromField);
+        box.getChildren().add(hbox_2);
 
+        // 3
         Label to = new Label("To:");
-        grid.add(to, 0, 3);
-
         TextField toField = new TextField();
         toField.setPromptText(details.getTo());
-        grid.add(toField, 1, 3);
+        hbox_3.getChildren().add(to);
+        hbox_3.getChildren().add(toField);
+        box.getChildren().add(hbox_3);
 
+        // 4
         // Description in form of a textfield
         Label desc = new Label("Description:");
-        grid.add(desc, 0, 4);
-
         TextField descField = new TextField();
         descField.setPromptText(details.getDescription());
-        grid.add(descField, 1, 4);
+        hbox_4.getChildren().add(desc);
+        hbox_4.getChildren().add(descField);
+        box.getChildren().add(hbox_4);
 
         // MAP API
 
@@ -85,7 +115,6 @@ public class TourEditForm {
         // Duration will be calculated
 
         Label trType = new Label("Transport Type:");
-        grid.add(trType, 0, 5);
 
         final ComboBox transportComboBox = new ComboBox();
         transportComboBox.getItems().addAll(
@@ -93,18 +122,23 @@ public class TourEditForm {
                 "PEDESTRIAN",
                 "BICYCLE"
         );
-        grid.add(transportComboBox, 1, 5);
+        hbox_5.getChildren().add(trType);
+        hbox_5.getChildren().add(transportComboBox);
+        box.getChildren().add(hbox_5);
 
         // final button our add tour button
-        Button btn = new Button("Edit Tour");
-        HBox hbBtn = new HBox(10);
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 6);
+        Button btn = new Button("edit");
+        btn.setStyle("-fx-background-color: palevioletred; -fx-text-fill: white;");
+        btn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                stage.close();
+            }
+        });
 
         final Text actiontarget = new Text();
         actiontarget.setFill(Color.FIREBRICK);
-        grid.add(actiontarget, 0, 6);
+        hbox_6.getChildren().add(actiontarget);
 
         // on click create a new Tour Object with all the input from user
         btn.setOnAction(e -> {
@@ -138,6 +172,9 @@ public class TourEditForm {
             }
 
         });
+        hbox_6.getChildren().add(btn);
+        box.getChildren().add(hbox_6);
+
 
         stage.setScene(scene);
         stage.show();

@@ -45,7 +45,7 @@ public class TourOverviewController {
     @FXML
     public HBox TourDetails;
     @FXML
-    public HBox ButtonEdits = addButtons();
+    public HBox ButtonEdits;
     @FXML
     public HBox Tours;
     public VBox tourListFxml;

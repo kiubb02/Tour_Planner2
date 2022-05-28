@@ -237,7 +237,8 @@ public class TourDaoImpl implements TourDao {
     @Override
     public int getSumDifficulty(String title) {
         int sum = 0;
-        try{
+        try
+        {
             PreparedStatement stmt = conn.prepareStatement(
                     " SELECT SUM(difficulty) FROM log WHERE title = ?;"
             );
@@ -258,5 +259,60 @@ public class TourDaoImpl implements TourDao {
         } catch (SQLException e) { logger.warn(e.toString()); }
 
         return sum;
+    }
+
+    @Override
+    public int getTourStrikes(String title)
+    {
+        int strikes = -1;
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(
+                    "SELECT strikes FROM tour WHERE title = ?;"
+            );
+
+            stmt.setString(1, title);
+
+            ResultSet res = stmt.executeQuery();
+
+            if (res.next()) {
+                strikes = res.getInt(1);
+            }
+
+            // add one strike
+            strikes++;
+
+            stmt.close();
+        } catch (SQLException e) { logger.warn(e.toString()); }
+
+        return strikes;
+    }
+
+    @Override
+    public void reportTour(String title)
+    {
+        int strikes = getTourStrikes(title);
+        if(strikes == -1) { logger.debug("no such tour"); }
+        else if(strikes == 5) { deleteTour(title); }
+
+        try
+        {
+            PreparedStatement stmt = conn.prepareStatement(
+                    "UPDATE tour SET strikes = ? WHERE title = ?;"
+            );
+
+            stmt.setInt(1, strikes);
+            stmt.setString(2, title);
+
+            int rowsAffected = stmt.executeUpdate();
+
+            if(rowsAffected == 0) {
+                stmt.close();
+                logger.debug("no report made");
+                return;
+            }
+
+            stmt.close();
+        } catch (SQLException e) { logger.warn(e.toString()); }
     }
 }

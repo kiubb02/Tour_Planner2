@@ -22,7 +22,6 @@ public class TourLogDaoImpl implements TourLogDao {
 
     @Override
     public int createTourLog(TourLogImpl tourLog) {
-        logger.debug("Test hello");
         try {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement("""
@@ -96,11 +95,6 @@ public class TourLogDaoImpl implements TourLogDao {
             return 1;
         } catch (SQLException e) { logger.warn(e.toString()); }
         return 0;
-    }
-
-    @Override
-    public ArrayList<TourLogImpl> getTourLog(TourLogImpl tourlog) {
-        return null;
     }
 
     @Override

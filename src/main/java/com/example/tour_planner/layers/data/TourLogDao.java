@@ -11,7 +11,6 @@ public interface TourLogDao {
     int deleteTourLog(TourLogImpl tour);
     int modifyTourLog(TourLogImpl tour, String oldTitle);
     // TOUR LOG DETAILS
-    ArrayList<TourLogImpl> getTourLog(TourLogImpl tourlog);
     ObservableList<TourLogImpl> getTourLogs(String tourName);
     boolean titleExist(String title);
     float getAvgTime(String tour);

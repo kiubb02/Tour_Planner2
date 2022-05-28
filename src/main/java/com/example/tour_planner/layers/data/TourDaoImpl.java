@@ -295,7 +295,9 @@ public class TourDaoImpl implements TourDao {
         try
         {
             PreparedStatement stmt = conn.prepareStatement(
-                    " SELECT SUM(difficulty) FROM log WHERE title = ?;"
+                    """
+                             SELECT SUM(difficulty) FROM log WHERE "tourName" = ?;
+                """
             );
 
             stmt.setString(1, title);

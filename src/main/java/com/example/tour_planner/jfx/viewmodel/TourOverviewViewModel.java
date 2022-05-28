@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class TourOverviewViewModel {
 
     TourDaoImpl handler = new TourDaoImpl();
-
     @FXML
     public ListProperty<Tour> listProperty = new SimpleListProperty<>();
     @Getter
@@ -30,7 +29,7 @@ public class TourOverviewViewModel {
     @FXML
     void open(String search){
         listProperty.bindBidirectional(tourList);
-        ObservableList<Tour> obsTour = FXCollections.observableArrayList(getTourList(search));
+        ObservableList<Tour> obsTour = getTourList(search);
         tourList.setValue(obsTour);
     }
 

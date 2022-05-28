@@ -14,27 +14,21 @@ public class MainWindowViewModel {
         this.tourDetailsViewModel = tourDetailsViewModel;
         this.tourLogsViewModel = tourLogsViewModel;
 
+        this.mediaOverviewViewModel.open();
+
         //this.searchBarViewModel.addSearchListener(searchString->searchTours(searchString));
         // instead of the lambda-expression from above, you also can use the following "classical" event-handler implementation with anonymous inner classes
-//        this.searchBarViewModel.addSearchListener(new SearchBarViewModel.SearchListener() {
-//            @Override
-//            public void search(String searchString) {
-//                var tours = BL.getInstance().findMatchingTours( searchString );
-//                toursOverviewViewModel.setTours(tours);
-//            }
-//        });
-
-        //this.mediaOverviewViewModel.addSelectionChangedListener(selectedTour->selectTour(selectedTour));
+        this.searchBarViewModel.addSearchListener(new SearchBarViewModel.SearchListener() {
+            private TourOverviewViewModel mediaOverviewViewModel;
+            @Override
+            public void search(String searchString) {
+                this.mediaOverviewViewModel.doSearch(searchString);
+            }
+        });
     }
 
     public void selectTour(Tour selectedMediaItem) {
         tourDetailsViewModel.setTourModel(selectedMediaItem);
     }
     public void showTourLogs(Tour selectedMediaItem) { tourLogsViewModel.setTourLogs(selectedMediaItem); }
-
-
-    /*private void searchTours(String searchString) {
-        var tours = BL.getInstance().findMatchingTours( searchString );
-        mediaOverviewViewModel.setTours(tours);
-    }*/
 }

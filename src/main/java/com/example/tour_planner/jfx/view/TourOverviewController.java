@@ -39,16 +39,12 @@ import java.util.Date;
 
 public class TourOverviewController {
     @FXML
-    public ArrayList<Tour> tourList;
     public VBox TourDetails;
     public VBox tourDetails;
     public VBox tourLogs;
     public VBox TourLogs;
     @FXML
     private ListView myListView = new ListView<>();
-    private TableView<TourLogImpl> tableView = new TableView<TourLogImpl>();
-    private ObservableList<TourLogImpl> data = FXCollections.observableArrayList();
-    protected ListProperty<Tour> listProperty = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
     private final MainWindowViewModel mainWindowViewModel;
@@ -60,16 +56,9 @@ public class TourOverviewController {
         this.mainWindowViewModel = mainWindowViewModel;
     }
 
-    public TourOverviewViewModel getMediaOverviewViewModel() {
-        return mediaOverviewViewModel;
-    }
-
     @FXML
     void initialize() {
-        // get the new Items and show them in there
-        tourList = mediaOverviewViewModel.getTourList("");
-        myListView.itemsProperty().bind(listProperty);
-        if(tourList != null) listProperty.set(FXCollections.observableArrayList(tourList));
+        myListView.itemsProperty().bindBidirectional(mediaOverviewViewModel.getListProperty());
     }
 
 
@@ -86,7 +75,7 @@ public class TourOverviewController {
     }
 
     // show tour details on click
-    public void showTour(MouseEvent mouseEvent) throws FileNotFoundException {
+    public void showTour(MouseEvent mouseEvent) {
         // get the tour data
         Tour details = mediaOverviewViewModel.getDetails(myListView);
         // show the tour data

@@ -15,8 +15,6 @@ import java.util.List;
 
 public class SearchBarViewModel {
 
-    private final TourDaoImpl handler = new TourDaoImpl();
-
     public interface SearchListener {
         void search(String searchString);
     }
@@ -47,6 +45,8 @@ public class SearchBarViewModel {
     }
 
     public void doSearch() {
-
+        for (var listener : listeners ) {
+            listener.search(searchString.get());
+        }
     }
 }

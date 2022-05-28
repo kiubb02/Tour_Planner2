@@ -4,10 +4,8 @@ package com.example.tour_planner.layers.data;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
 import com.example.tour_planner.utils.db.databaseImpl;
-import com.example.tour_planner.utils.logger.Log4J2Wrapper;
 import com.example.tour_planner.utils.logger.LoggerFactory;
 import com.example.tour_planner.utils.logger.LoggerWrapper;
-import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -96,39 +94,6 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public ArrayList<Tour> getTour(Tour tour) {
-        try
-        {
-            // ----- PREPARED STATEMENT ----- //
-            PreparedStatement stmt = conn.prepareStatement(
-                    "SELECT * FROM Tours WHERE title = ?;"
-            );
-            // ----- SET VAL ----- //
-            stmt.setString(1, tour.getName());
-            stmt.executeUpdate();
-
-            ResultSet res = stmt.executeQuery();
-
-            // title, to, from, transport_type, description, duration, distance
-            ArrayList<Tour> TourList = new ArrayList<>();
-
-            // ADD TOURS TO LIST
-            //while (res.next())
-            //{
-                //Tour nTour = new Tour (res.getString(1), res.getString(2), res.getString(3),
-                //        res.getString(4), TransportType.valueOf(res.getString(5)), res.getInt(6),
-                //        res.getInt(7));
-                //TourList.add(nTour);
-            //}
-
-            // ----- CLOSE ----- //
-            stmt.close();
-        } catch (SQLException e) { logger.warn(e.toString()); }
-
-        return null;
-    }
-
-    @Override
     public Tour getDetails(String name) {
         Tour tour = null;
 
@@ -204,12 +169,15 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public Object latestTour() {
-        Object latest = new Object();
+    public ArrayList<Tour> searchTour(String search) {
+        ArrayList<Tour> tourList = new ArrayList<>();
+
         try{
-            PreparedStatement stmt = conn.prepareStatement(
-                    " SELECT * FROM tour ORDER BY id DESC LIMIT 1;"
-            );
+            PreparedStatement stmt = conn.prepareStatement("""
+                    SELECT *
+                    FROM tour
+                    WHERE 
+                    """);
 
             ResultSet res = stmt.executeQuery();
             if(!res.isBeforeFirst()){
@@ -228,12 +196,13 @@ public class TourDaoImpl implements TourDao {
                 // create Tour obj
                 Tour tour = new Tour(title, desc, from, to, transport, dist, duration);
 
-                latest = tour;
+                // put into array
+                tourList.add(tour);
             }
-            stmt.close();
+
         } catch (SQLException e) { logger.warn(e.toString()); }
 
-        return latest;
+        return tourList;
     }
 
     @Override

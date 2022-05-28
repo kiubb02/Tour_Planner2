@@ -6,6 +6,7 @@ import com.example.tour_planner.layers.data.TourLogDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.layers.model.TourLogImpl;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,20 +22,19 @@ public class TourOverviewViewModel {
 
     TourDaoImpl handler = new TourDaoImpl();
 
-    @FXML @Getter
+    @FXML
     public ListProperty<Tour> listProperty = new SimpleListProperty<>();
-    public ArrayList<Tour> tourList;
+    @Getter
+    public Property<ObservableList<Tour>> tourList = new SimpleListProperty<>();
 
     @FXML
-    void open(){
-        tourList = getTourList("");
-        if(tourList != null) listProperty.set(FXCollections.observableArrayList(tourList));
+    void open(String search){
+        listProperty.bindBidirectional(tourList);
+        ObservableList<Tour> obsTour = FXCollections.observableArrayList(getTourList(search));
+        tourList.setValue(obsTour);
     }
 
-    public void doSearch(String search){
-        tourList = getTourList(search);
-        if(tourList != null) listProperty.set(FXCollections.observableArrayList(tourList));
-    }
+    public ListProperty<Tour> tourListProperty(){ return listProperty; }
 
     public Tour getDetails(ListView myListView) {
         Object selectedTour = myListView.getSelectionModel().getSelectedItem();
@@ -48,8 +48,8 @@ public class TourOverviewViewModel {
         return selectedTour;
     }
 
-    public ArrayList<Tour> getTourList(String search) {
-        ArrayList<Tour> tourList = new ArrayList<>();
+    public ObservableList<Tour> getTourList(String search) {
+        ObservableList<Tour> tourList = FXCollections.observableArrayList();
         if(search.equals("")) return handler.getTourList();
         if(!search.equals("")) return handler.searchTour(search);
         return tourList;

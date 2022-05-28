@@ -6,6 +6,8 @@ import com.example.tour_planner.utils.api.mapAPI;
 import com.example.tour_planner.utils.db.databaseImpl;
 import com.example.tour_planner.utils.logger.LoggerFactory;
 import com.example.tour_planner.utils.logger.LoggerWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -135,8 +137,8 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public ArrayList<Tour> getTourList() {
-        ArrayList<Tour> tourList = new ArrayList<>();
+    public ObservableList<Tour> getTourList() {
+        ObservableList<Tour> tourList = FXCollections.observableArrayList();
         try{
             PreparedStatement stmt = conn.prepareStatement("""
                     SELECT *
@@ -169,13 +171,13 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public ArrayList<Tour> searchLogs(String search) {
-        ArrayList<Tour> tourList = new ArrayList<>();
+    public ObservableList<Tour> searchLogs(String search) {
+        ObservableList<Tour> tourList = FXCollections.observableArrayList();
 
         try{
 
             PreparedStatement stmt = conn.prepareStatement("""
-                    SELECT "tourName"
+                    SELECT *
                     FROM log
                     WHERE ( "tourName" LIKE ?
                     OR title LIKE ? 
@@ -192,7 +194,7 @@ public class TourDaoImpl implements TourDao {
             }
 
             while(res.next()){
-                String title = res.getString("title");
+                String title = res.getString("tourName");
                 Tour tour = getDetails(title);
                 tourList.add(tour);
             }
@@ -204,8 +206,8 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
-    public ArrayList<Tour> searchTour(String search) {
-        ArrayList<Tour> tourList = new ArrayList<>();
+    public ObservableList<Tour> searchTour(String search) {
+        ObservableList<Tour> tourList = FXCollections.observableArrayList();
 
         try{
             PreparedStatement stmt = conn.prepareStatement("""
@@ -252,6 +254,7 @@ public class TourDaoImpl implements TourDao {
 
         // before we return the Tours we also search in the Tour Logs
         tourList.addAll(searchLogs(search));
+
 
         return tourList;
     }

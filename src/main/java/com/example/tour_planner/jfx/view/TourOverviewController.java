@@ -2,8 +2,13 @@ package com.example.tour_planner.jfx.view;
 
 import com.example.tour_planner.jfx.viewmodel.MainWindowViewModel;
 import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.windows.*;
 import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,7 +23,10 @@ public class TourOverviewController {
     public VBox tourLogs;
     public VBox TourLogs;
     @FXML
-    private ListView myListView = new ListView<>();
+    public ListView<Tour> myListView = new ListView<>();
+    @FXML
+    private ObservableList<Tour> data = FXCollections.observableArrayList();
+    private final ListProperty<Tour> tourList = new SimpleListProperty<>();
 
     private final TourOverviewViewModel mediaOverviewViewModel;
     private final MainWindowViewModel mainWindowViewModel;
@@ -32,9 +40,10 @@ public class TourOverviewController {
 
     @FXML
     void initialize() {
-        myListView.itemsProperty().bindBidirectional(mediaOverviewViewModel.getListProperty());
+        tourList.bindBidirectional(mediaOverviewViewModel.tourListProperty());
+        data = tourList;
+        myListView.setItems(data);
     }
-
 
     public void onButtonAdd(ActionEvent actionEvent) {
         TourForm form = new TourForm();
@@ -46,7 +55,6 @@ public class TourOverviewController {
         myListView.getItems().remove(selectedTour);
     }
 
-    // show tour details on click
     public void showTour(MouseEvent mouseEvent) {
         // get the tour data
         Tour details = mediaOverviewViewModel.getDetails(myListView);

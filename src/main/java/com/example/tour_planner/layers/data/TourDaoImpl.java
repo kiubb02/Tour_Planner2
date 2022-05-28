@@ -176,7 +176,6 @@ public class TourDaoImpl implements TourDao {
             PreparedStatement stmt = conn.prepareStatement("""
                     SELECT *
                     FROM tour
-                    WHERE 
                     """);
 
             ResultSet res = stmt.executeQuery();

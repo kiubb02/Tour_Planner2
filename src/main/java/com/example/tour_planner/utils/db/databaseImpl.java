@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class databaseImpl implements database{
+public class databaseImpl implements database{ // Singleton Pattern
 
     // Command:
     // (Cmd) docker run --name swe2db -e POSTGRES_USER=swe2user -e POSTGRES_PASSWORD=swe2pw -p 5432:5432 postgres

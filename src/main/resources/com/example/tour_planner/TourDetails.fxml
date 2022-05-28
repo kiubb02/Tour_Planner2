@@ -23,31 +23,35 @@
 
         <Text fx:id="titleTour" GridPane.columnIndex="0" GridPane.rowIndex="0"
                    GridPane.columnSpan="2"/>
-        <Text fx:id="popularityTour" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <Text fx:id="friendlinessTour" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-        <Label text="Strikes: " GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <Text fx:id="strikesTour" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Popularity: " GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <Text fx:id="popularityTour" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-        <Label text="From: " GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <Text fx:id="fromTour" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Label text="Childfriendly: " GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Text fx:id="friendlinessTour" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-        <Label text="To: " GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-        <Text fx:id="toTour" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label text="Strikes: " GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <Text fx:id="strikesTour" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-        <Label text="Transport: " GridPane.columnIndex="0" GridPane.rowIndex="5"/>
-        <Text fx:id="transportTour" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <Label text="From: " GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Text fx:id="fromTour" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-        <Label text="Distance: " GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-        <Text fx:id="distanceTour" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+        <Label text="To: " GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <Text fx:id="toTour" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
 
-        <Label text="Duration: " GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-        <Text fx:id="durationTour" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+        <Label text="Transport: " GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <Text fx:id="transportTour" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
 
-        <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-        <Text fx:id="descriptionTour" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+        <Label text="Distance: " GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+        <Text fx:id="distanceTour" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
 
-        <MenuBar GridPane.columnIndex="2" GridPane.rowIndex="9">
+        <Label text="Duration: " GridPane.columnIndex="0" GridPane.rowIndex="8"/>
+        <Text fx:id="durationTour" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+        <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="9"/>
+        <Text fx:id="descriptionTour" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+
+        <MenuBar GridPane.columnIndex="2" GridPane.rowIndex="10">
             <Menu text="Options">
                 <MenuItem text="Edit" onAction="#onButtonEdit"/>
                 <MenuItem text="Export" onAction="#onButtonExport"/>

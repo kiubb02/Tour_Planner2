@@ -39,22 +39,19 @@ public class TourOverviewController {
     public void onButtonAdd(ActionEvent actionEvent) {
         TourForm form = new TourForm();
         form.showForm();
-        initialize();
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
         Object selectedTour = mediaOverviewViewModel.deleteTour(myListView);
         myListView.getItems().remove(selectedTour);
-        initialize();
     }
 
     // show tour details on click
     public void showTour(MouseEvent mouseEvent) {
         // get the tour data
         Tour details = mediaOverviewViewModel.getDetails(myListView);
-        // show the tour data
+        // show the Tour Details
         mainWindowViewModel.selectTour(details);
-        // set the tour Logs
         mainWindowViewModel.showTourLogs(details);
     }
 }

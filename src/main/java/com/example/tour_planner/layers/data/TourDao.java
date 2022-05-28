@@ -10,6 +10,7 @@ public interface TourDao {
     void modifyTour(String oldName, Tour tour);
     Tour getDetails(String name);
     ArrayList<Tour> getTourList();
+    ArrayList<Tour> searchLogs(String search);
     ArrayList<Tour> searchTour(String search);
     int getSumRating(String title);
     int getSumDifficulty(String title);

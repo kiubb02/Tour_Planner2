@@ -169,6 +169,41 @@ public class TourDaoImpl implements TourDao {
     }
 
     @Override
+    public ArrayList<Tour> searchLogs(String search) {
+        ArrayList<Tour> tourList = new ArrayList<>();
+
+        try{
+
+            PreparedStatement stmt = conn.prepareStatement("""
+                    SELECT "tourName"
+                    FROM log
+                    WHERE ( "tourName" LIKE ?
+                    OR title LIKE ? 
+                    OR comment LIKE ?);
+                    """);
+
+            stmt.setString(1,"%" + search + "%");
+            stmt.setString(2,"%" + search + "%");
+            stmt.setString(3,"%" + search + "%");
+
+            ResultSet res = stmt.executeQuery();
+            if(!res.isBeforeFirst()){
+                return null;
+            }
+
+            while(res.next()){
+                String title = res.getString("title");
+                Tour tour = getDetails(title);
+                tourList.add(tour);
+            }
+            stmt.close();
+
+        } catch (SQLException e) { logger.warn(e.toString()); }
+
+        return tourList;
+    }
+
+    @Override
     public ArrayList<Tour> searchTour(String search) {
         ArrayList<Tour> tourList = new ArrayList<>();
 
@@ -176,7 +211,18 @@ public class TourDaoImpl implements TourDao {
             PreparedStatement stmt = conn.prepareStatement("""
                     SELECT *
                     FROM tour
+                    WHERE ( title LIKE ?
+                    OR description LIKE ? 
+                    OR "from" LIKE ?
+                    OR "to" LIKE ? 
+                    OR "transportType" LIKE ? );
                     """);
+
+            stmt.setString(1,"%" + search + "%");
+            stmt.setString(2,"%" + search + "%");
+            stmt.setString(3,"%" + search + "%");
+            stmt.setString(4,"%" + search + "%");
+            stmt.setString(5,"%" + search + "%");
 
             ResultSet res = stmt.executeQuery();
             if(!res.isBeforeFirst()){
@@ -199,7 +245,13 @@ public class TourDaoImpl implements TourDao {
                 tourList.add(tour);
             }
 
+            stmt.close();
+
         } catch (SQLException e) { logger.warn(e.toString()); }
+
+
+        // before we return the Tours we also search in the Tour Logs
+        tourList.addAll(searchLogs(search));
 
         return tourList;
     }

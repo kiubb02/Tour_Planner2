@@ -33,6 +33,7 @@ public class TourOverviewViewModel {
 
     public void doSearch(String search){
         tourList = getTourList(search);
+        if(tourList != null) listProperty.set(FXCollections.observableArrayList(tourList));
     }
 
     public Tour getDetails(ListView myListView) {

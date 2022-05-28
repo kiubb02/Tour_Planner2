@@ -19,7 +19,7 @@ public class MainWindowViewModel {
         //this.searchBarViewModel.addSearchListener(searchString->searchTours(searchString));
         // instead of the lambda-expression from above, you also can use the following "classical" event-handler implementation with anonymous inner classes
         this.searchBarViewModel.addSearchListener(new SearchBarViewModel.SearchListener() {
-            private TourOverviewViewModel mediaOverviewViewModel;
+            private TourOverviewViewModel mediaOverviewViewModel = new TourOverviewViewModel();
             @Override
             public void search(String searchString) {
                 this.mediaOverviewViewModel.doSearch(searchString);

@@ -24,6 +24,5 @@
     <fx:include fx:id="searchbar" source="Searchbar.fxml"/>
     <SplitPane dividerPositions="0.3" VBox.vgrow="ALWAYS">
         <fx:include fx:id="tourOverview" source="TourOverview.fxml"/>
-        <!--<fx:include fx:id="mediaDetails" source="MediaDetails.fxml"/>!-->
     </SplitPane>
 </VBox>

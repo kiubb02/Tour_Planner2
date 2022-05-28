@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.tour_planner.jfx.view.TourLogsController">
+
+    <HBox>
+        <Label text="Tour Logs:      "/>
+        <Text fx:id="selectedTour"/>
+
+        <Button text="+" onAction="#createTourLog"/>
+        <Button text="-" onAction="#deleteTourLog"/>
+        <Button text="Edit" onAction="#editTourlog"/>
+    </HBox>
+
+    <TableView fx:id="tableView">
+        <columns>
+            <TableColumn fx:id="titleColumn" text="Title">
+            </TableColumn>
+            <TableColumn fx:id="dateColumn"  text="Date/Time">
+            </TableColumn>
+            <TableColumn fx:id="timeColumn" text="Total Time">
+            </TableColumn>
+            <TableColumn fx:id="ratingColumn"  text="Rating">
+            </TableColumn>
+            <TableColumn  fx:id="difficultyColumn" text="Difficulty">
+            </TableColumn>
+            <TableColumn  fx:id="commentColumn" text="Comment">
+            </TableColumn>
+        </columns>
+    </TableView>
+
+</VBox>

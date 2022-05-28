@@ -8,10 +8,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class MainWindowController {
+    public VBox tourOverview;
+    public HBox searchbar;
     // Controllers of included fxml-files are injected here
     // fx:id Attribute of <fx:include> tag + "Controller"
     // tutorial see https://riptutorial.com/javafx/example/7285/nested-controllers

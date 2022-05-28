@@ -19,8 +19,12 @@
         </ListView>
 
         <VBox fx:id="TourDetails">
-
+            <fx:include fx:id="tourDetails" source="TourDetails.fxml"/>
         </VBox>
+        <VBox fx:id="TourLogs">
+            <fx:include fx:id="tourLogs" source="TourLogs.fxml"/>
+        </VBox>
+
     </HBox>
 
 </VBox>

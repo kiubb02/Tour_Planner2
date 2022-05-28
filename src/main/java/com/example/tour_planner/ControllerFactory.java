@@ -1,23 +1,21 @@
 package com.example.tour_planner;
 
-import com.example.tour_planner.jfx.view.MainWindowController;
-import com.example.tour_planner.jfx.view.SearchBarController;
-import com.example.tour_planner.jfx.view.TourOverviewController;
-import com.example.tour_planner.jfx.viewmodel.MainWindowViewModel;
-import com.example.tour_planner.jfx.viewmodel.TourOverviewViewModel;
-import com.example.tour_planner.jfx.viewmodel.SearchBarViewModel;
+import com.example.tour_planner.jfx.view.*;
+import com.example.tour_planner.jfx.viewmodel.*;
 
 public class ControllerFactory {
     private final MainWindowViewModel mainWindowViewModel;
     private final SearchBarViewModel searchBarViewModel;
     private final TourOverviewViewModel mediaOverviewViewModel;
-    //private final MediaDetailsViewModel mediaDetailsViewModel;
+    private final TourDetailsViewModel tourDetailsViewModel;
+    private final TourLogsViewModel tourLogsViewModel;
 
     public ControllerFactory() {
         searchBarViewModel = new SearchBarViewModel();
         mediaOverviewViewModel = new TourOverviewViewModel();
-        //mediaDetailsViewModel = new MediaDetailsViewModel();
-        mainWindowViewModel = new MainWindowViewModel(searchBarViewModel, mediaOverviewViewModel);
+        tourDetailsViewModel = new TourDetailsViewModel();
+        tourLogsViewModel = new TourLogsViewModel();
+        mainWindowViewModel = new MainWindowViewModel(searchBarViewModel, mediaOverviewViewModel, tourDetailsViewModel, tourLogsViewModel);
     }
 
     //
@@ -28,11 +26,13 @@ public class ControllerFactory {
             return new MainWindowController(mainWindowViewModel);
         } else if (controllerClass == SearchBarController.class) {
             return new SearchBarController(searchBarViewModel);
-        }/* else if (controllerClass == MediaDetailsController.class) {
-            return new MediaDetailsController(mediaDetailsViewModel);
-        */else if (controllerClass == TourOverviewController.class) {
-            return new TourOverviewController(mediaOverviewViewModel);
-        }
+        }else if (controllerClass == TourOverviewController.class) {
+            return new TourOverviewController(mediaOverviewViewModel, mainWindowViewModel);
+        } else if (controllerClass == TourDetailsController.class) {
+           return new TourDetailsController(tourDetailsViewModel);
+       } else if (controllerClass == TourLogsController.class) {
+           return new TourLogsController(tourLogsViewModel);
+       }
         throw new IllegalArgumentException("Unknown controller class: " + controllerClass);
     }
 

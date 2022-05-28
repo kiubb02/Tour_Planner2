@@ -30,7 +30,7 @@ public class TourLogForm {
     ArrayList inputs = new ArrayList();
     TourLogServiceImpl service = new TourLogServiceImpl();
 
-    public void showForm(ListView myList) {
+    public void showForm(String myTour) {
         VBox vBox = new VBox(); //for now
         //current scene of program
         GridPane grid = new GridPane();
@@ -144,8 +144,7 @@ public class TourLogForm {
                 if (InputError == 0) {
                     difficulty = Integer.parseInt(difficulty1);
                     rating = Integer.parseInt(rat1);
-                    Object selectedTour = myList.getSelectionModel().getSelectedItem();
-                    TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, selectedTour.toString());
+                    TourLogImpl newLog = new TourLogImpl(title, date, comment, difficulty, totalTime, rating, myTour);
                     newLog.createLog();
                 }
             }

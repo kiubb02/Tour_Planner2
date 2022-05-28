@@ -22,6 +22,7 @@ public class TourDetailsViewModel {
     private final DoubleProperty distance = new SimpleDoubleProperty();
     private final StringProperty duration = new SimpleStringProperty();
     private final StringProperty description = new SimpleStringProperty();
+    private final StringProperty strikes = new SimpleStringProperty();
     private final ObjectProperty<Image> mapImage = new SimpleObjectProperty<>();
 
     public TourDetailsViewModel(){
@@ -69,6 +70,8 @@ public class TourDetailsViewModel {
         return mapImage;
     }
 
+    public Property<String> strikesProperty(){ return strikes; };
+
     // Function from the
     public void setTourModel(Tour selectedMediaItem) {
         if(selectedMediaItem == null){
@@ -85,6 +88,7 @@ public class TourDetailsViewModel {
         description.set(selectedMediaItem.getDescription());
         transport.set((selectedMediaItem.getTransport()));
         duration.set(selectedMediaItem.getDuration());
+        strikes.set(String.valueOf(handler.getTourStrikes(selectedMediaItem.getName())));
         mapImage.set(new Image("file:src/main/java/com/example/tour_planner/utils/maps/" + selectedMediaItem.getName()+ "_map.jpg"));
 
         // calculated/automated attributes
@@ -112,5 +116,6 @@ public class TourDetailsViewModel {
     }
 
     public void reportTour(String value) {
+        handler.reportTour(value);
     }
 }

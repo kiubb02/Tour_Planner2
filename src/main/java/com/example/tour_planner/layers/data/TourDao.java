@@ -13,5 +13,6 @@ public interface TourDao {
     ArrayList<Tour> searchTour(String search);
     int getSumRating(String title);
     int getSumDifficulty(String title);
-
+    int getTourStrikes(String title);
+    void reportTour(String title);
 }

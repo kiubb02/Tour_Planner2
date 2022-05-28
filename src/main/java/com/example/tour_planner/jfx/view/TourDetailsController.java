@@ -25,6 +25,7 @@ public class TourDetailsController {
     public Text distanceTour;
     public Text durationTour;
     public Text descriptionTour;
+    public Text strikesTour;
 
     private final TourDetailsViewModel tourDetailsViewModel;
 
@@ -48,6 +49,7 @@ public class TourDetailsController {
         durationTour.textProperty().bindBidirectional(tourDetailsViewModel.durationProperty());
         descriptionTour.textProperty().bindBidirectional(tourDetailsViewModel.descriptionProperty());
         imageMap.imageProperty().bindBidirectional(tourDetailsViewModel.imageProperty());
+        strikesTour.textProperty().bindBidirectional(tourDetailsViewModel.strikesProperty());
     }
 
     public void onButtonEdit(ActionEvent actionEvent) {

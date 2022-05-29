@@ -14,3 +14,31 @@ Framework
 * Logging with log4j (Java) or log4net (C#) or another .NET Microsoft.Extensions-Solution.
 * A report-generation library of your choice
 * NUnit / JUnit
+
+## Features
+• the user can create new tours (no user management, login, registration... everybody sees all
+tours)
+• every tour consists of name, tour description, from, to, transport type, tour distance,
+estimated time, route information (an image with the tour map)
+o the image, the distance, and the time should be retrieved by a REST request using the
+MapQuest Directions and Static Map APIs
+(https://developer.mapquest.com/documentation/directions-api/,
+https://developer.mapquest.com/documentation/open/static-map-api/v5/)
+• tours are managed in a list, and can be created, modified, deleted (CRUD)
+• for every tour the user can create new tour logs of the accomplished tour statistics
+o multiple tour logs are assigned to one tour
+o a tour-log consists of date/time, comment, difficulty, total time, and rating taken on
+the tour
+• tour logs are managed in a list, and can be created, modified, deleted (CRUD)
+• validated user-input
+• full-text search in tour- and tour-log data
+• automatically computed tour attributes
+o popularity (derived from number of logs)
+o child-friendliness (derived from recorded difficulty values, total times and distance)
+• import and export of tour data (file format of your choice)
+• the user can generate two types of reports
+o a tour-report which contains all information of a single tour and all its associated tour
+logs
+o a summarize-report for statistical analysis, which for each tour provides the the
+average time, -distance and rating over all associated tour-logs
+• add a unique feature

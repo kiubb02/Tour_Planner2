@@ -15,7 +15,7 @@ public class MainWindowViewModel {
         this.tourDetailsViewModel = tourDetailsViewModel;
         this.tourLogsViewModel = tourLogsViewModel;
 
-        showTourList("");
+        showTourList("KeyA23456bbnrefreshList");
 
         //this.searchBarViewModel.addSearchListener(new SearchBarViewModel.SearchListener() {
         //    private final TourOverviewViewModel mediaOverviewViewModel = new TourOverviewViewModel();

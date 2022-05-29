@@ -49,8 +49,8 @@ public class TourOverviewViewModel {
 
     public ObservableList<Tour> getTourList(String search) {
         ObservableList<Tour> tourList = FXCollections.observableArrayList();
-        if(search.equals("")) return handler.getTourList();
-        if(!search.equals("")) return handler.searchTour(search);
+        if(search.equals("KeyA23456bbnrefreshList")) return handler.getTourList();
+        if(!search.equals("KeyA23456bbnrefreshList")) return handler.searchTour(search);
         return tourList;
     }
 

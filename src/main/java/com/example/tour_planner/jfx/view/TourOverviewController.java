@@ -48,7 +48,7 @@ public class TourOverviewController {
     public void onButtonAdd(ActionEvent actionEvent) {
         TourForm form = new TourForm();
         form.showForm();
-        mediaOverviewViewModel.setTourList("");
+        mediaOverviewViewModel.setTourList(" ");
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
@@ -64,7 +64,7 @@ public class TourOverviewController {
         mainWindowViewModel.showTourLogs(details);
     }
 
-    public void refresh(ActionEvent actionEvent){
-        mediaOverviewViewModel.setTourList("l");
+    public void refresh(ActionEvent actionEvent) {
+        mainWindowViewModel.showTourList("KeyA23456bbnrefreshList");
     }
 }

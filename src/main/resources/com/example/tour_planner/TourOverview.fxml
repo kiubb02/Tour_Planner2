@@ -12,6 +12,7 @@
         <Pane HBox.hgrow="ALWAYS"/>
         <Button text="+" onAction="#onButtonAdd"/>
         <Button text="-" onAction="#onButtonRemove"/>
+        <Button text="..." onAction="#refresh"/>
     </ToolBar>
     <HBox>
         <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour">

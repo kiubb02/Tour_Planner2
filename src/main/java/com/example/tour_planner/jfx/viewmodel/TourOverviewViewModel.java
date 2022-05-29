@@ -21,16 +21,16 @@ import java.util.ArrayList;
 public class TourOverviewViewModel {
 
     TourDaoImpl handler = new TourDaoImpl();
-    @FXML
-    public ListProperty<Tour> listProperty = new SimpleListProperty<>();
-    @Getter
-    public Property<ObservableList<Tour>> tourList = new SimpleListProperty<>();
 
-    @FXML
-    void open(String search){
+    private final ListProperty<Tour> listProperty = new SimpleListProperty<>();
+    private Property<ObservableList<Tour>> tourList = new SimpleListProperty<>();
+    private ObservableList<Tour> obsData = FXCollections.observableArrayList();
+
+
+    public void setTourList(String s) {
         listProperty.bindBidirectional(tourList);
-        ObservableList<Tour> obsTour = getTourList(search);
-        tourList.setValue(obsTour);
+        obsData = getTourList(s);
+        tourList.setValue(obsData);
     }
 
     public ListProperty<Tour> tourListProperty(){ return listProperty; }
@@ -53,4 +53,5 @@ public class TourOverviewViewModel {
         if(!search.equals("")) return handler.searchTour(search);
         return tourList;
     }
+
 }

@@ -16,6 +16,7 @@ public class TourLogsViewModel {
     private ObservableList<TourLogImpl> obsData = FXCollections.observableArrayList();
 
     private final ListProperty<TourLogImpl> tourLogs = new SimpleListProperty<>();
+
     private final StringProperty tourTitle = new SimpleStringProperty();
 
     TourLogDaoImpl handlerLog = new TourLogDaoImpl();

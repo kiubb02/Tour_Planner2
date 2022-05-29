@@ -48,6 +48,7 @@ public class TourOverviewController {
     public void onButtonAdd(ActionEvent actionEvent) {
         TourForm form = new TourForm();
         form.showForm();
+        mediaOverviewViewModel.setTourList("");
     }
 
     public void onButtonRemove(ActionEvent actionEvent) {
@@ -61,5 +62,9 @@ public class TourOverviewController {
         // show the Tour Details
         mainWindowViewModel.selectTour(details);
         mainWindowViewModel.showTourLogs(details);
+    }
+
+    public void refresh(ActionEvent actionEvent){
+        mediaOverviewViewModel.setTourList("l");
     }
 }

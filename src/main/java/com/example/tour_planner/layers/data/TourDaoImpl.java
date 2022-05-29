@@ -253,7 +253,7 @@ public class TourDaoImpl implements TourDao {
 
 
         // before we return the Tours we also search in the Tour Logs
-        tourList.addAll(searchLogs(search));
+        if(searchLogs(search) != null) tourList.addAll(searchLogs(search));
 
 
         return tourList;

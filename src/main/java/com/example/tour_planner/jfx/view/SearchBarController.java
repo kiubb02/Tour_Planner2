@@ -1,6 +1,7 @@
 package com.example.tour_planner.jfx.view;
 
 
+import com.example.tour_planner.jfx.viewmodel.MainWindowViewModel;
 import com.example.tour_planner.jfx.viewmodel.SearchBarViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,9 +18,11 @@ public class SearchBarController {
     public HBox hbox;
 
     private final SearchBarViewModel searchBarViewModel;
+    private final MainWindowViewModel mainWindowViewModel;
 
-    public SearchBarController(SearchBarViewModel searchBarViewModel) {
+    public SearchBarController(SearchBarViewModel searchBarViewModel, MainWindowViewModel mainWindowController) {
         this.searchBarViewModel = searchBarViewModel;
+        this.mainWindowViewModel = mainWindowController;
     }
 
     public SearchBarViewModel getSearchBarViewModel() {
@@ -33,6 +36,6 @@ public class SearchBarController {
     }
 
     public void onSearchButton(ActionEvent actionEvent) {
-        searchBarViewModel.doSearch();
+        mainWindowViewModel.searchTour(searchTextField.getText());
     }
 }

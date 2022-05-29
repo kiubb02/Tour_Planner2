@@ -25,7 +25,7 @@ public class ControllerFactory {
        if (controllerClass == MainWindowController.class) {
             return new MainWindowController(mainWindowViewModel);
         } else if (controllerClass == SearchBarController.class) {
-            return new SearchBarController(searchBarViewModel);
+            return new SearchBarController(searchBarViewModel, mainWindowViewModel);
         }else if (controllerClass == TourOverviewController.class) {
             return new TourOverviewController(mediaOverviewViewModel, mainWindowViewModel);
         } else if (controllerClass == TourDetailsController.class) {

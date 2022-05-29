@@ -13,6 +13,11 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="json" level="project" />
     <orderEntry type="library" name="postgresql" level="project" />
+    <orderEntry type="library" name="googlecode.json.simple" level="project" />
+    <orderEntry type="library" name="itextpdf" level="project" />
+    <orderEntry type="library" name="itextpdf.kernel" level="project" />
+    <orderEntry type="library" name="itextpdf.layout" level="project" />
+    <orderEntry type="library" name="itextpdf.itext.pdfa" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:3.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.14.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.14.1" level="project" />
@@ -31,10 +36,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.24" level="project" />
-    <orderEntry type="library" name="googlecode.json.simple" level="project" />
-    <orderEntry type="library" name="itextpdf" level="project" />
-    <orderEntry type="library" name="itextpdf.kernel" level="project" />
-    <orderEntry type="library" name="itextpdf.layout" level="project" />
-    <orderEntry type="library" name="itextpdf.itext.pdfa" level="project" />
   </component>
 </module>

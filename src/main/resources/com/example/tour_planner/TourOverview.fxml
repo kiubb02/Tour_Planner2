@@ -4,24 +4,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
+<?import javafx.geometry.Insets?>
+<?import javax.swing.text.html.ImageView?>
+<VBox styleClass="WindowBackground" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.tour_planner.jfx.view.TourOverviewController">
     <ToolBar>
         <Label text="%TourOverview_Items"/>
         <Pane HBox.hgrow="ALWAYS"/>
-        <Button text="+" onAction="#onButtonAdd"/>
-        <Button text="-" onAction="#onButtonRemove"/>
-        <Button text="..." onAction="#refresh"/>
+        <Button text="+" onAction="#onButtonAdd" styleClass="yBtn"/>
+        <Button text="-" onAction="#onButtonRemove" styleClass="nBtn"/>
+        <Button onAction="#refresh" styleClass="rBtn"/>
     </ToolBar>
     <HBox>
-        <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour">
+        <ListView fx:id="myListView" VBox.vgrow="ALWAYS" onMouseClicked="#showTour" styleClass="Text">
         </ListView>
 
         <VBox fx:id="TourDetails">
             <fx:include fx:id="tourDetails" source="TourDetails.fxml"/>
         </VBox>
         <VBox fx:id="TourLogs">
+            <VBox.margin>
+                <Insets>
+                    
+                </Insets>
+            </VBox.margin>
             <fx:include fx:id="tourLogs" source="TourLogs.fxml"/>
         </VBox>
 

@@ -336,9 +336,6 @@ public class TourDaoImpl implements TourDao {
                 strikes = res.getInt(1);
             }
 
-            // add one strike
-            strikes++;
-
             stmt.close();
         } catch (SQLException e) { logger.warn(e.toString()); }
 
@@ -351,6 +348,8 @@ public class TourDaoImpl implements TourDao {
         int strikes = getTourStrikes(title);
         if(strikes == -1) { logger.debug("no such tour"); }
         else if(strikes == 5) { deleteTour(title); }
+
+        strikes++;
 
         try
         {

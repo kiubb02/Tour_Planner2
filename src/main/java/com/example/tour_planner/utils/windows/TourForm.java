@@ -7,11 +7,11 @@ import com.example.tour_planner.layers.business.TourLogServiceImpl;
 import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -59,7 +59,7 @@ public class TourForm {
         // --- VBOX --- //
         VBox box = new VBox(10);
         box.setAlignment(Pos.CENTER);
-        box.setStyle("-fx-background-color: whitesmoke; -fx-padding: 3.5em; -fx-background-radius: 40px; -fx-background-image: url('main/java/com/example/tour_planner/utils/css/pink-clouds.png'); -fx-background-repeat: no-repeat; -fx-background-position: center center;");
+        box.setStyle("-fx-background-color: whitesmoke; -fx-padding: 3.5em; -fx-background-radius: 40px; -fx-background-repeat: no-repeat; -fx-background-position: center center;");
         grid.add(box, 1, 3);
 
         // --- HBOX --- //

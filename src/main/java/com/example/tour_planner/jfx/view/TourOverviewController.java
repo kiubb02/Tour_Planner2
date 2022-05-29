@@ -65,6 +65,7 @@ public class TourOverviewController {
     }
 
     public void refresh(ActionEvent actionEvent) {
+
         mainWindowViewModel.showTourList("KeyA23456bbnrefreshList");
     }
 }

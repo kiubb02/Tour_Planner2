@@ -54,7 +54,7 @@ public class TourEditForm {
         // --- VBOX --- //
         VBox box = new VBox(10);
         box.setAlignment(Pos.CENTER);
-        box.setStyle("-fx-background-color: whitesmoke; -fx-padding: 3.5em; -fx-background-radius: 40px; -fx-background-image: url('main/java/com/example/tour_planner/utils/css/pink-clouds.png'); -fx-background-repeat: no-repeat; -fx-background-position: center center;");
+        box.setStyle("-fx-background-color: whitesmoke; -fx-padding: 3.5em; -fx-background-radius: 40px;");
         grid.add(box, 1, 3);
 
         // --- HBOX --- //

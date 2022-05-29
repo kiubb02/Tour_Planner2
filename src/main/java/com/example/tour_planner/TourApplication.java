@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 public class TourApplication extends Application {
 
@@ -22,8 +23,11 @@ public class TourApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         Parent root = FXMLDependencyInjection.load("MainWindow.fxml", Locale.GERMAN );  // Locale.GERMANY, Locale.ENGLISH
-
         Scene scene = new Scene(root);
+
+        File file = new File("src/main/java/com/example/tour_planner/utils/css/StyleSheet.css");
+        scene.getStylesheets().clear();
+        scene.getStylesheets().add("file:///" + file.getAbsolutePath().replace("\\", "/"));
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Tour planner");

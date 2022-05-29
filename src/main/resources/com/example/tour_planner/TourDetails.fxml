@@ -9,25 +9,29 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.tour_planner.jfx.view.TourDetailsController">
+    <stylesheets>
+        <URL value="@utils/css/StyleSheet.css" />
+    </stylesheets>
     <HBox>
         <!-- Tour Map image -->
-        <ImageView fx:id="imageMap" fitHeight="300" fitWidth="300">
+        <ImageView fx:id="imageMap" styleClass="mapView" fitHeight="350" fitWidth="350">
         </ImageView>
 
         <!-- Tour Details field -->
-    <GridPane fx:id="gridPane" alignment="CENTER">
+    <GridPane fx:id="gridPane" alignment="CENTER" >
         <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 
-        <Text fx:id="titleTour" GridPane.columnIndex="0" GridPane.rowIndex="0"
+        <Text fx:id="titleTour"  styleClass="title" GridPane.columnIndex="0" GridPane.rowIndex="0"
                    GridPane.columnSpan="2"/>
 
         <Label text="Popularity: " GridPane.columnIndex="0" GridPane.rowIndex="1"/>
         <Text fx:id="popularityTour" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-        <Label text="Childfriendly: " GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <Label text="Child-friendly: " GridPane.columnIndex="0" GridPane.rowIndex="2"/>
         <Text fx:id="friendlinessTour" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
         <Label text="Strikes: " GridPane.columnIndex="0" GridPane.rowIndex="3"/>
@@ -51,7 +55,7 @@
         <Label text="Description: " GridPane.columnIndex="0" GridPane.rowIndex="9"/>
         <Text fx:id="descriptionTour" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
 
-        <MenuBar GridPane.columnIndex="2" GridPane.rowIndex="10">
+        <MenuBar GridPane.columnIndex="2" GridPane.rowIndex="10" styleClass="nBtn">
             <Menu text="Options">
                 <MenuItem text="Edit" onAction="#onButtonEdit"/>
                 <MenuItem text="Export" onAction="#onButtonExport"/>

@@ -1,21 +1,132 @@
-package com.example.tour_planner.utils.css;
+ .button
+ {
+     -fx-background-color: pink;
+     -fx-text-fill: white;
+ }
+ .sBtn
+ {
+     -fx-margin: 70px 0px 0x 0px;
+     -fx-max-width: 350px;
+     -fx-max-height: 120px;
+     -fx-background-color: palevioletred;
+     -fx-border-radius: 100px;
+ }
+ .nBtn
+ {
+     -fx-background-color: palevioletred;
+     -fx-text-fill: white;
+     -fx-padding: 0.8em 1.2em;
+     -fx-border-insets: 4px;
+     -fx-background-insets: 4px;
+ }
+ .yBtn
+ {
+     -fx-background-color: pink;
+     -fx-text-fill: white;
+     -fx-padding: 0.8em 1.2em;
+     -fx-border-insets: 4px;
+     -fx-background-insets: 4px;
+ }
+ .whiteBox
+ {
+     -fx-background-color: whitesmoke;
+     -fx-padding: 3.5em;
+     -fx-background-radius: 40px;
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center center;
+ }
+ .eBtn
+ {
+     -fx-background-color: lightpink;
+     -fx-text-fill: white;
+     -fx-padding: 0.8em 1.2em;
+     -fx-border-insets: 4px;
+     -fx-background-insets: 4px;
+ }
+ .rBtn
+ {
+     -fx-background-color: lightpink;
+     -fx-background-image: url("refresh.jpg");
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center center;
+     -fx-background-size: 1em;
+ }
+ .PopUpWindowText
+ {
+    -fx-background-color: whitesmoke;
+     -fx-padding: 3.5em;
+     -fx-background-radius: 40px;
+     -fx-background-image: url("pink-clouds.jpg");
+     -fx-background-repeat: no-repeat;
+     -fx-background-position: center center;
 
-        .button
-        {
-            -fx-background-color: pink;
-            -fx-text-fill: white;
-        }
-        @button
-                {
-                    -fx-background-color: pink;
-                    -fx-text-fill: white;
-                }
+ }
+ .WindowBackground
+ {
+     -fx-background-color: linear-gradient(to right bottom, lightpink, mistyrose);
+     -fx-border-radius: 1.5em;
+     -fx-padding:0.5em;
 
-        #Yes
-        {
-            -fx-background-color: red;
-            -fx-text-fill: white;
-        }
+ }
+ Label
+ {
+     -fx-font: normal 1.5em 'Courier New';
+ }
+Text
+ {
+     -fx-font: normal 1.2em 'Courier New';
+ }
+.mapView
+{
+    -fx-padding: 1.5em;
+    -fx-background-insets: 1em;
+    -fx-border-insets: 1em;
+}
+.title
+{
+    fx-font: normal bold 2.3em 'Courier New';
+}
+.searchBar
+{
+    -fx-background-color: whitesmoke;
+    -fx-padding: 1.3em;
+    -fx-background-radius: 40px;
+    -fx-background-image: url("pink_clouds_search.jpg");
+    -fx-background-repeat: repeat-x;
+    -fx-background-position: center center;
+}
+.tool-bar
+{
+    -fx-padding: 0.5em;
+    -fx-background-color: whitesmoke;
+}
+.list-cell
+{
+    fx-font: normal 2em 'Courier New';
+}
+ .list-cell:filled:selected:focused, .list-cell:filled:selected
+ {
+     -fx-background-color: linear-gradient(#f48aa3 0%, #e18aa3 25%, #ce8895 75%, #ac8895 100%);
+     -fx-text-fill: whitesmoke;
+ }
 
+ .list-cell:even
+ {
+     -fx-background-color: whitesmoke;
+ }
 
-
+ .list-cell:odd
+ {
+        -fx-background-color: lavenderblush;
+ }
+ .list-cell:filled:hover
+ {
+     -fx-background-color: lightpink;
+     -fx-text-fill: whitesmoke;
+ }
+ .logTitle
+ {
+     -fx-padding: 0.8em 1.2em;
+     -fx-border-insets: 4px;
+     -fx-background-insets: 4px;
+ }

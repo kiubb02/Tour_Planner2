@@ -3,6 +3,7 @@ package com.example.tour_planner.jfx.viewmodel;
 import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
+import com.example.tour_planner.utils.windows.TourReport;
 import javafx.beans.property.*;
 import javafx.scene.image.Image;
 
@@ -116,6 +117,7 @@ public class TourDetailsViewModel {
     }
 
     public void reportTour(String value) {
-        handler.reportTour(value);
+        TourReport report = new TourReport();
+        report.reportForm(tour);
     }
 }

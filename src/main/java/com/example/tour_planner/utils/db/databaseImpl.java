@@ -1,8 +1,10 @@
 package com.example.tour_planner.utils.db;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class databaseImpl implements database{ // Singleton Pattern
 
@@ -13,12 +15,25 @@ public class databaseImpl implements database{ // Singleton Pattern
     /////////////////// THE ONLY INSTANCE TO USE ///////////////////
     public static databaseImpl instance = null;
 
-    private static String URL = "jdbc:postgresql://localhost:5432/swe2user";
-    private static String username = "swe2user";
-    private static String password = "swe2pw";
+    private static String URL;
+    private static String username;
+    private static String password;
 
     // PRIVATE Default-Constructor
-    private databaseImpl() {}
+    private databaseImpl() {
+        try {
+            Properties dbProps = new Properties();
+            dbProps.load(Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("database.properties"));
+
+            URL = dbProps.getProperty("url");
+            username = dbProps.getProperty("username");
+            password = dbProps.getProperty("password");
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
     public static databaseImpl getInstance()
     {

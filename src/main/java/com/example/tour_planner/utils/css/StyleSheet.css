@@ -84,7 +84,7 @@ Text
 }
 .title
 {
-    fx-font: normal bold 2.3em 'Courier New';
+    -fx-font: normal bold 1.5em 'Courier New';
 }
 .searchBar
 {
@@ -95,6 +95,7 @@ Text
     -fx-background-repeat: repeat-x;
     -fx-background-position: center center;
 }
+
 .tool-bar
 {
     -fx-padding: 0.5em;
@@ -126,7 +127,5 @@ Text
  }
  .logTitle
  {
-     -fx-padding: 0.8em 1.2em;
-     -fx-border-insets: 4px;
-     -fx-background-insets: 4px;
+     visibility: hidden;
  }

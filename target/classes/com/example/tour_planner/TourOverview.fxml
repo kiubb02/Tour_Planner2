@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.geometry.Insets?>
 <?import javax.swing.text.html.ImageView?>
+
 <VBox styleClass="WindowBackground" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.tour_planner.jfx.view.TourOverviewController">

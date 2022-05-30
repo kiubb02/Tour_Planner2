@@ -18,7 +18,6 @@ public class TourLogServiceImpl implements TourLogService{
     @Override
     public String errorMessage(ArrayList input) {
         ArrayList error = validateInput(input);
-        System.out.println(input);
 
         if(error.get(0).equals("title")) return "Enter valid Title";
         if(error.get(0).equals("date")) return "Enter valid Date";
@@ -27,7 +26,6 @@ public class TourLogServiceImpl implements TourLogService{
         if(error.get(0).equals("diff")) return "Enter Difficulty";
         if(error.get(0).equals("comment")) return "Enter Comment";
 
-        System.out.println(error);
 
         return "";
     }

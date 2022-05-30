@@ -5,6 +5,8 @@ import com.example.tour_planner.layers.business.TourLogServiceImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.layers.model.TourLog;
 import com.example.tour_planner.layers.model.TourLogImpl;
+import com.example.tour_planner.utils.logger.LoggerFactory;
+import com.example.tour_planner.utils.logger.LoggerWrapper;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

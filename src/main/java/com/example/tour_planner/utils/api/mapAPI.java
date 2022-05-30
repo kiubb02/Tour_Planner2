@@ -97,7 +97,7 @@ public class mapAPI
             File file =  new File("src/main/java/com/example/tour_planner/utils/maps/"+ oldName + "_map.jpg");
             File newFile = new File("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
             boolean flag = file.renameTo(newFile);
-            if(flag) System.out.println("NOT CHANGED");
+            if(flag) logger.warn("NOT CHANGED");
         }
         fout =  new FileOutputStream("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
         ImageIO.write( BufImg, "jpg", fout);
@@ -106,7 +106,7 @@ public class mapAPI
     public static void deleteRouteImage(String name)
     {
         File RouteImg = new File("src/main/java/com/example/tour_planner/utils/maps/"+ name + "_map.jpg");
-        if (RouteImg.delete()) { System.out.println("Route Image of " + name + "successfully deleted"); }
-        else { System.out.println("Route Image of " + name + " could not be deleted"); }
+        if (RouteImg.delete()) { logger.warn("Route Image of " + name + "successfully deleted"); }
+        else { logger.warn("Route Image of " + name + " could not be deleted"); }
     }
 }

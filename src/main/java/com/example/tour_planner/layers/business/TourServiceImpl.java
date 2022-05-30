@@ -7,6 +7,9 @@ import com.example.tour_planner.layers.model.TourLogImpl;
 import com.example.tour_planner.utils.api.mapAPI;
 
 import java.io.*;
+
+import com.example.tour_planner.utils.logger.LoggerFactory;
+import com.example.tour_planner.utils.logger.LoggerWrapper;
 import com.itextpdf.io.image.*;
 
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -33,6 +36,8 @@ public class TourServiceImpl implements TourService{
     TourDaoImpl handler = new TourDaoImpl();
     TourLogDaoImpl handlerLog = new TourLogDaoImpl();
     TourLogServiceImpl serviceLog = new TourLogServiceImpl();
+
+    private static final LoggerWrapper logger = LoggerFactory.getLogger();
 
     @Override
     public String errorMessage(ArrayList input) {
@@ -137,16 +142,16 @@ public class TourServiceImpl implements TourService{
                 try {
                     createTour( (JSONObject) emp );
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.warn(e.toString());
                 }
             });
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.warn(e.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn(e.toString());
         } catch (org.json.simple.parser.ParseException e) {
-            e.printStackTrace();
+            logger.warn(e.toString());
         }
     }
 
@@ -185,7 +190,7 @@ public class TourServiceImpl implements TourService{
                 fileWriter.write(tourList.toJSONString());
                 fileWriter.flush();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.warn(e.toString());
             }
         }
 
@@ -305,7 +310,7 @@ public class TourServiceImpl implements TourService{
 
 
             } catch (FileNotFoundException e){
-                e.printStackTrace();
+                logger.warn(e.toString());
             }
 
         }
@@ -348,7 +353,7 @@ public class TourServiceImpl implements TourService{
                     doc.add(para4);
                     doc.close();
 
-                } catch (FileNotFoundException e) { e.printStackTrace(); }
+                } catch (FileNotFoundException e) { logger.warn(e.toString()); }
             }
 
         }

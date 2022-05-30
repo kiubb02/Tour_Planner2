@@ -7,6 +7,8 @@ import com.example.tour_planner.layers.business.TourServiceImpl;
 import com.example.tour_planner.layers.data.TourDaoImpl;
 import com.example.tour_planner.layers.model.Tour;
 import com.example.tour_planner.utils.api.mapAPI;
+import com.example.tour_planner.utils.logger.LoggerFactory;
+import com.example.tour_planner.utils.logger.LoggerWrapper;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,6 +34,8 @@ public class TourEditForm {
 
     ArrayList inputs = new ArrayList();
     TourServiceImpl service = new TourServiceImpl();
+
+    private static final LoggerWrapper logger = LoggerFactory.getLogger();
 
     //build a new scene to open as a pop up form
     public void showForm(Tour details){
@@ -167,7 +171,7 @@ public class TourEditForm {
                         actiontarget.setText("Enter valid Destinations");
                     }
                 } catch (IOException ex) {
-                    ex.printStackTrace();
+                    logger.warn((ex.toString()));
                 }
             }
 

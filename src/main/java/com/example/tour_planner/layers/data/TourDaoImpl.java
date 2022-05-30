@@ -23,7 +23,6 @@ public class TourDaoImpl implements TourDao {
 
     @Override
     public void createTour(Tour tour) {
-        logger.debug("Test message");
         try {
             // ----- PREPARED STATEMENT ----- //
             PreparedStatement stmt = conn.prepareStatement("""

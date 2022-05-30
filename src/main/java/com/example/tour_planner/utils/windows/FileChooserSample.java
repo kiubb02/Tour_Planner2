@@ -31,7 +31,6 @@ public final class FileChooserSample extends Application {
 
         final FileChooser fileChooser = new FileChooser();
         final Button openButton = new Button("Open a JSON...");
-        final Button openMultipleButton = new Button("Open Pictures...");
 
         openButton.setOnAction(
                 new EventHandler<ActionEvent>() {
@@ -46,29 +45,13 @@ public final class FileChooserSample extends Application {
                     }
                 });
 
-        openMultipleButton.setOnAction(
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(final ActionEvent e) {
-                        configureFileChooser(fileChooser);
-                        List<File> list =
-                                fileChooser.showOpenMultipleDialog(stage);
-                        if (list != null) {
-                            for (File file : list) {
-                                openFile(file);
-                            }
-                        }
-                    }
-                });
-
 
         final GridPane inputGridPane = new GridPane();
 
         GridPane.setConstraints(openButton, 0, 1);
-        GridPane.setConstraints(openMultipleButton, 1, 1);
         inputGridPane.setHgap(6);
         inputGridPane.setVgap(6);
-        inputGridPane.getChildren().addAll(openButton, openMultipleButton);
+        inputGridPane.getChildren().addAll(openButton);
 
         final Pane rootGroup = new VBox(12);
         rootGroup.getChildren().addAll(inputGridPane);

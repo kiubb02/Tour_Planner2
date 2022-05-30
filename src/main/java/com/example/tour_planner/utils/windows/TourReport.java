@@ -92,10 +92,6 @@ public class TourReport
 
         hbBtn.getChildren().add(btnN);
 
-        //scene.setFill(new LinearGradient(
-        //        0,0,1,1, true, CycleMethod.NO_CYCLE, new Stop(0,Color.web("#DB7093")), new Stop(1, Color.web("#FFE4E1"))
-        //));
-
         stage.setScene(scene);
         stage.show();
     }

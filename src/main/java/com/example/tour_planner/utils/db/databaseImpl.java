@@ -1,5 +1,8 @@
 package com.example.tour_planner.utils.db;
 
+import com.example.tour_planner.utils.logger.LoggerFactory;
+import com.example.tour_planner.utils.logger.LoggerWrapper;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,6 +22,8 @@ public class databaseImpl implements database{ // Singleton Pattern
     private static String username;
     private static String password;
 
+    private static final LoggerWrapper logger = LoggerFactory.getLogger();
+
     // PRIVATE Default-Constructor
     private databaseImpl() {
         try {
@@ -31,7 +36,7 @@ public class databaseImpl implements database{ // Singleton Pattern
             username = dbProps.getProperty("username");
             password = dbProps.getProperty("password");
         } catch(IOException e){
-            e.printStackTrace();
+            logger.warn(e.toString());
         }
     }
 
@@ -46,7 +51,7 @@ public class databaseImpl implements database{ // Singleton Pattern
         try {
             return DriverManager.getConnection(URL, username, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.warn(e.toString());
         }
         return null;
     }

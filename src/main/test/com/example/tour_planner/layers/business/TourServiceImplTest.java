@@ -75,7 +75,7 @@ class TourServiceImplTest {
 
     @Test
     void calculatePopularity() {
-        int res = service.calulateChildfriendl("hihi");
+        int res = service.calculatePopularity("hihi");
         Assert.assertEquals(3, res);
     }
 }

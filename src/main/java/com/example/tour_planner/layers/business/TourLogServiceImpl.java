@@ -81,9 +81,6 @@ public class TourLogServiceImpl implements TourLogService{
     @Override
     public int validateDate(Date date) {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu/MM/dd");
-        LocalDate localDate = LocalDate.now();
-
         if(date == null) return 0;
 
         return 1;

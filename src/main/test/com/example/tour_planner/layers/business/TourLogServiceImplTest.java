@@ -16,21 +16,32 @@ class TourLogServiceImplTest {
 
     @Test
     void errorMessage() {
-        input.add("lol5");
-        input.add("description");
-        input.add("Wien");
-        input.add("Graz");
-        input.add("AUTO");
-        input.add("lol5");
+        input.add("");
+        input.add(null);
+        input.add(4.5);
+        input.add("5");
+        input.add("4");
+        input.add("not cool");
+        input.add("create144");
 
         String message = service.errorMessage(input);
         Assertions.assertEquals("Enter valid Title", message);
+        input.clear();
     }
 
     @Test
     void validateInput() {
+        input.add("");
+        input.add(null);
+        input.add(4.5);
+        input.add("5");
+        input.add("4");
+        input.add("not cool");
+        input.add("create144");
+
         ArrayList error = service.validateInput(input);
         Assertions.assertEquals("title", error.get(0).toString());
+        input.clear();
     }
 
     @Test
@@ -42,6 +53,7 @@ class TourLogServiceImplTest {
     @Test
     void validateDate() {
         Date date = new Date();
+        date = null;
         int res = service.validateDate(date);
         Assertions.assertEquals(0, res);
     }
@@ -58,6 +70,6 @@ class TourLogServiceImplTest {
         ArrayList<Float> summary = service.summarizeTourLogs("hihi");
 
         Assertions.assertEquals(3, summary.get(0).intValue());
-        Assertions.assertEquals(2.2, summary.get(1).intValue());
+        Assertions.assertEquals(2.0, summary.get(1).intValue());
     }
 }

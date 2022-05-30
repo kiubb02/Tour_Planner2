@@ -94,7 +94,7 @@ public class TourServiceImpl implements TourService{
     public ArrayList validateInputEdit(ArrayList inputs, Tour details) {
         ArrayList output = new ArrayList();
 
-        if(handler.getDetails(inputs.get(0).toString()) != null) return output;
+        if(handler.getDetails(inputs.get(0).toString()) != null) return null;
         if(inputs.get(0).toString().equals("")){
             output.add(details.getName());
         } else {
@@ -109,7 +109,7 @@ public class TourServiceImpl implements TourService{
             output.add(inputs.get(4).toString());
         }
 
-        return output;
+        return null;
     }
 
     @Override

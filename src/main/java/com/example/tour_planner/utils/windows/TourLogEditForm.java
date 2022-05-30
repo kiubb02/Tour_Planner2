@@ -80,7 +80,7 @@ public class TourLogEditForm {
 
 
         // --- FIELDS --- //
-        Text scenetitle = new Text("New Tour Log: ");
+        Text scenetitle = new Text("Edit Tour Log: ");
         scenetitle.setStyle("-fx-font: normal bold 2.2em 'Courier New';");
         box.getChildren().add(scenetitle);
 
@@ -146,7 +146,7 @@ public class TourLogEditForm {
         box.getChildren().add(hbox_6);
 
         // add a button to actually add
-        Button btn = new Button("+");
+        Button btn = new Button("edit");
         btn.setStyle("-fx-background-color: palevioletred; -fx-text-fill: white;");
         btn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

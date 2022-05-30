@@ -90,11 +90,19 @@ public class TourServiceImpl implements TourService{
         ArrayList output = new ArrayList();
 
         if(handler.getDetails(inputs.get(0).toString()) != null) return output;
-        if(inputs.get(0).toString().equals("")) output.add(details.getName());
+        if(inputs.get(0).toString().equals("")){
+            output.add(details.getName());
+        } else {
+            output.add(inputs.get(0).toString());
+        }
         if(inputs.get(1).toString().equals("")) output.add(details.getDescription());
         if(inputs.get(2).toString().equals("")) output.add(details.getFrom());
         if(inputs.get(3).toString().equals("")) output.add(details.getTo());
-        if(inputs.get(4).toString().equals("")) output.add(details.getTransport());
+        if(inputs.get(4).toString().equals("")){
+            output.add(details.getTransport());
+        } else {
+            output.add(inputs.get(4).toString());
+        }
 
         return output;
     }
